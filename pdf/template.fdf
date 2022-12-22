@@ -1,0 +1,75 @@
+%FDF-1.2
+
+1 0 obj << /FDF << /Fields [
+<< /T (Controle_Annee) /V () >> 
+<< /T (Case_12_Autre140601) /V /Off >> 
+<< /T (14_Observations) /V () >> 
+<< /T (Controle_Jour) /V () >> 
+<< /T (Sign_Operateur_Qualite) /V () >>
+<< /T (Case_12_UN3161) /V /Off >> 
+<< /T (Operateur) /V () >> 
+<< /T (Case_HFC_500) /V /Off >> 
+<< /T (11_QDE) /V () >> 
+<< /T (Case_Demantel) /V /Off >> 
+<< /T (Case_Sans_3m) /V /Off >> 
+<< /T (Case_Avec_12m) /V /Off >> 
+<< /T (Case_Avec_24m) /V /Off >> 
+<< /T (11_BSFF) /V () >> 
+<< /T (Autre) /V () >> 
+<< /T (11_Denom) /V () >> 
+<< /T (Case_HCFC_2) /V /Off >> 
+<< /T (Case_HFC_5) /V /Off >> 
+<< /T (Sign_Detenteur_Qualite) /V () >> 
+<< /T (Case_HCFC_300) /V /Off >> 
+<< /T (Detecteur_ID) /V () >> 
+<< /T (Case_Assemblage) /V /Off >> 
+<< /T (Case_CtrlNonPerio) /V /Off >> 
+<< /T (Equipement_Charge) /V () >> 
+<< /T (11_Quantite) /V () >> 
+<< /T (Equipement_Fluide) /V () >> 
+<< /T (Case_Autre) /V /Off >> 
+<< /T (Case_Rep_Fuite3_realisee) /V /Off >> 
+<< /T (Sign_Detenteur_Nom) /V () >> 
+<< /T (11_Contenant_ID) /V () >> 
+<< /T (Sign_Operateur_Nom) /V () >> 
+<< /T (Case_Sans_6m) /V /Off >> 
+<< /T (Case_Fuite_Oui) /V /Off >> 
+<< /T (Case_Rep_Fuite2_realisee) /V /Off >> 
+<< /T (Fiche_no) /V () >> 
+<< /T (Attestation_no) /V () >> 
+<< /T (Case_Rep_Fuite2_AFaire) /V /Off >> 
+<< /T (Case_12_Autre160504) /V /Off >> 
+<< /T (Sign_Detenteur_Date) /V () >> 
+<< /T (Case_Fuite_Non) /V /Off >>
+<< /T (11_QA) /V () >> 
+<< /T (Case_Sans_12m) /V /Off >> 
+<< /T (Controle_Mois) /V () >> 
+<< /T (Case_MiseService) /V /Off >> 
+<< /T (Fuite_Loca_2) /V () >> 
+<< /T (Case_Avec_6m) /V /Off >> 
+<< /T (Fuite_Loca_3) /V () >> 
+<< /T (Case_HCFC_30) /V /Off >> 
+<< /T (11_QD) /V () >> 
+<< /T (11_QE) /V () >> 
+<< /T (11_QB) /V () >> 
+<< /T (Fuite_Loca_1) /V () >> 
+<< /T (11_QC) /V () >> 
+<< /T (Case_CtrlPerio) /V /Off >> 
+<< /T (Case_Rep_Fuite1_realisee) /V /Off >> 
+<< /T (Detenteur) /V () >> 
+<< /T (Case_Modif) /V /Off >> 
+<< /T (Case_12_UN1078) /V /Off >> 
+<< /T (Equipement_ID) /V () >> 
+<< /T (Case_Maintenance) /V /Off >> 
+<< /T (Case_HFC_50) /V /Off >> 
+<< /T (Sign_Operateur_Date) /V () >> 
+<< /T (Equipement_teqCO2) /V () >> 
+<< /T (Bouton_Oui) /V /Off >> 
+<< /T (Case_Rep_Fuite1_AFaire) /V /Off >> 
+<< /T (13_Instal) /V () >> 
+<< /T (Case_Rep_Fuite3_AFaire) /V /Off >>
+] >> >>
+endobj
+trailer
+<< /Root 1 0 R >>
+%%EOF
