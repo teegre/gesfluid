@@ -5,28 +5,37 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[UniqueEntity(fields: ['userId'], message: 'Cet identifiant utilisateur existe.')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $lastName = null;
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $userId = null;
+
+    #[ORM\Column]
+    private array $roles = [];
+
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
 
     #[ORM\Column(length: 255)]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $password = null;
-
-    #[ORM\Column(type: Types::ARRAY)]
-    private array $role = [];
+    private ?string $lastName = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Intervention::class)]
     private Collection $interventions;
@@ -41,31 +50,59 @@ class User
         return $this->id;
     }
 
-    public function getLastName(): ?string
+    public function getUserId(): ?string
     {
-        return $this->lastName;
+        return $this->userId;
     }
 
-    public function setLastName(string $lastName): self
+    public function setUserId(string $userId): self
     {
-        $this->lastName = $lastName;
+        $this->userId = $userId;
 
         return $this;
     }
 
-    public function getFirstName(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
     {
-        return $this->firstName;
+        return (string) $this->userId;
     }
 
-    public function setFirstName(string $firstName): self
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
     {
-        $this->FirstName = $firstName;
+        return (string) $this->userId;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
 
-    public function getPassword(): ?string
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -77,14 +114,46 @@ class User
         return $this;
     }
 
-    public function getRole(): array
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
     {
-        return $this->role;
+        return null;
     }
 
-    public function setRole(array $role): self
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
     {
-        $this->role = $role;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
 
         return $this;
     }
