@@ -19,51 +19,75 @@ class Intervention
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
+    /* Fréquence minimale du contrôle périodique
+     * pour un équipement HCFC et HFC sans système
+     * permanent de détection des fuites
+     * (12, 6 ou 3 mois)
+     */
     #[ORM\Column]
     private ?int $controlFrequencyHcfcHFC = null;
 
+    /* Fréquence minimale du contrôle périodique
+     * pour un équipement HFC avec système
+     * permanent de détection des fuites
+     * (24, 12 ou 6 mois)
+     */
     #[ORM\Column]
     private ?int $controlFrequencyHFC = null;
 
     #[ORM\Column(nullable: true)]
+    /* Quantité de fluide vierge récupérée */
     private ?float $virginFluidQuantity = null;
 
+    /* Quantité de fluide recyclé récupérée */
     #[ORM\Column(nullable: true)]
     private ?float $recycledFluidQuantity = null;
 
+    /* Quantité de fluid régénéré récupérée */
     #[ORM\Column(nullable: true)]
     private ?float $regeneratedFluidQuantity = null;
 
+    /* Quantité récupérée de fluide destiné au traitement */
     #[ORM\Column(nullable: true)]
-    private ?float $forProcessionFluidQuantity = null;
+    private ?float $forProcessingFluidQuantity = null;
 
+    /* Numéro du BSFF (trackdéchets) */
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $bsffNumber = null;
 
+    /* Quantité de fluide conservée pour réutilisation */
     #[ORM\Column(nullable: true)]
     private ?float $reusableFluidQuantity = null;
 
+    /* Installation prévue de destination du fluide récupéré */
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $collectedFluidDestination = null;
 
+    /* Observations */
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $remarks = null;
 
+    /* Type d'intervention */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     private ?InterventionType $interventionType = null;
 
+    /* Equipement concerné */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     private ?Equipment $equipment = null;
 
+    /* Contenant (bouteille) concerné */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     private ?Container $container = null;
 
+    /* Fuite(s) détectée(s) */
     #[ORM\OneToMany(mappedBy: 'intervention', targetEntity: Leakage::class)]
     private Collection $leakage;
 
+    /* Détecteur de fuites utilisé */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     private ?Detector $detector = null;
 
+    /* Utilisateur */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     private ?User $user = null;
 
@@ -149,14 +173,14 @@ class Intervention
         return $this;
     }
 
-    public function getForProcessionFluidQuantity(): ?float
+    public function getForProcessingFluidQuantity(): ?float
     {
-        return $this->forProcessionFluidQuantity;
+        return $this->forProcessingFluidQuantity;
     }
 
-    public function setForProcessionFluidQuantity(?float $forProcessionFluidQuantity): self
+    public function setForProcessingFluidQuantity(?float $forProcessingFluidQuantity): self
     {
-        $this->forProcessionFluidQuantity = $forProcessionFluidQuantity;
+        $this->forProcessingFluidQuantity = $forProcessingFluidQuantity;
 
         return $this;
     }
