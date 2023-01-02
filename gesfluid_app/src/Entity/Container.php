@@ -18,6 +18,9 @@ class Container
     #[ORM\Column(length: 255)]
     private ?string $serialNumber = null;
 
+    #[ORM\Column]
+    private ?float $capacity = null;
+
     #[ORM\OneToMany(mappedBy: 'container', targetEntity: Intervention::class)]
     private Collection $interventions;
 
