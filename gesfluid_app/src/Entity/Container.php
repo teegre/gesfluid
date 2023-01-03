@@ -49,12 +49,12 @@ class Container
         return $this;
     }
 
-    public function getCapacity(): ?Fluid
+    public function getCapacity(): ?float
     {
         return $this->capacity;
     }
 
-    public function setCapacity(?Fluid $capacity): self
+    public function setCapacity(?float $capacity): self
     {
         $this->capacity = $capacity;
 
