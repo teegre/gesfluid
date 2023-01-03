@@ -1,0 +1,26 @@
+@startuml
+
+!theme amiga
+skinparam actorStyle Hollow
+title Gesfluid - Navigation
+
+actor Administrateur as A
+actor Stagiaire as S
+
+(Equipements) as E
+(Stagiaires) as STAG
+(Interventions) as C
+(Fluides) as F
+(Statistiques) as STAT
+(Saisie) as SA
+(Consultation) as CO
+
+A -- STAG
+A -- E
+A -- F
+A -- C
+A -- STAT
+S -- SA
+S -- CO
+
+@enduml
