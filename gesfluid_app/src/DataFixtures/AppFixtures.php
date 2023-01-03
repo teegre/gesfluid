@@ -123,9 +123,6 @@ class AppFixtures extends Fixture
       "Contrôle d'étanchéité non périodique",
       "Démantèlement",
       "Autre",
-      // NOTE: Le type d'intervention "Autre" devant être précisé,
-      // il serait judicieux de créer un nouveau type d'intervention
-      // lorsque qu'il est seléctionné par l'utilisateur...
     ];
     foreach ($types as $type) {
       $interventionType = new InterventionType();
