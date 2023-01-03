@@ -7,6 +7,7 @@ use App\Entity\Detector;
 use App\Entity\Equipment;
 use App\Entity\FluidType;
 use App\Entity\Fluid;
+use App\Entity\InterventionType;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -23,6 +24,7 @@ class AppFixtures extends Fixture
     $this->addContainers($manager);
     $this->addEquipments($manager);
     $this->addDetectors($manager);
+    $this->addInterventionsType($manager);
     $manager->flush();
   }
 
@@ -101,11 +103,34 @@ class AppFixtures extends Fixture
 
   private function addDetectors(ObjectManager $manager): void
   {
+    // Détecteurs de fuites
     for ($i = 1; $i <= 2; $i++) {
       $detector = new Detector();
       $detector->setName('Détecteur ' . $i);
       $detector->setControlDate($this->random_date());
       $manager->persist($detector);
+    }
+  }
+
+  private function addInterventionsType(ObjectManager $manager): void
+  {
+    $types = [
+      "Assemblage",
+      "Mise en service",
+      "Modification",
+      "Maintenance",
+      "Contrôle d'étanchéité périodique",
+      "Contrôle d'étanchéité non périodique",
+      "Démantèlement",
+      "Autre",
+      // NOTE: Le type d'intervention "Autre" devant être précisé,
+      // il serait judicieux de créer un nouveau type d'intervention
+      // lorsque qu'il est seléctionné par l'utilisateur...
+    ];
+    foreach ($types as $type) {
+      $interventionType = new InterventionType();
+      $interventionType->setName($type);
+      $manager->persist($interventionType);
     }
   }
 }
