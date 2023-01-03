@@ -14,8 +14,8 @@ use Doctrine\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture
 {
-  private $fluidTypes;
-  private $fluids;
+  private $fluidTypes; // tableau: stocke les types nouvellement créés.
+  private $fluids;     // tableau: stocke les fluides nouvellement créés.
 
   public function load(ObjectManager $manager): void
   {
@@ -36,6 +36,7 @@ class AppFixtures extends Fixture
 
   private function random_date(): DateTime
   {
+    // Renvoie une date aléatoire comprise entre le 1er janvier 2022 et aujourd'hui
     $min = strtotime('2022-01-01');
     $max = getdate()[0];
     $dt = new DateTime();
@@ -70,6 +71,7 @@ class AppFixtures extends Fixture
     for ($i = 1; $i <= 10; $i++) {
       $fluid = new Fluid();
       $fluid->setName('Fluide ' . $i);
+      // On choisit un type aléatoirement dans le tableau $fluidTypes
       $fluid->setFluidType($this->fluidTypes[rand(0, count($this->fluidTypes)-1)]);
       $this->fluids[] = $fluid;
       $manager->persist($fluid);
@@ -83,6 +85,7 @@ class AppFixtures extends Fixture
       $container = new Container;
       $container->setSerialNumber(uniqid());
       $container->setCapacity($this->random_float(1, 10));
+      // On choisit un fluide aléatoirement dans le tableau $fluids
       $container->setFluid($this->fluids[rand(0, count($this->fluids)-1)]);
       $manager->persist($container);
     }
@@ -96,6 +99,7 @@ class AppFixtures extends Fixture
       $equipment->setName('Equipement ' . $i);
       $equipment->setWeight($this->random_float(50, 100));
       $equipment->setCo2EqTonnage($this->random_float(100, 1000));
+      // On choisit un fluide aléatoirement dans le tableau $fluids
       $equipment->setFluid($this->fluids[rand(0, count($this->fluids)-1)]);
       $manager->persist($equipment);
     }
