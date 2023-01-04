@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\InterventionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,6 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
+#[ApiResource()]
 class Intervention
 {
     #[ORM\Id]
@@ -43,7 +45,7 @@ class Intervention
     #[ORM\Column(nullable: true)]
     private ?float $recycledFluidQuantity = null;
 
-    /* Quantité de fluid régénéré récupérée */
+    /* Quantité de fluide régénéré récupérée */
     #[ORM\Column(nullable: true)]
     private ?float $regeneratedFluidQuantity = null;
 
