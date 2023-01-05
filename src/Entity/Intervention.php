@@ -10,7 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
-#[ApiResource()]
+#[ApiResource]
 class Intervention
 {
     #[ORM\Id]
