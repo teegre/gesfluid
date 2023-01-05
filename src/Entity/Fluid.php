@@ -2,29 +2,40 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\FluidRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: FluidRepository::class)]
+#[ApiResource(
+  itemOperations: ['get' => ['normalization_context' => ['groups' => 'fluid:item']]],
+  collectionOperations: ['get' => ['normalization_context' => ['groups' => 'fluid:collection']]]
+ )]
 class Fluid
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['fluid:item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['fluid:item'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'fluid', targetEntity: Container::class)]
+    #[Groups(['fluid:item', 'fluid:collection'])]
     private Collection $containers;
 
     #[ORM\ManyToOne(inversedBy: 'fluids')]
+    #[Groups(['fluid:item', 'fluid:collection'])]
     private ?FluidType $fluidType = null;
 
     #[ORM\OneToMany(mappedBy: 'fluid', targetEntity: Equipment::class)]
+    #[Groups(['fluid:item', 'fluid:collection'])]
     private Collection $equipment;
 
     public function __construct()
