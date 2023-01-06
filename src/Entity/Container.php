@@ -22,18 +22,22 @@ class Container
     #[Groups(['container:item'])]
     private ?int $id = null;
 
+    /* Numéro de série du contenant */
     #[ORM\Column(length: 255)]
     #[Groups(['container:item'])]
     private ?string $serialNumber = null;
 
+    /* Capacité du contenant */
     #[ORM\Column]
     #[Groups(['container:item'])]
     private ?float $capacity = null;
 
+    /* Interventions impliquant ce contenant */
     #[ORM\OneToMany(mappedBy: 'container', targetEntity: Intervention::class)]
     #[Groups(['container:item', 'container:collection'])]
     private Collection $interventions;
 
+    /* Fluide contenu */
     #[ORM\ManyToOne(inversedBy: 'containers')]
     #[Groups(['container:item'])]
     private ?Fluid $fluid = null;
