@@ -42,6 +42,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Intervention::class)]
     private Collection $interventions;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Group $userGroup = null;
+
     public function __construct()
     {
         $this->interventions = new ArrayCollection();
@@ -160,6 +163,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getUserGroup(): ?Group
+    {
+        return $this->userGroup;
+    }
+
+    public function setUserGroup(?Group $userGroup): self
+    {
+        $this->userGroup = $userGroup;
+
+        return $this;
+    }
     /**
      * @return Collection<int, Intervention>
      */
