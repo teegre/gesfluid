@@ -5,7 +5,9 @@
             <i class="fas fa-user"></i> {{ app.user.userIdentifier|upper }}
           </div>
           <div class="m-2">
-            <a class="btn btn-sm btn-danger" href="{{ path('app_logout') }}"><i class="fas fa-right-from-bracket"></i> Déconnexion</a>
+            <a class="btn btn-sm btn-danger" href="{{ path('app_logout') }}"><i class="fas fa-right-from-bracket"></i>
+              <span class="hidden-text"> Déconnexion</span>
+            </a>
           </div>
           {% endif %}
         </nav>
