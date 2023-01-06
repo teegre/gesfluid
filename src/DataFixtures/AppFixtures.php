@@ -7,15 +7,21 @@ use App\Entity\Detector;
 use App\Entity\Equipment;
 use App\Entity\FluidType;
 use App\Entity\Fluid;
+use App\Entity\Group;
 use App\Entity\InterventionType;
+use App\Entity\User;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactory;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 class AppFixtures extends Fixture
 {
   private $fluidTypes; // tableau: stocke les types nouvellement créés.
   private $fluids;     // tableau: stocke les fluides nouvellement créés.
+  private $userGroups; // tableau: stocke les groupes d'utilisateurs nouvellement créés.
 
   public function load(ObjectManager $manager): void
   {
@@ -25,6 +31,8 @@ class AppFixtures extends Fixture
     $this->addEquipments($manager);
     $this->addDetectors($manager);
     $this->addInterventionsType($manager);
+    $this->addGroups($manager);
+    $this->addUsers($manager);
     $manager->flush();
   }
 
@@ -133,5 +141,52 @@ class AppFixtures extends Fixture
       $interventionType->setName($type);
       $manager->persist($interventionType);
     }
+  }
+
+  private function addGroups(ObjectManager $manager): void
+  {
+    $userGroup = new Group();
+    $userGroup->setName('ADMIN');
+    $manager->persist($userGroup);
+    $this->userGroups[] = $userGroup;
+
+    $userGroup = new Group();
+    $userGroup->setName('CDA22075');
+    $manager->persist($userGroup);
+    $this->userGroups[] = $userGroup;
+  }
+
+  private function addUsers(ObjectManager $manager): void
+  {
+    $passwordHasherFactory = new PasswordHasherFactory([
+      User::class => ['algorithm' => 'auto'],
+      PasswordAuthenticatedUserInterface::class => [
+        'algorithm' => 'auto',
+        'cost' => 15,
+      ],
+    ]);
+
+    $passwordHasher = new UserPasswordHasher($passwordHasherFactory);
+    $plainPassword = 'password';
+
+    $user = new User();
+    $user->setFirstName('Ad');
+    $user->setLastName('Ministrator');
+    $user->setUserGroup($this->userGroups[0]);
+    $user->setUserId($this->userGroups[0]->getName() . '1');
+    $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+    $user->setPassword($hashedPassword);
+    $user->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
+    $manager->persist($user);
+
+    $user = new User();
+    $user->setFirstName('Us');
+    $user->setLastName('Er');
+    $user->setUserGroup($this->userGroups[1]);
+    $user->setUserId($this->userGroups[1]->getName() . '1');
+    $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+    $user->setPassword($hashedPassword);
+    $user->setRoles(['ROLE_USER']);
+    $manager->persist($user);
   }
 }
