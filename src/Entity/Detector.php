@@ -8,9 +8,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: DetectorRepository::class)]
-#[ApiResource]
+#[ApiResource(
+  collectionOperations: ['get' => ['normalization_context' => ['groups' => 'detector:collection']]],
+ )]
 class Detector
 {
     #[ORM\Id]
@@ -25,6 +28,7 @@ class Detector
     private ?\DateTimeInterface $controlDate = null;
 
     #[ORM\OneToMany(mappedBy: 'detector', targetEntity: Intervention::class)]
+    #[Groups(['detector:collection'])]
     private Collection $interventions;
 
     public function __construct()

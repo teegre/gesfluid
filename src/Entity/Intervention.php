@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
 #[ApiResource(
-  itemOperations: ['get' => ['normalization_context' => ['groups' => 'intervention:item' ]]]
+  collectionOperations: ['get' => ['normalization_context' => ['groups' => 'intervention:list']]],
 )]
 class Intervention
 {
@@ -22,7 +22,6 @@ class Intervention
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Groups(['intervention:item'])]
     private ?\DateTimeInterface $date = null;
 
     /* Fréquence minimale du contrôle périodique
@@ -31,7 +30,6 @@ class Intervention
      * (12, 6 ou 3 mois)
      */
     #[ORM\Column]
-    #[Groups(['intervention:item'])]
     private ?int $controlFrequencyHcfcHFC = null;
 
     /* Fréquence minimale du contrôle périodique
@@ -40,77 +38,67 @@ class Intervention
      * (24, 12 ou 6 mois)
      */
     #[ORM\Column]
-    #[Groups(['intervention:item'])]
     private ?int $controlFrequencyHFC = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['intervention:item'])]
     /* Quantité de fluide vierge récupérée */
     private ?float $virginFluidQuantity = null;
 
     /* Quantité de fluide recyclé récupérée */
     #[ORM\Column(nullable: true)]
-    #[Groups(['intervention:item'])]
     private ?float $recycledFluidQuantity = null;
 
     /* Quantité de fluide régénéré récupérée */
     #[ORM\Column(nullable: true)]
-    #[Groups(['intervention:item'])]
     private ?float $regeneratedFluidQuantity = null;
 
     /* Quantité récupérée de fluide destiné au traitement */
     #[ORM\Column(nullable: true)]
-    #[Groups(['intervention:item'])]
     private ?float $forProcessingFluidQuantity = null;
 
     /* Numéro du BSFF (trackdéchets) */
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['intervention:item'])]
     private ?string $bsffNumber = null;
 
     /* Quantité de fluide conservée pour réutilisation */
     #[ORM\Column(nullable: true)]
-    #[Groups(['intervention:item'])]
     private ?float $reusableFluidQuantity = null;
 
     /* Installation prévue de destination du fluide récupéré */
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['intervention:item'])]
     private ?string $collectedFluidDestination = null;
 
     /* Observations */
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['intervention:item'])]
     private ?string $remarks = null;
 
     /* Type d'intervention */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
-    #[Groups(['intervention:item'])]
+    #[Groups(['intervention:list'])]
     private ?InterventionType $interventionType = null;
 
     /* Equipement concerné */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
-    #[Groups(['intervention:item'])]
+    #[Groups(['intervention:list'])]
     private ?Equipment $equipment = null;
 
     /* Contenant (bouteille) concerné */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
-    #[Groups(['intervention:item'])]
+    #[Groups(['intervention:list'])]
     private ?Container $container = null;
 
     /* Fuite(s) détectée(s) */
     #[ORM\OneToMany(mappedBy: 'intervention', targetEntity: Leakage::class)]
-    #[Groups(['intervention:item'])]
+    #[Groups(['intervention:list'])]
     private Collection $leakage;
 
     /* Détecteur de fuites utilisé */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
-    #[Groups(['intervention:item'])]
+    #[Groups(['intervention:list'])]
     private ?Detector $detector = null;
 
     /* Utilisateur */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
-    #[Groups(['intervention:item'])]
     private ?User $user = null;
 
     public function __construct()

@@ -4,37 +4,42 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EquipmentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EquipmentRepository::class)]
 #[ApiResource(
-  itemOperations: ['get' => ['normalization_context' => ['groups' => 'equipment:item']]],
-  collectionOperations: ['get' => ['normalization_context' => ['groups' => 'equipment:collection']]]
- )]
+  collectionOperations: ['get' => ['normalization_context' => ['groups' => 'equipment:collection']]],
+)]
 class Equipment
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['equipment:item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['equipment:item'])]
     private ?string $name = null;
 
     #[ORM\Column]
-    #[Groups(['equipment:item'])]
     private ?float $weight = null;
 
     #[ORM\Column]
-    #[Groups(['equipment:item'])]
     private ?float $co2EqTonnage = null;
 
     #[ORM\ManyToOne(inversedBy: 'equipment')]
-    #[Groups(['equipment:item'])]
     private ?Fluid $fluid = null;
+
+    #[ORM\OneToMany(mappedBy: 'equipment', targetEntity: Intervention::class)]
+    #[Groups(['equipment:collection'])]
+    private Collection $interventions;
+
+    public function __construct()
+    {
+        $this->interventions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -85,6 +90,36 @@ class Equipment
     public function setFluid(?Fluid $fluid): self
     {
         $this->fluid = $fluid;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Intervention>
+     */
+    public function getInterventions(): Collection
+    {
+        return $this->interventions;
+    }
+
+    public function addIntervention(Intervention $intervention): self
+    {
+        if (!$this->interventions->contains($intervention)) {
+            $this->interventions->add($intervention);
+            $intervention->setEquipment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIntervention(Intervention $intervention): self
+    {
+        if ($this->interventions->removeElement($intervention)) {
+            // set the owning side to null (unless already changed)
+            if ($intervention->getEquipment() === $this) {
+                $intervention->setEquipment(null);
+            }
+        }
 
         return $this;
     }
