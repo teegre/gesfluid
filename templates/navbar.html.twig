@@ -5,6 +5,13 @@
             <div class="m-2 text-light text-bold">
               <i class="fas fa-user"></i> {{ app.user.userIdentifier|upper }}
             </div>
+            {% if is_granted('ROLE_ADMIN') %}
+            <div>
+              <a class="btn btn-sm btn-outline text-white m-2" href="{{ path('admin') }}">
+                <i class="fas fa-gears"></i> Administration
+              </a>
+            </div>
+            {% endif %}
             <button type="button" class="btn btn-sm btn-danger m-2" data-bs-toggle="modal" data-bs-target="#modalLogout">
               <i class="fas fa-right-from-bracket"></i> Déconnexion
             </button>
