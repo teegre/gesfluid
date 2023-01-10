@@ -14,16 +14,17 @@ const Users = () => {
     })
   }, [])
 
-  {
+  console.log(users);
+
+  return (
     users.map((user) => {
       return (
-        <>
-          <h2>USER</h2>
-          <div>{user.firstName} {user.lastName} ({user.userId})</div>
-        </>
+        <li key={user.id}>
+          {user.userId}: {user.firstName} {user.lastName}
+        </li>
       )
-    } )
-  }
+    })
+  )
 }
 
 export default Users
