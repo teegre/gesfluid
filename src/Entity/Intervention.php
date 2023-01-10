@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
 #[ApiResource(
-  collectionOperations: ['get' => ['normalization_context' => ['groups' => 'intervention:list']]],
+  normalizationContext: ['groups' => 'intervention:read']
 )]
 class Intervention
 {
@@ -74,27 +74,27 @@ class Intervention
 
     /* Type d'intervention */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
-    #[Groups(['intervention:list'])]
+    #[Groups(['intervention:read'])]
     private ?InterventionType $interventionType = null;
 
     /* Equipement concerné */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
-    #[Groups(['intervention:list'])]
+    #[Groups(['intervention:read'])]
     private ?Equipment $equipment = null;
 
     /* Contenant (bouteille) concerné */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
-    #[Groups(['intervention:list'])]
+    #[Groups(['intervention:read'])]
     private ?Container $container = null;
 
     /* Fuite(s) détectée(s) */
     #[ORM\OneToMany(mappedBy: 'intervention', targetEntity: Leakage::class)]
-    #[Groups(['intervention:list'])]
+    #[Groups(['intervention:read'])]
     private Collection $leakage;
 
     /* Détecteur de fuites utilisé */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
-    #[Groups(['intervention:list'])]
+    #[Groups(['intervention:read'])]
     private ?Detector $detector = null;
 
     /* Utilisateur */

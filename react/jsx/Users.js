@@ -19,7 +19,7 @@ const Users = () => {
   return (
     users.map((user) => {
       return (
-        <li key={user.id}>
+        <li className="list-group-item" key={user.id}>
           {user.userId}: {user.firstName} {user.lastName}
         </li>
       )

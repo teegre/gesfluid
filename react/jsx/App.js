@@ -7,7 +7,7 @@ const App = () => {
 
   return (
     <React.StrictMode>
-      <ul>
+      <ul className="list-group list-group-flush">
         <Users />
       </ul>
     </React.StrictMode>
