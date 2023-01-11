@@ -19,7 +19,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
 
   public function handle(Request $request, AccessDeniedException $accessDeniedException)
   {
-    $response = new RedirectResponse($this->router->generate('login'));
+    $response = new RedirectResponse($this->router->generate('app_login'));
     return $response;
   }
 }
