@@ -10,7 +10,7 @@ use App\Entity\FluidType;
 use App\Entity\Group;
 use App\Entity\Intervention;
 use App\Entity\InterventionType;
-use App\Entity\Leakage;
+/* use App\Entity\Leakage; */
 use App\Entity\User;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -26,7 +26,7 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
       $routeBuilder = $this->container->get(AdminUrlGenerator::class);
-      $url = $routeBuilder->setController(UserCrudController::class)->generateUrl();
+      $url = $routeBuilder->setController(InterventionCrudController::class)->generateUrl();
       return $this->redirect($url);
 
         // Option 1. You can make your dashboard redirect to some common page of your backend

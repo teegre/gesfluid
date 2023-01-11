@@ -2,7 +2,7 @@
           <a class="navbar-brand p-2" href="{{ path('app_home') }}"><i class="fas fa-snowflake"></i> Gesfluid</a>
           {% if app.user %}
           <div class="d-flex align-items-center">
-            <div class="m-2 text-light text-bold">
+            <div class="m-2 text-light text-bold text-center">
               <i class="fas fa-user"></i> {{ app.user.userIdentifier|upper }}
             </div>
             {% if is_granted('ROLE_ADMIN') %}
