@@ -4,7 +4,6 @@ import { createRoot } from "react-dom/client";
 
 import App from "./jsx/App";
 
-console.log("main!")
 const container = document.getElementById("root");
 const root = createRoot(container);
 

@@ -19,9 +19,11 @@ class Intervention
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['intervention:read'])]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['intervention:read'])]
     private ?\DateTimeInterface $date = null;
 
     /* Fréquence minimale du contrôle périodique
@@ -30,6 +32,7 @@ class Intervention
      * (12, 6 ou 3 mois)
      */
     #[ORM\Column]
+    #[Groups(['intervention:read'])]
     private ?int $controlFrequencyHcfcHFC = null;
 
     /* Fréquence minimale du contrôle périodique
@@ -38,38 +41,47 @@ class Intervention
      * (24, 12 ou 6 mois)
      */
     #[ORM\Column]
+    #[Groups(['intervention:read'])]
     private ?int $controlFrequencyHFC = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['intervention:read'])]
     /* Quantité de fluide vierge récupérée */
     private ?float $virginFluidQuantity = null;
 
     /* Quantité de fluide recyclé récupérée */
     #[ORM\Column(nullable: true)]
+    #[Groups(['intervention:read'])]
     private ?float $recycledFluidQuantity = null;
 
     /* Quantité de fluide régénéré récupérée */
     #[ORM\Column(nullable: true)]
+    #[Groups(['intervention:read'])]
     private ?float $regeneratedFluidQuantity = null;
 
     /* Quantité récupérée de fluide destiné au traitement */
     #[ORM\Column(nullable: true)]
+    #[Groups(['intervention:read'])]
     private ?float $forProcessingFluidQuantity = null;
 
     /* Numéro du BSFF (trackdéchets) */
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['intervention:read'])]
     private ?string $bsffNumber = null;
 
     /* Quantité de fluide conservée pour réutilisation */
     #[ORM\Column(nullable: true)]
+    #[Groups(['intervention:read'])]
     private ?float $reusableFluidQuantity = null;
 
     /* Installation prévue de destination du fluide récupéré */
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['intervention:read'])]
     private ?string $collectedFluidDestination = null;
 
     /* Observations */
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['intervention:read'])]
     private ?string $remarks = null;
 
     /* Type d'intervention */
@@ -99,6 +111,7 @@ class Intervention
 
     /* Utilisateur */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
+    #[Groups(['intervention:read'])]
     private ?User $user = null;
 
     public function __construct()

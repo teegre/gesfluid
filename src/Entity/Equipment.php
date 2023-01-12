@@ -11,29 +11,34 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EquipmentRepository::class)]
 #[ApiResource(
-  collectionOperations: ['get' => ['normalization_context' => ['groups' => 'equipment:collection']]],
+  normalizationContext: ['groups' => 'equipment:read']
 )]
 class Equipment
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['equipment:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['equipment:read'])]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Groups(['equipment:read'])]
     private ?float $weight = null;
 
     #[ORM\Column]
+    #[Groups(['equipment:read'])]
     private ?float $co2EqTonnage = null;
 
     #[ORM\ManyToOne(inversedBy: 'equipment')]
+    #[Groups(['equipment:read'])]
     private ?Fluid $fluid = null;
 
     #[ORM\OneToMany(mappedBy: 'equipment', targetEntity: Intervention::class)]
-    #[Groups(['equipment:collection'])]
+    #[Groups(['equipment:read'])]
     private Collection $interventions;
 
     public function __construct()
