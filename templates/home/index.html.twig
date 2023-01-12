@@ -3,5 +3,8 @@
 {% block title %}Gesfluid Home{% endblock %}
 
 {% block body %}
+  <script>
+    window.user = {{ app.user.id|raw }};
+  </script>
   <div id="root"></div>
 {% endblock %}

@@ -1,28 +1,36 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import ax from "./Axios";
 
 const Detectors = (props) => {
-  const url = "http://localhost:8000/api/detectors"
 
   const [detectors, setDetectors] = useState([]);
   useEffect(() => {
-    axios.get(url).then((response) => {
-      setDetectors(response.data["hydra:member"]);
+    ax.get("/detectors").then((response) => {
+      setDetectors(response.data);
     })
   }, [])
 
   return (
-    <select onChange={props.onDetectorChange} className="form-select">
-    <option defaultValue={null}>Sélectionner un détecteur de fuites</option>
-    {
-      detectors.map((detector) => (
-        <option value={detector.id} key={detector.id}>
-          {detector.name}
-        </option>
-      ))
-    }
-    </select>
+    <div className="form-floating m-2">
+      <select
+        onChange={props.onChange}
+        className="form-select form-select-sm"
+        id="detectorLabel"
+      >
+      <option defaultValue={null}>Sélectionner un détecteur de fuites</option>
+      {
+        detectors.map((detector) => (
+          <option value={detector.id} key={detector.id}>
+            {detector.name}
+          </option>
+        ))
+      }
+      </select>
+      <label htmlFor="detectorLabel">
+        <i className="fas fa-compass"></i> Détecteur de fuites
+      </label>
+    </div>
   )
 }
 

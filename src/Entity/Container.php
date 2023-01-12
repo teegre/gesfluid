@@ -11,31 +11,34 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ContainerRepository::class)]
 #[ApiResource(
-  collectionOperations: ['get' => ['normalization_context' => ['groups' => 'container:collection']]],
+  normalizationContext: ['groups' => 'container:read']
  )]
 class Container
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['container:item'])]
+    #[Groups(['container:read'])]
     private ?int $id = null;
 
     /* Numéro de série du contenant */
     #[ORM\Column(length: 255)]
+    #[Groups(['container:read'])]
     private ?string $serialNumber = null;
 
     /* Capacité du contenant */
     #[ORM\Column]
+    #[Groups(['container:read'])]
     private ?float $capacity = null;
 
     /* Interventions impliquant ce contenant */
     #[ORM\OneToMany(mappedBy: 'container', targetEntity: Intervention::class)]
-    #[Groups(['container:collection'])]
+    #[Groups(['container:read'])]
     private Collection $interventions;
 
     /* Fluide contenu */
     #[ORM\ManyToOne(inversedBy: 'containers')]
+    #[Groups(['container:read'])]
     private ?Fluid $fluid = null;
 
     public function __construct()

@@ -1,28 +1,36 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import ax from "./Axios";
 
 const Equipments = (props) => {
-  const url = "http://localhost:8000/api/equipment";
 
   const [equipments, setEquipments] = useState([]);
   useEffect(() => {
-    axios.get(url).then((response) => {
-      setEquipments(response.data["hydra:member"]);
+    ax.get("/equipment").then((response) => {
+      setEquipments(response.data)
     })
   }, [])
 
   return (
-    <select onChange={props.onEquipmentChange} className="form-select">
-    <option defaultValue={null}>Sélectionner un équipement</option>
-    {
-      equipments.map((equipment) => (
-        <option value={equipment.id} key={equipment.id}>
-          {equipment.name}
-        </option>
-      ))
-    }
-    </select>
+    <div className="form-floating m-2">
+      <select
+        onChange={(e) => {props.onChange(equipments[e.target.value])}}
+        className="form-select form-select-sm"
+        id="equipmentLabel"
+      >
+      <option defaultValue={null}>Sélectionner un équipement</option>
+      {
+        equipments.map((equipment, i) => (
+          <option value={i} key={equipment.id}>
+            {equipment.name}
+          </option>
+        ))
+      }
+      </select>
+      <label htmlFor="equipmentLabel">
+        <i className="fas fa-gears"></i> Equipement concerné
+      </label>
+    </div>
   )
 }
 
