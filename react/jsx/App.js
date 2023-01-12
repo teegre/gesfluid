@@ -4,6 +4,7 @@ import { useState } from "react";
 import Users from "./Users"
 import InterventionTypes from "./InterventionTypes";
 import Equipments from "./Equipments";
+import Detectors from "./Detectors";
 
 const App = () => {
   // intervention object
@@ -16,8 +17,9 @@ const App = () => {
     "date": null,
   };
 
-  const [type, setType] = useState(null);
-  const [equipment, setEquipment] = useState(null);
+  const [type, setType] = useState("");
+  const [equipment, setEquipment] = useState("");
+  const [detector, setDetector] = useState("");
 
   const onTypeChange = (e) => {
     setType(e.target.value)
@@ -29,12 +31,18 @@ const App = () => {
     console.log("Equipment", data, e.target.value);
   }
 
+  const onDetectorChange = (e) => {
+    setDetector(e.target.value)
+    console.log("Detector", e.target.value);
+  }
+
 
   return (
     <React.StrictMode>
       <Users />
       <InterventionTypes onChange={onTypeChange} />
       <Equipments onChange={onEquipmentChange} />
+      <Detectors onChange={onDetectorChange} />
     </React.StrictMode>
   )
 }

@@ -12,23 +12,26 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: DetectorRepository::class)]
 #[ApiResource(
-  collectionOperations: ['get' => ['normalization_context' => ['groups' => 'detector:collection']]],
+  normalizationContext: ['groups' => 'read:detector']
  )]
 class Detector
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('read:detector')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('read:detector')]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups('read:detector')]
     private ?\DateTimeInterface $controlDate = null;
 
     #[ORM\OneToMany(mappedBy: 'detector', targetEntity: Intervention::class)]
-    #[Groups(['detector:collection'])]
+    #[Groups('read:detector')]
     private Collection $interventions;
 
     public function __construct()
