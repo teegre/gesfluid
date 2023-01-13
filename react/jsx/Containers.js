@@ -20,8 +20,8 @@ const Containers = (props) => {
       >
       <option defaultValue={null}>---</option>
       {
-        containers.map((container) => (
-          <option value={container.id} key={container.id}>
+        containers.map((container, i) => (
+          <option value={i} key={container.id}>
             {container.serialNumber}
           </option>
         ))

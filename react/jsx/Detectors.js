@@ -20,8 +20,8 @@ const Detectors = (props) => {
       >
       <option defaultValue={null}>---</option>
       {
-        detectors.map((detector) => (
-          <option value={detector.id} key={detector.id}>
+        detectors.map((detector, i) => (
+          <option value={i} key={detector.id}>
             {detector.name}
           </option>
         ))

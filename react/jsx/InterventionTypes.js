@@ -20,8 +20,8 @@ const InterventionTypes = (props) => {
       >
       <option defaultValue={null}>---</option>
       {
-        types.map((type) => (
-          <option value={type.id} key={type.id}>
+        types.map((type, i) => (
+          <option value={i} key={type.id}>
             {type.name}
           </option>
         ))
