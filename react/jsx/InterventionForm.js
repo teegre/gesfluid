@@ -18,7 +18,6 @@ const InterventionForm = () => {
   }
 
   const onEquipmentChange = (e) => {
-    console.log(e);
     setEquipment(e);
   }
 
@@ -33,6 +32,10 @@ const InterventionForm = () => {
   const handleSubmit = (e) => {
     alert("The form has been submitted!");
     e.preventDefault;
+  }
+
+  if (equipment) {
+    console.log(equipment, type, detector, container);
   }
 
   return (

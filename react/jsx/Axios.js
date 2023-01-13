@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// Create an axios object with default headers
 const ax = axios.create({
   baseURL: "/api",
   headers: {

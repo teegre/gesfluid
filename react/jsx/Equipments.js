@@ -18,7 +18,7 @@ const Equipments = (props) => {
         className="form-select form-select-sm"
         id="equipmentLabel"
       >
-      <option defaultValue={null}>Sélectionner un équipement</option>
+      <option defaultValue={null}>---</option>
       {
         equipments.map((equipment, i) => (
           <option value={i} key={equipment.id}>
@@ -27,7 +27,7 @@ const Equipments = (props) => {
         ))
       }
       </select>
-      <label htmlFor="equipmentLabel">
+      <label htmlFor="equipmentLabel" className="fw-bold">
         <i className="fas fa-gears"></i> Equipement concerné
       </label>
     </div>

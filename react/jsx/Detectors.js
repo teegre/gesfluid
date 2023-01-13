@@ -14,11 +14,11 @@ const Detectors = (props) => {
   return (
     <div className="form-floating m-2">
       <select
-        onChange={props.onChange}
+        onChange={(e) => {props.onChange(detectors[e.target.value])}}
         className="form-select form-select-sm"
         id="detectorLabel"
       >
-      <option defaultValue={null}>Sélectionner un détecteur de fuites</option>
+      <option defaultValue={null}>---</option>
       {
         detectors.map((detector) => (
           <option value={detector.id} key={detector.id}>
@@ -27,7 +27,7 @@ const Detectors = (props) => {
         ))
       }
       </select>
-      <label htmlFor="detectorLabel">
+      <label htmlFor="detectorLabel" className="fw-bold">
         <i className="fas fa-compass"></i> Détecteur de fuites
       </label>
     </div>

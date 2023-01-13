@@ -4,12 +4,10 @@ import axios from "axios";
 
 const Users = () => {
 
-  const url = "http://localhost:8000/api/users";
-
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    axios.get(url).then((response) => {
-      setUsers(response.data["hydra:member"]);
+    ax.get('/users').then((response) => {
+      setUsers(response.data);
     })
   }, [])
 

@@ -5,7 +5,7 @@ const EquipmentDetails = (props) => {
 
   return (
     <div className="container mt-1 mb-1">
-      <div className="d-flex flex-sm-row justify-content-between">
+      <div className="d-md-flex flex-md-row justify-content-between">
         <div className="form-floating flex-xl-fill">
           <input
             type="text"

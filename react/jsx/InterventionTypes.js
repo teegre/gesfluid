@@ -3,11 +3,10 @@ import { useEffect, useState } from "react";
 import ax from "./Axios";
 
 const InterventionTypes = (props) => {
-  const url = "http://localhost:8000/api/intervention_types";
 
   const [types, setTypes] = useState([]);
   useEffect(() => {
-    ax.get(url).then((response) => {
+    ax.get('/intervention_types').then((response) => {
       setTypes(response.data);
     })
   }, [])
@@ -15,11 +14,11 @@ const InterventionTypes = (props) => {
   return (
     <div className="form-floating m-2">
       <select
-        onChange={props.onChange}
+        onChange={(e) => {props.onChange(types[e.target.value])}}
         className="form-select form-select-sm"
         id="typeLabel"
       >
-      <option defaultValue={null}>Sélectionner un type d'intervention</option>
+      <option defaultValue={null}>---</option>
       {
         types.map((type) => (
           <option value={type.id} key={type.id}>
@@ -28,7 +27,7 @@ const InterventionTypes = (props) => {
         ))
       }
       </select>
-      <label htmlFor="typeLabel">
+      <label htmlFor="typeLabel" className="fw-bold">
         <i className="fas fa-screwdriver-wrench"></i> Nature de l'intervention
       </label>
     </div>
