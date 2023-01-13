@@ -49,7 +49,7 @@ const InterventionForm = () => {
                 <EquipmentDetails data={equipment} />
             }
             <InterventionTypes onChange={onTypeChange} />
-            <Detectors onchange={onDetectorChange} />
+            <Detectors onChange={onDetectorChange} />
             <Containers onChange={onContainerChange} />
           </form>
         </div>
