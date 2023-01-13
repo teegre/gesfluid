@@ -18,6 +18,7 @@ const InterventionForm = () => {
   }
 
   const onEquipmentChange = (e) => {
+    console.log(e);
     setEquipment(e);
   }
 
