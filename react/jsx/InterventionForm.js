@@ -20,7 +20,7 @@ const InterventionForm = () => {
   }
 
   const onOtherTypeChange = (e) => {
-    setOtherType(e);
+    setOtherType(e.target.value);
   }
 
   const onEquipmentChange = (e) => {
@@ -42,6 +42,10 @@ const InterventionForm = () => {
 
   if (equipment) {
     console.log(equipment, type, detector, container);
+  }
+
+  if (otherType) {
+    console.log(otherType);
   }
 
   return (

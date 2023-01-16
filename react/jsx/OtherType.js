@@ -1,5 +1,6 @@
 import React from "react";
 
+// Input text for "other" intervention type
 const OtherType = (props) => {
   
   return (
@@ -9,7 +10,7 @@ const OtherType = (props) => {
         className="form-control form-control-sm"
         id="otherInterventionType"
         placeholder="Veuillez préciser le type d'intervention..."
-        onChange={props.onChange}
+        onChange={(e) => {props.onChange(e)}}
         autoFocus
       />
     </div>
