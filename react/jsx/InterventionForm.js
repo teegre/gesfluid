@@ -10,6 +10,7 @@ import EquipmentDetails from "./EquipmentDetails";
 
 const InterventionForm = () => {
 
+  // States
   const [interventionDate, setInterventionDate] = useState(null);
   const [type, setType] = useState("");
   const [otherType, setOtherType] = useState(null);
@@ -22,7 +23,8 @@ const InterventionForm = () => {
   const date = new Date();
   date.setDate(date.getDate());
   const now = date.toLocaleDateString("fr-CA");
-
+  
+  // Events
   const onInterventionDateChange = (e) => {
     setInterventionDate(e.target.value);
   }
@@ -52,7 +54,15 @@ const InterventionForm = () => {
     e.preventDefault;
   }
 
-  console.log(now);
+  const handleReset = () => {
+    setInterventionDate(null);
+    setType("")
+    setOtherType(null)
+    setEquipment(null)
+    setDetector(null)
+    setDetectorControlDate(null)
+    setContainer(null)
+  }
 
   return (
     <div className="section">
@@ -90,6 +100,14 @@ const InterventionForm = () => {
                 onChange={onContainerChange}
               />
             }
+            <div className="d-flex d-flex-row align-items-center justify-content-between m-2">
+              <div>
+                <button className="btn btn-sm btn-warning" type="reset" onClick={handleReset}>Annuler</button>
+              </div>
+              <div>
+                <button className="btn btn-sm btn-danger" type="submit">Enregistrer</button>
+              </div>
+            </div>
           </form>
         </div>
       </div>

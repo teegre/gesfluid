@@ -35,10 +35,10 @@ const EquipmentDetails = (props) => {
             readOnly
             className="border border-0 form-control form-control-sm"
             id="fluidQuantity"
-            value={props.data.weight.toFixed(2) + " kg"}
+            value={props.data.weight.toFixed(2)}
           />
           <label htmlFor="fluidQuantity" className="small fw-bold text-success">
-            <i className="fas fa-weight-hanging"></i> Charge totale
+            <i className="fas fa-weight-hanging"></i> Charge totale (kg)
           </label>
         </div>
          <div className="form-floating flex-xl-fill">
@@ -47,7 +47,7 @@ const EquipmentDetails = (props) => {
             readOnly
             className="border border-0 form-control form-control-sm"
             id="fluidCO2"
-            value={props.data.co2EqTonnage.toFixed(2) + " t.éq.CO2"} 
+            value={props.data.co2EqTonnage.toFixed(2)} 
           />
           <label htmlFor="fluidCO2" className="small fw-bold text-success">
             <i className="fas fa-cloud"></i> Tonnage équivalent C0<sub>2</sub>
