@@ -3,18 +3,24 @@ import { useState } from "react";
 import Detectors from "./Detectors";
 import Equipments from "./Equipments";
 import InterventionTypes from "./InterventionTypes";
+import OtherType from "./OtherType";
 import Containers from "./Containers";
 import EquipmentDetails from "./EquipmentDetails";
 
 const InterventionForm = () => {
 
-  const [type, setType] = useState(null);
+  const [type, setType] = useState("");
+  const [otherType, setOtherType] = useState(null);
   const [equipment, setEquipment] = useState(null);
   const [detector, setDetector] = useState(null);
   const [container, setContainer] = useState(null);
 
   const onTypeChange = (e) => {
     setType(e);
+  }
+
+  const onOtherTypeChange = (e) => {
+    setOtherType(e);
   }
 
   const onEquipmentChange = (e) => {
@@ -49,6 +55,9 @@ const InterventionForm = () => {
                 <EquipmentDetails data={equipment} />
             }
             <InterventionTypes onChange={onTypeChange} />
+            { type && type.id === 8  &&
+                <OtherType onChange={onOtherTypeChange} />
+            }
             <Detectors onChange={onDetectorChange} />
             { equipment &&
               <Containers
