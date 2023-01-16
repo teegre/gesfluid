@@ -134,7 +134,7 @@ class AppFixtures extends Fixture
       "Contrôle d'étanchéité périodique",
       "Contrôle d'étanchéité non périodique",
       "Démantèlement",
-      /* "Autre", */
+      "Autre",
     ];
     foreach ($types as $type) {
       $interventionType = new InterventionType();
@@ -170,8 +170,8 @@ class AppFixtures extends Fixture
     $plainPassword = 'password';
 
     $user = new User();
-    $user->setFirstName('Ad');
-    $user->setLastName('Ministrator');
+    $user->setFirstName('Trey');
+    $user->setLastName('Spruance');
     $user->setUserGroup($this->userGroups[0]);
     $user->setUserId($this->userGroups[0]->getName() . '1');
     $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
@@ -180,8 +180,8 @@ class AppFixtures extends Fixture
     $manager->persist($user);
 
     $user = new User();
-    $user->setFirstName('Us');
-    $user->setLastName('Er');
+    $user->setFirstName('Jet');
+    $user->setLastName('Black');
     $user->setUserGroup($this->userGroups[1]);
     $user->setUserId($this->userGroups[1]->getName() . '1');
     $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
