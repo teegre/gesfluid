@@ -87,7 +87,7 @@ const InterventionForm = () => {
                 <EquipmentDetails data={equipment} />
             }
             <InterventionTypes onChange={onTypeChange} />
-            { type && type.id === 8  &&
+            { type && type.name === "Autre"  &&
                 <OtherType onChange={onOtherTypeChange} />
             }
             <Detectors onChange={onDetectorChange} />
