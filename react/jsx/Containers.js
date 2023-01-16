@@ -6,10 +6,10 @@ const Containers = (props) => {
   
   const [containers, setContainers] = useState([]);
   useEffect(() => {
-    ax.get('/containers').then((response) => {
+    ax.get('/containersByFluid/' + props.data.id).then((response) => {
       setContainers(response.data);
     })
-  }, [])
+  }, [props.data])
 
   return (
     <div className="form-floating m-2">

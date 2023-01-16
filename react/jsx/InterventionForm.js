@@ -50,7 +50,12 @@ const InterventionForm = () => {
             }
             <InterventionTypes onChange={onTypeChange} />
             <Detectors onChange={onDetectorChange} />
-            <Containers onChange={onContainerChange} />
+            { equipment &&
+              <Containers
+                data={equipment.fluid}
+                onChange={onContainerChange}
+              />
+            }
           </form>
         </div>
       </div>

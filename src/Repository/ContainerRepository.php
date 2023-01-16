@@ -39,20 +39,16 @@ class ContainerRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Container[] Returns an array of Container objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   public function findByFluid($id): array
+   {
+       return $this->createQueryBuilder('c')
+           ->andWhere('c.fluid= :id')
+           ->setParameter('id', $id)
+           ->orderBy('c.id', 'ASC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
 
 //    public function findOneBySomeField($value): ?Container
 //    {

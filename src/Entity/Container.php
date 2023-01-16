@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\Link;
 use App\Repository\ContainerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,8 +12,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ContainerRepository::class)]
 #[ApiResource(
-  normalizationContext: ['groups' => 'container:read']
- )]
+  normalizationContext: ['groups' => 'container:read'],
+)]
+/* #[ApiResource( */
+/*   uriTemplate: '/containers/fluid/{id}', */
+/*   uriVariable: [ 'id' => new Link( */
+/*     fromClass: Fluid::class, */
+/*     fromProperty: 'container' */
+/*   )], */
+  /* operations: [new Get()] */
 class Container
 {
     #[ORM\Id]
@@ -38,7 +46,7 @@ class Container
 
     /* Fluide contenu */
     #[ORM\ManyToOne(inversedBy: 'containers')]
-    #[Groups(['container:read'])]
+    #[Groups(['fluid:read', 'container:read'])]
     private ?Fluid $fluid = null;
 
     public function __construct()

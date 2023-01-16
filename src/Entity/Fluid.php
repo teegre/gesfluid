@@ -18,7 +18,7 @@ class Fluid
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['equipment:read', 'fluid:read'])]
+    #[Groups(['equipment:read', 'container:read', 'fluid:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -26,13 +26,15 @@ class Fluid
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'fluid', targetEntity: Container::class)]
+    #[Groups(['fluid:read'])]
     private Collection $containers;
 
     #[ORM\ManyToOne(inversedBy: 'fluids')]
+    #[Groups(['container:read', 'fluid:read'])]
     private ?FluidType $fluidType = null;
 
     #[ORM\OneToMany(mappedBy: 'fluid', targetEntity: Equipment::class)]
-    #[Groups(['fluid:read'])]
+    #[Groups(['container:read', 'fluid:read'])]
     private Collection $equipment;
 
     public function __construct()
