@@ -56,12 +56,12 @@ const InterventionForm = () => {
 
   const handleReset = () => {
     setInterventionDate(null);
-    setType("")
-    setOtherType(null)
-    setEquipment(null)
-    setDetector(null)
-    setDetectorControlDate(null)
-    setContainer(null)
+    setType("");
+    setOtherType(null);
+    setEquipment(null);
+    setDetector(null);
+    setDetectorControlDate(null);
+    setContainer(null);
   }
 
   return (
