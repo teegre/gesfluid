@@ -99,7 +99,7 @@ class Intervention
     #[Groups(['intervention:read'])]
     private ?Equipment $equipment = null;
 
-    /* Contenant (bouteille) concerné */
+    /* Contenant concerné */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     #[Groups(['intervention:read'])]
     private ?Container $container = null;
@@ -118,6 +118,11 @@ class Intervention
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     #[Groups(['intervention:read'])]
     private ?User $user = null;
+
+    /* Chemin du fichier pdf généré */
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['intervention:read'])]
+    private ?string $pdfPath = null;
 
     public function __construct()
     {
@@ -361,5 +366,17 @@ class Intervention
         $this->user = $user;
 
         return $this;
+    }
+
+    public function getPdfPath(): ?string
+    {
+      return $this->pdfPath;
+    }
+
+    public function setPdfPath(?string $pdfPath): self
+    {
+      $this->pdfPath = $pdfPath;
+
+      return $this;
     }
 }
