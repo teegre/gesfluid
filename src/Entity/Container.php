@@ -14,13 +14,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
   normalizationContext: ['groups' => 'container:read'],
 )]
-/* #[ApiResource( */
-/*   uriTemplate: '/containers/fluid/{id}', */
-/*   uriVariable: [ 'id' => new Link( */
-/*     fromClass: Fluid::class, */
-/*     fromProperty: 'container' */
-/*   )], */
-  /* operations: [new Get()] */
 class Container
 {
     #[ORM\Id]
@@ -38,6 +31,11 @@ class Container
     #[ORM\Column]
     #[Groups(['container:read'])]
     private ?float $capacity = null;
+
+    /* Quantité de fluide contenu */
+    #[ORM\Column]
+    #[Groups(['container:read'])]
+    private ?float $fluidQuantity = 0;
 
     /* Interventions impliquant ce contenant */
     #[ORM\OneToMany(mappedBy: 'container', targetEntity: Intervention::class)]
@@ -81,6 +79,18 @@ class Container
         $this->capacity = $capacity;
 
         return $this;
+    }
+
+    public function getFluidQuantity(): ?float
+    {
+      return $this->fluidQuantity;
+    }
+
+    public function setFluidQuantity(?float $fluidQuantity): self
+    {
+      $this->fluidQuantity = $fluidQuantity;
+
+      return $this;
     }
 
     /**
