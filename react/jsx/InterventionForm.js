@@ -7,6 +7,7 @@ import InterventionTypes from "./InterventionTypes";
 import OtherType from "./OtherType";
 import Containers from "./Containers";
 import EquipmentDetails from "./EquipmentDetails";
+import FluidHandling from "./FluidHandling";
 
 const InterventionForm = () => {
 
@@ -17,6 +18,7 @@ const InterventionForm = () => {
   const [equipment, setEquipment] = useState(null);
   const [detector, setDetector] = useState(null);
   const [detectorControlDate, setDetectorControlDate] = useState(null);
+  const [fluidQuantities, setFluidQuantities] = useState({});
   const [container, setContainer] = useState(null);
 
   // Current date
@@ -45,6 +47,10 @@ const InterventionForm = () => {
     setDetector(e);
   }
 
+  const onFluidQuantitiesChange = (e) => {
+    setFluidQuantities(e);
+  }
+
   const onContainerChange = (e) => {
     setContainer(e);
   }
@@ -61,8 +67,11 @@ const InterventionForm = () => {
     setEquipment(null);
     setDetector(null);
     setDetectorControlDate(null);
+    setFluidQuantities({});
     setContainer(null);
   }
+
+  console.log(fluidQuantities);
 
   return (
     <div className="section">
@@ -78,7 +87,7 @@ const InterventionForm = () => {
                 defaultValue={now}
                 onChange={onInterventionDateChange}
               />
-              <label htmlFor="interventionDate" className="small fw-bold">
+              <label htmlFor="interventionDate" className="fw-bold">
                 <i className="fas fa-calendar-days"></i> Date de l'intervention
               </label>
             </div>
@@ -94,6 +103,7 @@ const InterventionForm = () => {
             { detector &&
               <DetectorControlDate data={detector} />
             }
+            <FluidHandling onChange={onFluidQuantitiesChange} />
             { equipment &&
               <Containers
                 data={equipment.fluid}

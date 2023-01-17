@@ -8,7 +8,7 @@ const EquipmentDetails = (props) => {
         <div className="form-floating flex-xl-fill">
           <input
             type="text"
-            readOnly
+            disabled
             className="border border-0 form-control form-control-sm"
             id="equipmentName"
             value={props.data.name}
@@ -20,7 +20,7 @@ const EquipmentDetails = (props) => {
         <div className="form-floating flex-xl-fill">
           <input
             type="text"
-            readOnly
+            disabled
             className="border border-0 form-control form-control-sm"
             id="fluidName"
             value={props.data.fluid.name}
@@ -32,7 +32,7 @@ const EquipmentDetails = (props) => {
         <div className="form-floating flex-xl-fill">
           <input
             type="text"
-            readOnly
+            disabled
             className="border border-0 form-control form-control-sm"
             id="fluidQuantity"
             value={props.data.weight.toFixed(2)}
@@ -44,7 +44,7 @@ const EquipmentDetails = (props) => {
          <div className="form-floating flex-xl-fill">
           <input
             type="text"
-            readOnly
+            disabled
             className="border border-0 form-control form-control-sm"
             id="fluidCO2"
             value={props.data.co2EqTonnage.toFixed(2)} 

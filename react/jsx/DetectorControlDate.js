@@ -8,7 +8,7 @@ const DetectorControlDate = (props) => {
     <div className="form-floating m-2">
       <input
         type="text"
-        readOnly
+        disabled
         className="border border-0 form-control form-control-sm"
         id="detectorControlDate"
         value={controlDate}
