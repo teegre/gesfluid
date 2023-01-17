@@ -1,8 +1,5 @@
 {
   "build/app.js": "/build/app.js",
   "build/runtime.js": "/build/runtime.js",
-  "build/vendors-node_modules_core-js_modules_es_array_from_js-node_modules_core-js_modules_es_array_i-a566a7.js": "/build/vendors-node_modules_core-js_modules_es_array_from_js-node_modules_core-js_modules_es_array_i-a566a7.js",
-  "build/vendors-node_modules_react-dom_client_js.js": "/build/vendors-node_modules_react-dom_client_js.js",
-  "build/vendors-node_modules_core-js_modules_es_array_from_js-node_modules_core-js_modules_es_array_i-3e8084.js": "/build/vendors-node_modules_core-js_modules_es_array_from_js-node_modules_core-js_modules_es_array_i-3e8084.js",
   "build/vendors-node_modules_core-js_modules_es_array_filter_js-node_modules_core-js_modules_es_array-1d907c.js": "/build/vendors-node_modules_core-js_modules_es_array_filter_js-node_modules_core-js_modules_es_array-1d907c.js"
 }

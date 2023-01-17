@@ -69,6 +69,7 @@ const InterventionForm = () => {
     setDetectorControlDate(null);
     setFluidQuantities({});
     setContainer(null);
+    // TODO: reset sums in FluidHandling component
   }
 
   console.log(fluidQuantities);
@@ -103,7 +104,9 @@ const InterventionForm = () => {
             { detector &&
               <DetectorControlDate data={detector} />
             }
-            <FluidHandling onChange={onFluidQuantitiesChange} />
+            { equipment &&
+                <FluidHandling onChange={onFluidQuantitiesChange} />
+            }
             { equipment &&
               <Containers
                 data={equipment.fluid}
