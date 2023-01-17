@@ -42,7 +42,8 @@ class ContainerRepository extends ServiceEntityRepository
    public function findByFluid($id): array
    {
        return $this->createQueryBuilder('c')
-           ->andWhere('c.fluid= :id')
+           ->where('c.fluid= :id')
+           ->orWhere('c.fluid IS NULL')
            ->setParameter('id', $id)
            ->orderBy('c.id', 'ASC')
            ->getQuery()
