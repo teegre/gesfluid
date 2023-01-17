@@ -89,12 +89,16 @@ class AppFixtures extends Fixture
   private function addContainers(ObjectManager $manager): void
   {
     // Contenants
-    for ($i = 1; $i <= 5; $i++) {
+    for ($i = 1; $i <= 10; $i++) {
       $container = new Container;
       $container->setSerialNumber(uniqid());
       $container->setCapacity($this->random_float(1, 10));
       // On choisit un fluide aléatoirement dans le tableau $fluids
-      $container->setFluid($this->fluids[rand(0, count($this->fluids)-1)]);
+      if (rand(0,1) == 1) {
+        $container->setFluid($this->fluids[rand(0, count($this->fluids)-1)]);
+        $capacity = $container->getCapacity();
+        $container->setFluidQuantity($this->random_float(1, $capacity));
+      }
       $manager->persist($container);
     }
   }
