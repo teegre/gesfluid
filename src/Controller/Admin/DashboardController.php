@@ -49,7 +49,8 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Gesfluid');
+            ->setTitle('Gesfluid')
+            ->setTranslationDomain('admin');
     }
 
     public function configureMenuItems(): iterable
