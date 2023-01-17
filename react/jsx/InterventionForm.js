@@ -8,6 +8,7 @@ import OtherType from "./OtherType";
 import Containers from "./Containers";
 import EquipmentDetails from "./EquipmentDetails";
 import FluidHandling from "./FluidHandling";
+import FluidDestination from "./FluidDestination";
 
 const InterventionForm = () => {
 
@@ -74,6 +75,11 @@ const InterventionForm = () => {
 
   console.log(fluidQuantities);
 
+  const mustInstall = () => {
+    console.log("hello");
+    return fluidQuantities['D']+fluidQuantities['E'] > 0;
+  }
+
   return (
     <div className="section">
       <div className="section-center">
@@ -107,6 +113,11 @@ const InterventionForm = () => {
             { equipment &&
                 <FluidHandling onChange={onFluidQuantitiesChange} />
             }
+
+            { mustInstall() &&
+                <FluidDestination />
+            }
+            
             { equipment &&
               <Containers
                 data={equipment.fluid}

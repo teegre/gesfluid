@@ -3,7 +3,9 @@ import { useState } from "react";
 
 const FluidHandling = (props) => {
 
-  const [fluidQuantities, setFluidQuantities] = useState({'A': 0, 'B': 0, 'C': 0, 'D': 0, 'E': 0});
+  const [fluidQuantities, setFluidQuantities] = useState({
+    'A': 0, 'B': 0, 'C': 0, 'D': 0, 'E': 0, 'BSFF': ''
+  });
   const [sumABC, setSumABC] = useState(0);
   const [sumDE, setSumDE] = useState(0);
 
@@ -54,6 +56,14 @@ const FluidHandling = (props) => {
       ...{'E': E}
     }));
     setSumDE(fluidQuantities['D']+E);
+    props.onChange(fluidQuantities);
+  }
+
+  const onBsffChange = (e, props) => {
+    setFluidQuantities( fluidQuantities => ({
+      ...fluidQuantities,
+      ...{'BSFF': e.target.value}
+    }));
     props.onChange(fluidQuantities);
   }
 
@@ -141,7 +151,7 @@ const FluidHandling = (props) => {
               type="text"
               className="form-control form-control-sm"
               id="bsffNumber"
-              onChange={(e) => {props.onChange(e)}}
+              onChange={(e) => {onBsffChange(e, props)}}
             />
             <label htmlFor="bsffNumber" className="fw-bold">
               Numéro du BSFF (si connu)

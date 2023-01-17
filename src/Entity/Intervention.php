@@ -64,7 +64,7 @@ class Intervention
     #[Groups(['intervention:read'])]
     private ?float $forProcessingFluidQuantity = null;
 
-    /* Numéro du BSFF (trackdéchets) */
+    /* Numéro du BSFF (trackdéchets) : Bordereau de Suivi de Fluide Frigorigène */
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['intervention:read'])]
     private ?string $bsffNumber = null;
