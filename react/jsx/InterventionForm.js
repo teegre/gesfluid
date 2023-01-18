@@ -19,6 +19,7 @@ const InterventionForm = () => {
   const [equipment, setEquipment] = useState(null);
   const [detector, setDetector] = useState(null);
   const [detectorControlDate, setDetectorControlDate] = useState(null);
+  const [leaks, setLeaks] = useState([]);
   const [fluidQuantities, setFluidQuantities] = useState({});
   const [container, setContainer] = useState(null);
 
@@ -57,7 +58,7 @@ const InterventionForm = () => {
   }
 
   const handleSubmit = (e) => {
-    alert("The form has been submitted!");
+    alert("The form has been submitted! " + fluidQuantities);
     e.preventDefault;
   }
 
@@ -73,10 +74,7 @@ const InterventionForm = () => {
     // TODO: reset sums in FluidHandling component
   }
 
-  console.log(fluidQuantities);
-
   const mustInstall = () => {
-    console.log("hello");
     return fluidQuantities['D']+fluidQuantities['E'] > 0;
   }
 

@@ -9,62 +9,68 @@ const FluidHandling = (props) => {
   const [sumABC, setSumABC] = useState(0);
   const [sumDE, setSumDE] = useState(0);
 
-  const onFluidAChange = (e, props) => {
+  const onFluidAChange = (e) => {
     let A = Number(e.target.value);
-    setFluidQuantities( fluidQuantities => ({
+    let fq = {
       ...fluidQuantities,
-      ...{'A': A}
-    }));
+      A: A
+    };
+    setFluidQuantities(fq);
     setSumABC(A+fluidQuantities['B']+fluidQuantities['C']);
-    props.onChange(fluidQuantities);
+    props.onChange(fq);
   }
 
-  const onFluidBChange = (e, props) => {
+  const onFluidBChange = (e) => {
     let B = Number(e.target.value);
-    setFluidQuantities( fluidQuantities => ({
+    let fq = {
       ...fluidQuantities,
-      ...{'B': B}
-    }));
+      B: B
+    };
+    setFluidQuantities(fq);
     setSumABC(fluidQuantities['A']+B+fluidQuantities['C']);
-    props.onChange(fluidQuantities);
+    props.onChange(fq);
   }
 
-  const onFluidCChange = (e, props) => {
+  const onFluidCChange = (e) => {
     let C = Number(e.target.value);
-    setFluidQuantities( fluidQuantities => ({
+    let fq = {
       ...fluidQuantities,
-      ...{'C': C}
-    }));
+      C: C
+    };
+    setFluidQuantities(fq);
     setSumABC(fluidQuantities['A']+fluidQuantities['B']+C);
-    props.onChange(fluidQuantities);
+    props.onChange(fq);
   }
 
-  const onFluidDChange = (e, props) => {
+  const onFluidDChange = (e) => {
     let D = Number(e.target.value);
-    setFluidQuantities( fluidQuantities => ({
+    let fq = {
       ...fluidQuantities,
-      ...{'D': D}
-    }));
+      D: D
+    };
+    setFluidQuantities(fq);
     setSumDE(D+fluidQuantities['E']);
-    props.onChange(fluidQuantities);
+    props.onChange(fq);
   }
 
-  const onFluidEChange = (e, props) => {
+  const onFluidEChange = (e) => {
     let E = Number(e.target.value);
-    setFluidQuantities( fluidQuantities => ({
+    let fq = {
       ...fluidQuantities,
-      ...{'E': E}
-    }));
+      E: E
+    };
+    setFluidQuantities(fq);
     setSumDE(fluidQuantities['D']+E);
-    props.onChange(fluidQuantities);
+    props.onChange(fq);
   }
 
-  const onBsffChange = (e, props) => {
-    setFluidQuantities( fluidQuantities => ({
+  const onBsffChange = (e) => {
+    let fq = {
       ...fluidQuantities,
-      ...{'BSFF': e.target.value}
-    }));
-    props.onChange(fluidQuantities);
+      BSFF: e.target.value
+    };
+    setFluidQuantities(fq);
+    props.onChange(fq);
   }
 
   return (
@@ -91,7 +97,7 @@ const FluidHandling = (props) => {
               className="form-control form-control-sm"
               id="virginFluidQuantity"
               defaultValue="0"
-              onChange={(e) => {onFluidAChange(e, props)}}
+              onChange={onFluidAChange}
             />
             <label htmlFor="virginFluidQuantity" className="fw-bold">
               <sup>(A)</sup> Dont fluide vierge
@@ -103,7 +109,7 @@ const FluidHandling = (props) => {
               className="form-control form-control-sm"
               id="recycledFluidQuantity"
               defaultValue="0"
-              onChange={(e) => {onFluidBChange(e, props)}}
+              onChange={onFluidBChange}
             />
             <label htmlFor="recycledFluidQuantity" className="fw-bold">
               <sup>(B)</sup> Dont fluide recyclé
@@ -115,7 +121,7 @@ const FluidHandling = (props) => {
               className="form-control form-control-sm"
               id="regeneratedFluidQuantity"
               defaultValue="0"
-              onChange={(e) => {onFluidCChange(e, props)}}
+              onChange={onFluidCChange}
             />
             <label htmlFor="regeneratedFluidQuantity" className="fw-bold">
               <sup>(C)</sup> Dont fluide régénéré
@@ -140,7 +146,7 @@ const FluidHandling = (props) => {
               className="form-control form-control-sm"
               id="forProcessingFluidQuantity"
               defaultValue="0"
-              onChange={(e) => {onFluidDChange(e, props)}}
+              onChange={onFluidDChange}
             />
             <label htmlFor="forProcessingFluidQuantity" className="fw-bold">
               <sup>(D)</sup> Dont fluide destiné au traitement
@@ -151,7 +157,7 @@ const FluidHandling = (props) => {
               type="text"
               className="form-control form-control-sm"
               id="bsffNumber"
-              onChange={(e) => {onBsffChange(e, props)}}
+              onChange={onBsffChange}
             />
             <label htmlFor="bsffNumber" className="fw-bold">
               Numéro du BSFF (si connu)
@@ -163,7 +169,7 @@ const FluidHandling = (props) => {
               className="form-control form-control-sm"
               id="reusableFluidQuantity"
               defaultValue="0"
-              onChange={(e) => {onFluidEChange(e, props)}}
+              onChange={onFluidEChange}
             />
             <label htmlFor="reusableFluidQuantity" className="fw-bold">
               <sup>(E)</sup> Dont fluide conservé pour réutilisation
