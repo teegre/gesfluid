@@ -5,6 +5,7 @@ import DetectorControlDate from "./DetectorControlDate"
 import Equipments from "./Equipments";
 import InterventionTypes from "./InterventionTypes";
 import OtherType from "./OtherType";
+import Leakage from "./Leakage";
 import Containers from "./Containers";
 import EquipmentDetails from "./EquipmentDetails";
 import FluidHandling from "./FluidHandling";
@@ -49,6 +50,10 @@ const InterventionForm = () => {
     setDetector(e);
   }
 
+  const onLeakChange = (e) => {
+    setLeaks(e);
+  }
+
   const onFluidQuantitiesChange = (e) => {
     setFluidQuantities(e);
   }
@@ -58,7 +63,7 @@ const InterventionForm = () => {
   }
 
   const handleSubmit = (e) => {
-    alert("The form has been submitted! " + fluidQuantities);
+    alert("The form has been submitted! ");
     e.preventDefault;
   }
 
@@ -69,9 +74,9 @@ const InterventionForm = () => {
     setEquipment(null);
     setDetector(null);
     setDetectorControlDate(null);
+    setLeaks([]);
     setFluidQuantities({});
     setContainer(null);
-    // TODO: reset sums in FluidHandling component
   }
 
   const mustInstall = () => {
@@ -108,20 +113,24 @@ const InterventionForm = () => {
             { detector &&
               <DetectorControlDate data={detector} />
             }
+            { detector &&
+                <Leakage onChange={onLeakChange} />
+            }
             { equipment &&
                 <FluidHandling onChange={onFluidQuantitiesChange} />
             }
 
-            { mustInstall() &&
-                <FluidDestination />
-            }
-            
             { equipment &&
               <Containers
                 data={equipment.fluid}
                 onChange={onContainerChange}
               />
             }
+
+            { mustInstall() &&
+                <FluidDestination />
+            }
+            
             <div className="d-flex d-flex-row align-items-center justify-content-between m-2">
               <div>
                 <button className="btn btn-sm btn-warning" type="reset" onClick={handleReset}>Annuler</button>

@@ -18,7 +18,7 @@ const Equipments = (props) => {
         className="form-select form-select-sm"
         id="equipmentLabel"
       >
-      <option defaultValue={null}>---</option>
+      <option defaultValue={null}>------</option>
       {
         equipments.map((equipment, i) => (
           <option value={i} key={equipment.id}>

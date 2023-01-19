@@ -18,7 +18,7 @@ const InterventionTypes = (props) => {
         className="form-select form-select-sm"
         id="typeLabel"
       >
-      <option defaultValue={null}>---</option>
+      <option defaultValue={null}>------</option>
       {
         types.map((type, i) => (
           <option value={i} key={type.id}>

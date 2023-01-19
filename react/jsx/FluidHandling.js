@@ -75,9 +75,11 @@ const FluidHandling = (props) => {
 
   return (
     <div className="container">
-      <h6 className="text-align-center">
-        <i className="fas fa-droplet"></i> Manipulation du fluide frigorigène
-      </h6>
+      <div className="bg-secondary text-light rounded mx-auto p-2">
+        <div>
+          <i className="fas fa-droplet"></i> Manipulation du fluide frigorigène
+        </div>
+      </div>
       <div className="d-md-flex flex-md-row justify-content-between">
         <div className="col-md-6">
           <div className="form-floating m-2">

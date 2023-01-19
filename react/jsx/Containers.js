@@ -18,7 +18,7 @@ const Containers = (props) => {
         className="form-select form-select-sm"
         id="containerLabel"
       >
-      <option defaultValue={null}>---</option>
+      <option defaultValue={null}>------</option>
       {
         containers.map((container, i) => (
           <option value={i} key={container.id}>

@@ -18,7 +18,7 @@ const Detectors = (props) => {
         className="form-select form-select-sm"
         id="detectorLabel"
       >
-      <option defaultValue={null}>---</option>
+      <option defaultValue={null}>------</option>
       {
         detectors.map((detector, i) => (
           <option value={i} key={detector.id}>
