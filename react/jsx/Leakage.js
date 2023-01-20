@@ -4,6 +4,7 @@ import { useState } from "react";
 const Leak = (props) => {
 
   const onLeakChange = (e) => {
+    console.log("child changed", e);
     props.onChange(e)
   }
 
@@ -23,30 +24,67 @@ const Leak = (props) => {
 }
 
 const Leakage = (props) => {
+  // Leaks state structure:
+  // [ {
+  //     component: <Leak />,
+  //     location: string,
+  //     fixed: boolean
+  //   },
+  //   ...
+  // ]
   const [leaks, setLeaks] = useState([]);
-  const [leakLocations, setLeakLocations] = useState([]);
 
-  const addLeak = (e) => {
-    setLeaks([...leaks, <Leak data={leaks.length} onChange={onLeakChange} />]);
+  const updateParent = () => {
+    let parentState = [];
+    for (let index = 0; index < leaks.length; index++) {
+      parentState.push([leaks[index]["location"], leaks[index]["fixed"]]);
+    }
+    props.onChange(parentState);
+  }
+
+  const addLeak = () => {
+    console.log("adding");
+    let index = leaks.length;
+    setLeaks([
+      ...leaks,
+      {
+        component: <Leak data={index} onChange={onLeakChange} />,
+        location: "",
+        fixed: false,
+      }
+    ]);
   }
 
   const removeLeak = (e) => {
-    let index = e.target.id;
+    console.log("removing");
+    let index = e.target.id - 20;
     let leaksCopy = [...leaks];
-    let leakLocationsCopy = [...leakLocations];
     leaksCopy.splice(index, 1);
-    leakLocationsCopy.splice(index, 1);
     setLeaks(leaksCopy);
-    setLeakLocations(leakLocationsCopy);
-    props.onChange(leakLocationsCopy);
+    updateParent();
   }
 
   const onLeakChange = (e) => {
-    let locations = [...leakLocations];
-    locations[e.target.id] = e.target.value;
-    setLeakLocations(locations);
-    props.onChange(locations);
+    console.log("changing");
+    let index = e.target.id;
+    console.log(index);
+    console.log(leaks);
+    let leaksCopy = [...leaks];
+    leaksCopy[index]["location"] = e.target.value;
+    setLeaks(leaksCopy);
+    updateParent();
   }
+
+  const onLeakFixed = (e) => {
+    console.log("fixing");
+    let index = e.target.id - 10;
+    let leaksCopy = [...leaks];
+    leaksCopy[index]["fixed"] = e.target.checked;
+    setLeaks(leaksCopy);
+    updateParent();
+  }
+
+  console.log(leaks);
 
   return (
     <div className="container">
@@ -68,11 +106,13 @@ const Leakage = (props) => {
         <fieldset className="m-2 border border-1 rounded">
         {
           leaks.map((leak, i) => (
-            <div key={i} className="input-group m-2 d-flex d-flex-row align-items-center">
-              {leaks[i]}
+            <div key={i} className="input-group m-2 d-flex d-flex-row align-items-center justify-content-even">
+              {leak["component"]}
+              <input type="checkbox" className="btn-check" id={10+i} autoComplete="off" onClick={onLeakFixed} />
+              <label htmlFor={10+i} className="btn btn-outline-secondary border border-0 rounded"><i className="fas fa-wrench"></i></label>
               <button
                 type="button"
-                id={i}
+                id={20+i}
                 className="btn-close me-3 rounded-circle"
                 onClick={removeLeak}
                 aria-label="Close"
