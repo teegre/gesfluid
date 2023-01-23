@@ -20,7 +20,8 @@ const InterventionForm = () => {
   const [equipment, setEquipment] = useState(null);
   const [detector, setDetector] = useState(null);
   const [detectorControlDate, setDetectorControlDate] = useState(null);
-  const [leaks, setLeaks] = useState([]);
+  const [leakLocations, setLeakLocations] = useState([]);
+  const [leakFixed, setLeakFixed] = useState([]);
   const [fluidQuantities, setFluidQuantities] = useState({});
   const [container, setContainer] = useState(null);
 
@@ -50,8 +51,12 @@ const InterventionForm = () => {
     setDetector(e);
   }
 
-  const onLeakChange = (e) => {
-    setLeaks(e);
+  const onLeakLocationChange = (e) => {
+    setLeakLocations(e);
+  }
+
+  const onLeakFixedChange = (e) => {
+    setLeakFixed(e);
   }
 
   const onFluidQuantitiesChange = (e) => {
@@ -74,7 +79,8 @@ const InterventionForm = () => {
     setEquipment(null);
     setDetector(null);
     setDetectorControlDate(null);
-    setLeaks([]);
+    setLeakLocations([]);
+    setLeakFixed([]);
     setFluidQuantities({});
     setContainer(null);
   }
@@ -114,7 +120,10 @@ const InterventionForm = () => {
               <DetectorControlDate data={detector} />
             }
             { detector &&
-                <Leakage onChange={onLeakChange} />
+                <Leakage
+                  onLocationChange={onLeakLocationChange}
+                  onFixedChange={onLeakFixedChange}
+                />
             }
             { equipment &&
                 <FluidHandling onChange={onFluidQuantitiesChange} />
