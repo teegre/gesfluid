@@ -33,6 +33,10 @@ class Equipment
     #[Groups(['equipment:read'])]
     private ?float $co2EqTonnage = null;
 
+    #[ORM\Column]
+    #[Groups(['equipment:read'])]
+    private ?bool $leakDetectionSystem = false;
+
     #[ORM\ManyToOne(inversedBy: 'equipment')]
     #[Groups(['equipment:read'])]
     private ?Fluid $fluid = null;
@@ -85,6 +89,18 @@ class Equipment
         $this->co2EqTonnage = $co2EqTonnage;
 
         return $this;
+    }
+
+    public function getLeakDetectionSystem(): ?bool
+    {
+      return $this->leakDetectionSystem;
+    }
+
+    public function setLeakDetectionSystem(bool $leakDetectionSystem): self
+    {
+      $this->leakDetectionSystem = $leakDetectionSystem;
+
+      return $this;
     }
 
     public function getFluid(): ?Fluid

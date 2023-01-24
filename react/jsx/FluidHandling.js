@@ -8,6 +8,8 @@ const FluidHandling = (props) => {
   });
   const [sumABC, setSumABC] = useState(0);
   const [sumDE, setSumDE] = useState(0);
+  const [fluidLoading, setFluidLoading] = useState(false);
+  const [fluidCollecting, setFluidCollecting] = useState(false);
 
   const onFluidAChange = (e) => {
     let A = Number(e.target.value);
@@ -75,13 +77,21 @@ const FluidHandling = (props) => {
 
   return (
     <div className="container">
-      <div className="bg-secondary text-light rounded mx-auto p-2">
-        <div>
+      <div className="d-flex bg-secondary text-light rounded mx-auto p-2">
+        <div className="me-auto">
           <i className="fas fa-droplet"></i> Manipulation du fluide frigorigène
+        </div>
+        <div>
+          <input className="btn-check" type="checkbox" role="switch" id="loadingFluid" onClick={(e) => {setFluidLoading(e.target.checked)}} />
+          <label className="btn border-0 btn-outline-dark btn-sm text-white" htmlFor="loadingFluid"><i className="fas fa-turn-down"></i></label>
+        </div>
+        <div>
+          <input className="btn-check" type="checkbox" role="switch" id="collectingFluid" onClick={(e) => {setFluidCollecting(e.target.checked)}} />
+          <label className="btn border-0 btn-outline-dark btn-sm text-white" htmlFor="collectingFluid"><i className="fas fa-turn-up"></i></label>
         </div>
       </div>
       <div className="d-md-flex flex-md-row justify-content-between">
-        <div className="col-md-6">
+        <div className="col-md-6" hidden={!fluidLoading}>
           <div className="form-floating m-2">
             <input
               type="text"
@@ -100,6 +110,7 @@ const FluidHandling = (props) => {
               id="virginFluidQuantity"
               defaultValue="0"
               onChange={onFluidAChange}
+              autoFocus
             />
             <label htmlFor="virginFluidQuantity" className="fw-bold">
               <sup>(A)</sup> Dont fluide vierge
@@ -130,7 +141,7 @@ const FluidHandling = (props) => {
             </label>
           </div>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6" hidden={!fluidCollecting}>
           <div className="form-floating m-2">
             <input
               type="text"
@@ -148,6 +159,7 @@ const FluidHandling = (props) => {
               className="form-control form-control-sm"
               id="forProcessingFluidQuantity"
               defaultValue="0"
+              autoFocus
               onChange={onFluidDChange}
             />
             <label htmlFor="forProcessingFluidQuantity" className="fw-bold">

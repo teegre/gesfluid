@@ -9,7 +9,7 @@ const EquipmentDetails = (props) => {
           <input
             type="text"
             disabled
-            className="border border-0 form-control form-control-sm"
+            className="border border-0 form-control form-control-sm rounded-0"
             id="equipmentName"
             value={props.data.name}
           />
@@ -21,7 +21,7 @@ const EquipmentDetails = (props) => {
           <input
             type="text"
             disabled
-            className="border border-0 form-control form-control-sm"
+            className="border border-0 form-control form-control-sm rounded-0"
             id="fluidName"
             value={props.data.fluid.name}
           />
@@ -33,7 +33,7 @@ const EquipmentDetails = (props) => {
           <input
             type="text"
             disabled
-            className="border border-0 form-control form-control-sm"
+            className="border border-0 form-control form-control-sm rounded-0"
             id="fluidQuantity"
             value={props.data.weight.toFixed(2)}
           />
@@ -45,7 +45,7 @@ const EquipmentDetails = (props) => {
           <input
             type="text"
             disabled
-            className="border border-0 form-control form-control-sm"
+            className="border border-0 form-control form-control-sm rounded-0"
             id="fluidCO2"
             value={props.data.co2EqTonnage.toFixed(2)} 
           />
@@ -53,6 +53,19 @@ const EquipmentDetails = (props) => {
             <i className="fas fa-cloud"></i> Tonnage équivalent C0<sub>2</sub>
           </label>
         </div>
+      </div>
+      <div className="form-check form-switch mt-1">
+        <input
+          type="checkbox"
+          disabled
+          className="form-check-input"
+          role="switch"
+          id="leakDetectionSystem"
+          checked={props.data.leakDetectionSystem}
+        />
+        <label htmlFor="leakDetectionSystem" className="small fw-bold text-success">
+          <i className="fas fa-wind"></i> Présence d'un système permanent de détection de fuites
+        </label>
       </div>
     </div>
   )

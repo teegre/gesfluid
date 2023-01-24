@@ -127,20 +127,20 @@ const InterventionForm = () => {
                 <InterventionTypes onChange={onTypeChange} />
               </>
             }
-            { type && type.name === "Autre"  &&
+            { type?.name === "Autre"  &&
                 <OtherType onChange={onOtherTypeChange} />
             }
-            { type && type.name.startsWith('Contrôle') &&
+            { type && type.name.startsWith('Contrôle') && !equipment?.leakDetectionSystem &&
               <Detectors onChange={onDetectorChange} />
             }
             { detector &&
-              <>
                 <DetectorControlDate data={detector} />
+            }
+            { (detector || (equipment?.leakDetectionSystem && type && type.name.startsWith('Contrôle'))) &&
                 <Leakage
                   onLocationChange={onLeakLocationChange}
                   onFixedChange={onLeakFixedChange}
                 />
-              </>
             }
             
             { equipment && type && !type.name.startsWith('Contrôle') &&
