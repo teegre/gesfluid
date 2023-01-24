@@ -10,6 +10,7 @@ import Containers from "./Containers";
 import EquipmentDetails from "./EquipmentDetails";
 import FluidHandling from "./FluidHandling";
 import FluidDestination from "./FluidDestination";
+import Remarks from "./Remarks";
 
 const InterventionForm = () => {
 
@@ -24,6 +25,8 @@ const InterventionForm = () => {
   const [leakFixed, setLeakFixed] = useState([]);
   const [fluidQuantities, setFluidQuantities] = useState({});
   const [container, setContainer] = useState(null);
+  const [fluidDestination, setFluidDestination] = useState("");
+  const [remarks, setRemarks] = useState("");
 
   // Current date
   const date = new Date();
@@ -67,6 +70,14 @@ const InterventionForm = () => {
     setContainer(e);
   }
 
+  const onFluidDestinationChange = (e) => {
+    setFluidDestination(e.target.value);
+  }
+
+  const onRemarksChange = (e) => {
+    setRemarks(e.target.value);
+  }
+
   const handleSubmit = (e) => {
     alert("The form has been submitted! ");
     e.preventDefault;
@@ -83,6 +94,8 @@ const InterventionForm = () => {
     setLeakFixed([]);
     setFluidQuantities({});
     setContainer(null);
+    setFluidDestination("");
+    setRemarks("");
   }
 
   const mustInstall = () => {
@@ -109,35 +122,43 @@ const InterventionForm = () => {
             </div>
             <Equipments onChange={onEquipmentChange} />
             { equipment &&
+              <>
                 <EquipmentDetails data={equipment} />
+                <InterventionTypes onChange={onTypeChange} />
+              </>
             }
-            <InterventionTypes onChange={onTypeChange} />
             { type && type.name === "Autre"  &&
                 <OtherType onChange={onOtherTypeChange} />
             }
-            <Detectors onChange={onDetectorChange} />
-            { detector &&
-              <DetectorControlDate data={detector} />
+            { type && type.name.startsWith('Contrôle') &&
+              <Detectors onChange={onDetectorChange} />
             }
             { detector &&
+              <>
+                <DetectorControlDate data={detector} />
                 <Leakage
                   onLocationChange={onLeakLocationChange}
                   onFixedChange={onLeakFixedChange}
                 />
+              </>
             }
-            { equipment &&
+            
+            { equipment && type && !type.name.startsWith('Contrôle') &&
+              <>
                 <FluidHandling onChange={onFluidQuantitiesChange} />
-            }
-
-            { equipment &&
-              <Containers
-                data={equipment.fluid}
-                onChange={onContainerChange}
-              />
+                <Containers
+                  data={equipment.fluid}
+                  onChange={onContainerChange}
+                />
+              </>
             }
 
             { mustInstall() &&
-                <FluidDestination />
+                <FluidDestination onChange={onFluidDestinationChange} />
+            }
+
+            { equipment &&
+              <Remarks onChange={onRemarksChange} />                
             }
             
             <div className="d-flex d-flex-row align-items-center justify-content-between m-2">

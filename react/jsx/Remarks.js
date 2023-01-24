@@ -1,26 +1,24 @@
 import React from "react";
 
-const FluidDestination = (props) => {
+const Remarks = (props) => {
 
   return (
     <div className="form-outline m-2">
       <label
         className="form-label small"
-        htmlFor="collectedFluidDestination"
+        htmlFor="remarks"
       >
-        Installation prévue de destination du fluide récupéré
+        Observations
       </label>
       <textarea
         rows="4"
-        id="collectedFluidDestination"
+        id="remarks"
         className="form-control form-control-sm"
-        placeholder="Nom, SIRET, adresse"
         onChange={(e) => {props.onChange(e)}}
       >
       </textarea>
     </div>
   )
-
 }
 
-export default FluidDestination;
+export default Remarks;
