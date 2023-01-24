@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import { Tooltip } from "react-tooltip";
+import 'react-tooltip/dist/react-tooltip.css';
 
 const Leak = (props) => {
 
@@ -94,8 +96,17 @@ const Leakage = (props) => {
           leakComponents.map((leak, i) => (
             <div key={i} className="input-group m-2 d-flex d-flex-row align-items-center justify-content-even">
               {leak}
-              <input type="checkbox" className="btn-check" id={10+i} autoComplete="off" onClick={onLeakFixed} />
-              <label htmlFor={10+i} className="btn btn-outline-secondary border border-0 rounded"><i className="fas fa-wrench"></i></label>
+              <input
+                type="checkbox"
+                className="btn-check"
+                id={10+i}
+                autoComplete="off"
+                onClick={onLeakFixed}
+              />
+              <label id="tt-wrench" htmlFor={10+i} className="btn btn-outline-secondary border border-0 rounded">
+                <i className="fas fa-wrench"></i>
+              </label>
+              <Tooltip anchorId="tt-wrench" content="Fuite réparée" />
               <button
                 type="button"
                 id={20+i}

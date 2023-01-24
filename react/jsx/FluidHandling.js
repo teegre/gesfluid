@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import { Tooltip } from "react-tooltip";
+import 'react-tooltip/dist/react-tooltip.css';
 
 const FluidHandling = (props) => {
 
@@ -83,11 +85,25 @@ const FluidHandling = (props) => {
         </div>
         <div>
           <input className="btn-check" type="checkbox" role="switch" id="loadingFluid" onClick={(e) => {setFluidLoading(e.target.checked)}} />
-          <label className="btn border-0 btn-outline-dark btn-sm text-white" htmlFor="loadingFluid"><i className="fas fa-turn-down"></i></label>
+          <label
+            className="btn border-0 btn-outline-dark btn-sm text-white"
+            htmlFor="loadingFluid"
+            id='tt-load'
+          >
+            <i className="fas fa-turn-down"></i>
+          </label>
+          <Tooltip anchorId="tt-load" content="Chargement" />
         </div>
         <div>
           <input className="btn-check" type="checkbox" role="switch" id="collectingFluid" onClick={(e) => {setFluidCollecting(e.target.checked)}} />
-          <label className="btn border-0 btn-outline-dark btn-sm text-white" htmlFor="collectingFluid"><i className="fas fa-turn-up"></i></label>
+          <label
+            className="btn border-0 btn-outline-dark btn-sm text-white"
+            htmlFor="collectingFluid"
+            id="tt-collect"
+          >
+            <i className="fas fa-turn-up"></i>
+          </label>
+          <Tooltip anchorId="tt-collect" content="Récupération" />
         </div>
       </div>
       <div className="d-md-flex flex-md-row justify-content-between">
