@@ -24,7 +24,11 @@ class FluidType
     #[ORM\Column(length: 255)]
     #[Groups(['equipment:read', 'fluid:read', 'fluid_type:read'])]
     private ?string $name = null;
-
+    
+    #[ORM\Column]
+    #[Groups(['equipment:read', 'fluid:read', 'fluid_type:read'])]
+    private ?bool $flammable = false;
+    
     #[ORM\OneToMany(mappedBy: 'fluidType', targetEntity: Fluid::class)]
     #[Groups(['fluid_type:read'])]
     private Collection $fluids;
@@ -49,6 +53,18 @@ class FluidType
         $this->name = $name;
 
         return $this;
+    }
+
+    public function getFlammable(): ?bool
+    {
+      return $this->flammable;
+    }
+
+    public function setFlammable($flammable): self
+    {
+      $this->flammable = $flammable;
+
+      return $this;
     }
 
     /**

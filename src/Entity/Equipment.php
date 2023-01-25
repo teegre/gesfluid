@@ -37,6 +37,10 @@ class Equipment
     #[Groups(['equipment:read'])]
     private ?bool $leakDetectionSystem = false;
 
+    #[ORM\Column]
+    #[Groups(['equipment:read'])]
+    private ?int $controlFrequency = null;
+    
     #[ORM\ManyToOne(inversedBy: 'equipment')]
     #[Groups(['equipment:read'])]
     private ?Fluid $fluid = null;
@@ -99,6 +103,18 @@ class Equipment
     public function setLeakDetectionSystem(bool $leakDetectionSystem): self
     {
       $this->leakDetectionSystem = $leakDetectionSystem;
+
+      return $this;
+    }
+
+    public function getControlFrequency(): ?int
+    {
+      return $this->controlFrequency;
+    }
+
+    public function setControlFrequency($controlFrequency): self
+    {
+      $this->controlFrequency = $controlFrequency;
 
       return $this;
     }
