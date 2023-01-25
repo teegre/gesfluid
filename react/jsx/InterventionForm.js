@@ -154,7 +154,7 @@ const InterventionForm = () => {
                         data={equipment.fluid}
                         onChange={onContainerChange}
                       />
-                      <Wastes data={equipment.fluid.fluidType.name}/>
+                      <Wastes data={equipment.fluid.fluidType}/>
                     </>
                 }
               </>

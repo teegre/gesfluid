@@ -1,8 +1,6 @@
 import React from "react";
-import { useState } from "react";
 
 const Wastes = (props) => {
-  const [wasteType, setWasteType] = useState(null);
 
   return (
     <div className="container">
@@ -11,6 +9,19 @@ const Wastes = (props) => {
           <i className="fas fa-dumpster"></i> Dénomination ADR/RID
         </div>
       </div>
+      <div>
+        {props.data.flammable &&
+          <div className="border border-0 rounded-0" disabled>
+            <i className="fas fa-dumpster-fire"></i> {props.data.name}
+          </div>
+        }
+        {props.data.flammable ||
+          <div className="border border-0 rounded-0" disabled>
+            <i className="fas fa-dumpster"></i> {props.data.name}
+          </div>
+        }
+      </div>
+    <hr />
     </div>
   )
 }
