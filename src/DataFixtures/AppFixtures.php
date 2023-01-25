@@ -56,7 +56,7 @@ class AppFixtures extends Fixture
   {
     // Types de fluide
     $fluidType = new FluidType();
-    $fluidType->setName('Non-inflammable UN 1078');
+    $fluidType->setName('UN 1078');
     $fluidType->setFlammable(false);
     $this->fluidTypes[] = $fluidType;
     $manager->persist($fluidType);
@@ -66,7 +66,7 @@ class AppFixtures extends Fixture
     $this->fluidTypes[] = $fluidType;
     $manager->persist($fluidType);
     $fluidType = new FluidType();
-    $fluidType->setName('Inflammable UN 3161');
+    $fluidType->setName('UN 3161');
     $fluidType->setFlammable(true);
     $this->fluidTypes[] = $fluidType;
     $manager->persist($fluidType);
