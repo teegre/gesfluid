@@ -30,7 +30,7 @@ class Fluid
     private Collection $containers;
 
     #[ORM\ManyToOne(inversedBy: 'fluids')]
-    #[Groups(['container:read', 'fluid:read'])]
+    #[Groups(['container:read', 'fluid:read', 'equipment:read'])]
     private ?FluidType $fluidType = null;
 
     #[ORM\OneToMany(mappedBy: 'fluid', targetEntity: Equipment::class)]

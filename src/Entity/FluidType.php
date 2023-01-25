@@ -7,20 +7,26 @@ use App\Repository\FluidTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: FluidTypeRepository::class)]
-#[ApiResource]
+#[ApiResource(
+  normalizationContext: ['groups' => 'fluid_type:read']
+ )]
 class FluidType
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['equipment:read','fluid:read', 'fluid_type:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['equipment:read', 'fluid:read', 'fluid_type:read'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'fluidType', targetEntity: Fluid::class)]
+    #[Groups(['fluid_type:read'])]
     private Collection $fluids;
 
     public function __construct()
