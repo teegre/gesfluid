@@ -57,18 +57,22 @@ class AppFixtures extends Fixture
     // Types de fluide
     $fluidType = new FluidType();
     $fluidType->setName('Non-inflammable UN 1078');
+    $fluidType->setFlammable(false);
     $this->fluidTypes[] = $fluidType;
     $manager->persist($fluidType);
     $fluidType = new FluidType();
     $fluidType->setName('Non-inflammable autre');
+    $fluidType->setFlammable(false);
     $this->fluidTypes[] = $fluidType;
     $manager->persist($fluidType);
     $fluidType = new FluidType();
     $fluidType->setName('Inflammable UN 3161');
+    $fluidType->setFlammable(true);
     $this->fluidTypes[] = $fluidType;
     $manager->persist($fluidType);
     $fluidType = new FluidType();
     $fluidType->setName('Inflammable autre');
+    $fluidType->setFlammable(true);
     $this->fluidTypes[] = $fluidType;
     $manager->persist($fluidType);
   }
@@ -94,7 +98,7 @@ class AppFixtures extends Fixture
       $container->setSerialNumber(uniqid());
       $container->setCapacity($this->random_float(1, 10));
       // On choisit un fluide aléatoirement dans le tableau $fluids
-      if (rand(0,1) == 1) {
+      if (rand(0, 1) == 1) {
         $container->setFluid($this->fluids[rand(0, count($this->fluids)-1)]);
         $capacity = $container->getCapacity();
         $container->setFluidQuantity($this->random_float(1, $capacity));
@@ -111,6 +115,13 @@ class AppFixtures extends Fixture
       $equipment->setName('Equipement ' . $i);
       $equipment->setWeight($this->random_float(50, 100));
       $equipment->setCo2EqTonnage($this->random_float(100, 1000));
+      $leakDetectionSystem = rand(0, 1) == 1;
+      $equipment->setLeakDetectionSystem($leakDetectionSystem);
+      if ($leakDetectionSystem) {
+        $equipment->setControlFrequency([24, 12, 6][rand(0, 2)]);
+      } else {
+        $equipment->setControlFrequency([12, 6, 3][rand(0, 2)]);
+      }
       // On choisit un fluide aléatoirement dans le tableau $fluids
       $equipment->setFluid($this->fluids[rand(0, count($this->fluids)-1)]);
       $manager->persist($equipment);
@@ -174,8 +185,8 @@ class AppFixtures extends Fixture
     $plainPassword = 'password';
 
     $user = new User();
-    $user->setFirstName('Trey');
-    $user->setLastName('Spruance');
+    $user->setFirstName('Bootsy');
+    $user->setLastName('Collins');
     $user->setUserGroup($this->userGroups[0]);
     $user->setUserId($this->userGroups[0]->getName() . '1');
     $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
@@ -184,8 +195,8 @@ class AppFixtures extends Fixture
     $manager->persist($user);
 
     $user = new User();
-    $user->setFirstName('Jet');
-    $user->setLastName('Black');
+    $user->setFirstName('Mark');
+    $user->setLastName('King');
     $user->setUserGroup($this->userGroups[1]);
     $user->setUserId($this->userGroups[1]->getName() . '1');
     $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
