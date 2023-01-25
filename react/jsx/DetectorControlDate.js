@@ -14,7 +14,7 @@ const DetectorControlDate = (props) => {
         value={controlDate}
       />
       <label htmlFor="detectorControlDate" className="small fw-bold text-success">
-        <i className="fas fa-clipboard-check"></i> Date de contrôle
+        <i className="fas fa-clipboard-check"></i> Date du dernier contrôle ({props.data.name})
       </label>
     </div>
   )
