@@ -2,13 +2,14 @@ import React from "react";
 import { useState } from "react";
 import Detectors from "./Detectors";
 import DetectorControlDate from "./DetectorControlDate"
-import Equipments from "./Equipments";
+import Equipments from "./Equipment";
 import InterventionTypes from "./InterventionTypes";
 import OtherType from "./OtherType";
 import Leakage from "./Leakage";
 import Containers from "./Containers";
 import EquipmentDetails from "./EquipmentDetails";
 import FluidHandling from "./FluidHandling";
+import Wastes from "./Wastes";
 import FluidDestination from "./FluidDestination";
 import Remarks from "./Remarks";
 
@@ -148,10 +149,13 @@ const InterventionForm = () => {
                 <FluidHandling onChange={onFluidQuantitiesChange} />
                 { 
                   (mustInstall() || fluidQuantities['D'] > 0) &&
-                    <Containers
-                      data={equipment.fluid}
-                      onChange={onContainerChange}
-                    />
+                    <>
+                      <Containers
+                        data={equipment.fluid}
+                        onChange={onContainerChange}
+                      />
+                      <Wastes data={equipment.fluid.fluidType.name}/>
+                    </>
                 }
               </>
             }
