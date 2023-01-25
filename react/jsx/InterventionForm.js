@@ -99,7 +99,7 @@ const InterventionForm = () => {
   }
 
   const mustInstall = () => {
-    return fluidQuantities['D']+fluidQuantities['E'] > 0;
+    return fluidQuantities['E'] > 0;
   }
 
   return (
@@ -146,10 +146,13 @@ const InterventionForm = () => {
             { equipment && type && !type.name.startsWith('Contrôle') &&
               <>
                 <FluidHandling onChange={onFluidQuantitiesChange} />
-                <Containers
-                  data={equipment.fluid}
-                  onChange={onContainerChange}
-                />
+                { 
+                  (mustInstall() || fluidQuantities['D'] > 0) &&
+                    <Containers
+                      data={equipment.fluid}
+                      onChange={onContainerChange}
+                    />
+                }
               </>
             }
 
