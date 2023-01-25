@@ -117,7 +117,7 @@ const FluidHandling = (props) => {
               value={sumABC}
             />
             <label htmlFor="totalLoadedFluidQuantity" className="fw-bold text-danger">
-              <i className="fas fa-down-long"></i> Quantité totale chargée <sup>(A+B+C)</sup></label>
+              <i className="fas fa-turn-down"></i> Quantité totale chargée <sup>(A+B+C)</sup></label>
           </div>
           <div className="form-floating m-2">
             <input
@@ -167,7 +167,7 @@ const FluidHandling = (props) => {
               value={sumDE}
             />
             <label htmlFor="totalRetrievedFluidQuantity" className="fw-bold text-danger">
-              <i className="fas fa-up-long"></i> Quantité totale récupérée <sup>(D+E)</sup></label>
+              <i className="fas fa-turn-up"></i> Quantité totale récupérée <sup>(D+E)</sup></label>
           </div>
           <div className="form-floating m-2">
             <input

@@ -14,6 +14,7 @@ const InterventionTypes = (props) => {
   return (
     <div className="form-floating m-2">
       <select
+        key={props.data} // reset if equipment changed
         onChange={(e) => {props.onChange(types[e.target.value])}}
         className="form-select form-select-sm"
         id="typeLabel"

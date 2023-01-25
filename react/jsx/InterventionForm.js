@@ -16,7 +16,7 @@ const InterventionForm = () => {
 
   // States
   const [interventionDate, setInterventionDate] = useState(null);
-  const [type, setType] = useState("");
+  const [type, setType] = useState(null);
   const [otherType, setOtherType] = useState(null);
   const [equipment, setEquipment] = useState(null);
   const [detector, setDetector] = useState(null);
@@ -38,16 +38,17 @@ const InterventionForm = () => {
     setInterventionDate(e.target.value);
   }
 
+  const onEquipmentChange = (e) => {
+    handleReset();
+    setEquipment(e);
+  }
+
   const onTypeChange = (e) => {
     setType(e);
   }
 
   const onOtherTypeChange = (e) => {
     setOtherType(e.target.value);
-  }
-
-  const onEquipmentChange = (e) => {
-    setEquipment(e);
   }
 
   const onDetectorChange = (e) => {
@@ -85,7 +86,7 @@ const InterventionForm = () => {
 
   const handleReset = () => {
     setInterventionDate(null);
-    setType("");
+    setType();
     setOtherType(null);
     setEquipment(null);
     setDetector(null);
@@ -107,7 +108,6 @@ const InterventionForm = () => {
       <div className="section-center">
         <div className="container">
           <form onSubmit={handleSubmit}>
-            {/* {equipment?.name} */}
             <div className="form-floating m-2">
               <input
                 type="date"
@@ -124,7 +124,7 @@ const InterventionForm = () => {
             { equipment &&
               <>
                 <EquipmentDetails data={equipment} />
-                <InterventionTypes onChange={onTypeChange} />
+                <InterventionTypes onChange={onTypeChange} data={equipment.id} />
               </>
             }
             { type?.name === "Autre"  &&
