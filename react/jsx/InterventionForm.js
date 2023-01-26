@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import User from "./User";
 import Detectors from "./Detectors";
 import DetectorControlDate from "./DetectorControlDate"
 import Equipments from "./Equipment";
@@ -35,6 +36,7 @@ const InterventionForm = () => {
   const now = date.toLocaleDateString("fr-CA");
   
   // Events
+  
   const onInterventionDateChange = (e) => {
     setInterventionDate(e.target.value);
   }
@@ -108,6 +110,7 @@ const InterventionForm = () => {
     <div className="section">
       <div className="section-center">
         <div className="container">
+          <User data={window.user} />
           <form onSubmit={handleSubmit}>
             <div className="form-floating m-2">
               <input
