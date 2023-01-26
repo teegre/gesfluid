@@ -12,11 +12,9 @@ const User = (props) => {
   }, [props.data])
 
   return (
-    <div className="container">
-      <div className="my-2 bg-secondary p-2 rounded">
-        <div className="text-light">
-          <i className="fas fa-user"></i> {user.firstName} {user.lastName}
-        </div>
+    <div className="mx-2 me-2 bg-secondary p-2 rounded">
+      <div className="text-light">
+        <i className="fas fa-user"></i> {user.firstName} {user.lastName}
       </div>
     </div>
   )

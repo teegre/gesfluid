@@ -14,30 +14,35 @@ import Wastes from "./Wastes";
 import FluidDestination from "./FluidDestination";
 import Remarks from "./Remarks";
 
-const InterventionForm = () => {
+import ax from "./Axios";
 
-  // States
-  const [interventionDate, setInterventionDate] = useState(null);
-  const [type, setType] = useState(null);
-  const [otherType, setOtherType] = useState(null);
-  const [equipment, setEquipment] = useState(null);
-  const [detector, setDetector] = useState(null);
-  const [detectorControlDate, setDetectorControlDate] = useState(null);
-  const [leakLocations, setLeakLocations] = useState([]);
-  const [leakFixed, setLeakFixed] = useState([]);
-  const [fluidQuantities, setFluidQuantities] = useState({});
-  const [container, setContainer] = useState(null);
-  const [fluidDestination, setFluidDestination] = useState("");
-  const [remarks, setRemarks] = useState("");
+const InterventionForm = () => {
 
   // Current date
   const date = new Date();
   date.setDate(date.getDate());
   const now = date.toLocaleDateString("fr-CA");
   
+  // States
+  const [interventionDate, setInterventionDate] = useState(now);
+  const [equipment, setEquipment] = useState(null);
+  const [type, setType] = useState(null);
+  const [otherType, setOtherType] = useState("");
+  const [detector, setDetector] = useState(null);
+  const [detectorControlDate, setDetectorControlDate] = useState(null);
+  const [leakLocations, setLeakLocations] = useState([]);
+  const [leakFixed, setLeakFixed] = useState([]);
+  const [fluidQuantities, setFluidQuantities] = useState({
+    'A': 0, 'B': 0, 'C': 0, 'D': 0, 'E': 0, 'BSFF': ''
+  });
+  const [container, setContainer] = useState(null);
+  const [fluidDestination, setFluidDestination] = useState("");
+  const [remarks, setRemarks] = useState("");
+
   // Events
   
   const onInterventionDateChange = (e) => {
+    console.log(e.target.value);
     setInterventionDate(e.target.value);
   }
 
@@ -83,27 +88,56 @@ const InterventionForm = () => {
   }
 
   const handleSubmit = (e) => {
-    alert("The form has been submitted! ");
     e.preventDefault;
+    let post = {
+      "date": interventionDate,
+      "virginFluidQuantity": fluidQuantities.A,
+      "recycledFluidQuantity": fluidQuantities.B,
+      "regeneratedFluidQuantity": fluidQuantities.C,
+      "forProcessingFluidQuantity": fluidQuantities.D,
+      "bsffNumber": fluidQuantities.BSFF,
+      "reusableFluidQuantity": fluidQuantities.E,
+      "collectedFluidDestination": fluidDestination,
+      "remarks": remarks,
+      "interventionType": "/api/intervention_types/" + type.id,
+      "equipment": "/api/equipment/" + equipment.id,
+      "container": container?"/api/containers/" + container.id:null,
+      "detector": detector?"/api/detectors/" + detector.id:null,
+      "user": "/api/users/" + window.user,
+      "pdfPath": "",
+    };
+
+    console.log('json:', post);
+
+    ax.post('/interventions',
+      post
+    )
+    .then((response) => {
+      console.log("response:", response);
+    })
+    .catch((error) => {
+      console.log('ERROR', error);
+    });
+    
   }
 
   const handleReset = () => {
-    setInterventionDate(null);
+    // setInterventionDate(now);
     setType(null);
-    setOtherType(null);
+    setOtherType("");
     setEquipment(null);
     setDetector(null);
     setDetectorControlDate(null);
     setLeakLocations([]);
     setLeakFixed([]);
-    setFluidQuantities({});
+    setFluidQuantities({ 'A': 0, 'B': 0, 'C': 0, 'D': 0, 'E': 0, 'BSFF': ''});
     setContainer(null);
     setFluidDestination("");
     setRemarks("");
   }
 
   const mustInstall = () => {
-    return fluidQuantities['E'] > 0;
+    return fluidQuantities.E > 0;
   }
 
   return (
@@ -111,7 +145,7 @@ const InterventionForm = () => {
       <div className="section-center">
         <div className="container">
           <User data={window.user} />
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="form-floating m-2">
               <input
                 type="date"
@@ -151,14 +185,14 @@ const InterventionForm = () => {
               <>
                 <FluidHandling onChange={onFluidQuantitiesChange} />
                 { 
-                  (mustInstall() || fluidQuantities['D'] > 0) &&
+                  (mustInstall() || fluidQuantities.D > 0) &&
                     <Containers
                       data={equipment.fluid}
                       onChange={onContainerChange}
                     />
                 }
 
-                { fluidQuantities['D'] > 0 &&
+                { fluidQuantities.D > 0 &&
                   <Wastes data={equipment.fluid.fluidType}/>
                 }
               </>
@@ -177,7 +211,7 @@ const InterventionForm = () => {
                 <button className="btn btn-sm btn-warning" type="reset" onClick={handleReset}>Annuler</button>
               </div>
               <div>
-                <button className="btn btn-sm btn-danger" type="submit">Enregistrer</button>
+                <button className="btn btn-sm btn-danger" type="button" onClick={handleSubmit}>Enregistrer</button>
               </div>
             </div>
           </form>
