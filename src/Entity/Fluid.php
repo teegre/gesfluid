@@ -7,6 +7,7 @@ use App\Repository\FluidRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Query\Expr\Func;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: FluidRepository::class)]
@@ -130,5 +131,10 @@ class Fluid
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+      return $this->name;
     }
 }

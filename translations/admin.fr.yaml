@@ -1,5 +1,3 @@
-Control Frequency Hcfc H F C: Fréquence minimale du contrôle périodique (HCFC)
-Control Frequency H F C: Fréquence minimale du contrôle périodique (HFC/PFC)
 Virgin Fluid Quantity: Quantité chargée de fluide vierge
 Recycled Fluid Quantity: Quantité chargée de fluide recyclé
 Regenerated Fluid Quantity: Quantité chargée de fluide régénéré
@@ -27,4 +25,9 @@ User: Utilisateur
 User Id: Identifiant
 First Name: Prénom
 Last Name: Nom
+Firstname: Prénom
+Lastname: Nom
+User Group: Groupe
+Password: Mot de passe
 Group: Groupe
+Flammable: Inflammable
