@@ -5,9 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\HiddenField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -22,7 +21,8 @@ class UserCrudController extends AbstractCrudController
         'firstname',
         'lastname',
         AssociationField::new('userGroup')->renderAsNativeWidget(),
-        TextField::new('password')->setProperty('password'),
+        TextField::new('userId')->setFormTypeOption('disabled', 'disabled'),
+        TextField::new('password')->setFormType(PasswordType::class)
       ];
     }
 }
