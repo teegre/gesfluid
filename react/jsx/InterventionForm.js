@@ -149,13 +149,14 @@ const InterventionForm = () => {
                 <FluidHandling onChange={onFluidQuantitiesChange} />
                 { 
                   (mustInstall() || fluidQuantities['D'] > 0) &&
-                    <>
-                      <Containers
-                        data={equipment.fluid}
-                        onChange={onContainerChange}
-                      />
-                      <Wastes data={equipment.fluid.fluidType}/>
-                    </>
+                    <Containers
+                      data={equipment.fluid}
+                      onChange={onContainerChange}
+                    />
+                }
+
+                { fluidQuantities['D'] > 0 &&
+                  <Wastes data={equipment.fluid.fluidType}/>
                 }
               </>
             }
