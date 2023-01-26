@@ -26,24 +26,6 @@ class Intervention
     #[Groups(['intervention:read'])]
     private ?\DateTimeInterface $date = null;
 
-    /* Fréquence minimale du contrôle périodique
-     * pour un équipement HCFC et HFC sans système
-     * permanent de détection des fuites
-     * (12, 6 ou 3 mois)
-     */
-    #[ORM\Column(nullable: true)]
-    #[Groups(['intervention:read'])]
-    private ?int $controlFrequencyHcfcHFC = null;
-
-    /* Fréquence minimale du contrôle périodique
-     * pour un équipement HFC avec système
-     * permanent de détection des fuites
-     * (24, 12 ou 6 mois)
-     */
-    #[ORM\Column(nullable: true)]
-    #[Groups(['intervention:read'])]
-    private ?int $controlFrequencyHFC = null;
-
     #[ORM\Column(nullable: true)]
     #[Groups(['intervention:read'])]
     /* Quantité de fluide vierge récupérée */
@@ -142,30 +124,6 @@ class Intervention
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    public function getControlFrequencyHcfcHFC(): ?int
-    {
-        return $this->controlFrequencyHcfcHFC;
-    }
-
-    public function setControlFrequencyHcfcHFC(int $controlFrequencyHcfcHFC): self
-    {
-        $this->controlFrequencyHcfcHFC = $controlFrequencyHcfcHFC;
-
-        return $this;
-    }
-
-    public function getControlFrequencyHFC(): ?int
-    {
-        return $this->controlFrequencyHFC;
-    }
-
-    public function setControlFrequencyHFC(int $controlFrequencyHFC): self
-    {
-        $this->controlFrequencyHFC = $controlFrequencyHFC;
 
         return $this;
     }
