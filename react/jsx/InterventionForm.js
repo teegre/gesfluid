@@ -88,8 +88,8 @@ const InterventionForm = () => {
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault;
-    let post = {
+    e.preventDefault();
+    let intervention = {
       "date": interventionDate,
       "virginFluidQuantity": fluidQuantities.A,
       "recycledFluidQuantity": fluidQuantities.B,
@@ -107,13 +107,14 @@ const InterventionForm = () => {
       "pdfPath": "",
     };
 
-    console.log('json:', post);
+    console.log('json:', intervention);
 
     ax.post('/interventions',
-      post
+      intervention
     )
     .then((response) => {
       console.log("response:", response);
+      handleReset();
     })
     .catch((error) => {
       console.log('ERROR', error);
@@ -123,9 +124,9 @@ const InterventionForm = () => {
 
   const handleReset = () => {
     // setInterventionDate(now);
+    setEquipment(null);
     setType(null);
     setOtherType("");
-    setEquipment(null);
     setDetector(null);
     setDetectorControlDate(null);
     setLeakLocations([]);
@@ -145,7 +146,7 @@ const InterventionForm = () => {
       <div className="section-center">
         <div className="container">
           <User data={window.user} />
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="form-floating m-2">
               <input
                 type="date"
@@ -211,7 +212,9 @@ const InterventionForm = () => {
                 <button className="btn btn-sm btn-warning" type="reset" onClick={handleReset}>Annuler</button>
               </div>
               <div>
-                <button className="btn btn-sm btn-danger" type="button" onClick={handleSubmit}>Enregistrer</button>
+                <button className="btn btn-sm btn-danger" type="submit" disabled={!type || !equipment}>
+                  Enregistrer
+                </button>
               </div>
             </div>
           </form>
