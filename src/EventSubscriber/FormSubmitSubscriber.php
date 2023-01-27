@@ -28,13 +28,20 @@ class FormSubmitSubscriber implements EventSubscriberInterface
       return;
     }
 
+    $user = $intervention->getUser();
+    $userId = $user->getUserId();
+    $date = $intervention->getDate()->format('Ymd');
+    $filename = $date . '_' . $userId . '-' . $intervention->getId() . '.pdf';
+    $userFirstName = $user->getFirstName();
+    $userLastName = $user->getLastName();
+    
     $pdf = new Pdf();
     $pdf->addFile('template.pdf');
     $result = $pdf->fillForm([
-      'Operateur' => $intervention->getUser()->getFirstName(),
+      'Operateur' => $userFirstName . ' ' . $userLastName,
     ])
       ->needAppearances()
-      ->saveAs('interventions/' . $intervention->getDate()->format('Ymd') . $intervention->getUser()->getUserId());
+      ->saveAs('interventions/' . $filename);
     
     if ($result === false) {
       $error = $pdf->getError();
