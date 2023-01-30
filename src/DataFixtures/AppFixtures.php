@@ -28,19 +28,19 @@ class AppFixtures extends Fixture
     $this->addFluidTypes($manager);
     $this->addFluids($manager);
     $this->addContainers($manager);
-    $this->addEquipments($manager);
+    $this->addEquipment($manager);
     $this->addDetectors($manager);
-    $this->addInterventionsType($manager);
+    $this->addInterventionTypes($manager);
     $this->addGroups($manager);
     $this->addUsers($manager);
     $manager->flush();
   }
 
-  private function random_float($min, $max): float
-  {
-    // Retourne un float aléatoire compris entre $min et $max.
-    return ($min + lcg_value() * (abs($max - $min)));
-  }
+  /* private function random_float($min, $max): float */
+  /* { */
+  /*   // Retourne un float aléatoire compris entre $min et $max. */
+  /*   return ($min + lcg_value() * (abs($max - $min))); */
+  /* } */
 
   private function random_date(): DateTime
   {
@@ -95,26 +95,26 @@ class AppFixtures extends Fixture
     // Contenants
     for ($i = 1; $i <= 10; $i++) {
       $container = new Container;
-      $container->setSerialNumber(uniqid());
-      $container->setCapacity($this->random_float(1, 10));
+      $container->setSerialNumber(strtoupper(uniqid()));
+      $container->setCapacity(rand(25, 30));
       // On choisit un fluide aléatoirement dans le tableau $fluids
       if (rand(0, 1) == 1) {
         $container->setFluid($this->fluids[rand(0, count($this->fluids)-1)]);
         $capacity = $container->getCapacity();
-        $container->setFluidQuantity($this->random_float(1, $capacity));
+        $container->setFluidQuantity(rand(1, $capacity));
       }
       $manager->persist($container);
     }
   }
 
-  private function addEquipments(ObjectManager $manager): void
+  private function addEquipment(ObjectManager $manager): void
   {
     // Equipements
     for ($i = 1; $i <= 3; $i++) {
       $equipment = new Equipment;
       $equipment->setName('Equipement ' . $i);
-      $equipment->setWeight($this->random_float(50, 100));
-      $equipment->setCo2EqTonnage($this->random_float(100, 1000));
+      $equipment->setWeight(rand(2, 29));
+      $equipment->setCo2EqTonnage(rand(1, 10));
       $leakDetectionSystem = rand(0, 1) == 1;
       $equipment->setLeakDetectionSystem($leakDetectionSystem);
       if ($leakDetectionSystem) {
@@ -139,7 +139,7 @@ class AppFixtures extends Fixture
     }
   }
 
-  private function addInterventionsType(ObjectManager $manager): void
+  private function addInterventionTypes(ObjectManager $manager): void
   {
     $types = [
       "Assemblage",
