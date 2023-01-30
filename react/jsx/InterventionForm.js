@@ -42,7 +42,6 @@ const InterventionForm = () => {
   // Events
   
   const onInterventionDateChange = (e) => {
-    console.log(e.target.value);
     setInterventionDate(e.target.value);
   }
 
