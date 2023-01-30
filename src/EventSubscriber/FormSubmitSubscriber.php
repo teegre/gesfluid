@@ -4,6 +4,7 @@ namespace App\EventSubscriber;
 use App\Entity\Intervention;
 use ApiPlatform\Symfony\EventListener\EventPriorities;
 use App\Kernel;
+use App\Repository\InterventionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
@@ -37,13 +38,17 @@ class FormSubmitSubscriber implements EventSubscriberInterface
     'leak_todo_3'               => 'Case_Rep_Fuite3_AFaire',
   ];
 
-  /* private $leaks = []; */
+  private $interventionRepository;
+
+  public function __construct(InterventionRepository $interventionRepository)
+  {
+    $this->interventionRepository = $interventionRepository;
+  }
 
   public static function getSubscribedEvents()
   {
     return [
       KernelEvents::VIEW => ['handleSubmit', EventPriorities::POST_WRITE],
-      /* KernelEvents::RESPONSE => ['handleLeakage', EventPriorities::PRE_WRITE], */
     ];
   } 
 
@@ -74,7 +79,7 @@ class FormSubmitSubscriber implements EventSubscriberInterface
     // Intervention type
     $type = $intervention->getInterventionType();
 
-    // Leak detector and leak detection system
+    // Manual leak detector and leak detection system
     $detector = $intervention->getDetector();
     if ($detector) {
       $detectorName = $detector->getName();
@@ -161,7 +166,7 @@ class FormSubmitSubscriber implements EventSubscriberInterface
         $adrRid = '';
         break;
     }
-    
+
     $pdf = new Pdf();
     $pdf->addFile('template.pdf');
     $result = $pdf->fillForm([
@@ -225,6 +230,12 @@ class FormSubmitSubscriber implements EventSubscriberInterface
     if ($result === false) {
       $error = $pdf->getError();
     }
+
+    // Save PDF path
+    $intervention->setPdfPath('interventions/' . $filename);
+    $this->interventionRepository->save($intervention, true);
+    
+
   }
 }
 
