@@ -100,6 +100,7 @@ const InterventionForm = () => {
       "collectedFluidDestination": fluidDestination,
       "remarks": remarks,
       "interventionType": "/api/intervention_types/" + type.id,
+      "otherInterventionType": otherType,
       "equipment": "/api/equipment/" + equipment.id,
       "container": container?"/api/containers/" + container.id:null,
       "detector": detector?"/api/detectors/" + detector.id:null,
