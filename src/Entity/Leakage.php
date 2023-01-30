@@ -5,20 +5,30 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\LeakageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: LeakageRepository::class)]
-#[ApiResource]
+#[ApiResource(
+  normalizationContext: ['groups' => 'leakage:read']
+ )]
 class Leakage
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['leakage:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['leakage:read'])]
     private ?string $location = null;
 
+    #[ORM\Column]
+    #[Groups(['leakage:read'])]
+    private ?bool $fixed = false;
+
     #[ORM\ManyToOne(inversedBy: 'leakage')]
+    #[Groups(['leakage:read'])]
     private ?Intervention $intervention = null;
 
     public function getId(): ?int
@@ -36,6 +46,18 @@ class Leakage
         $this->location = $location;
 
         return $this;
+    }
+
+    public function getFixed(): ?bool
+    {
+      return $this->fixed;
+    }
+
+    public function setFixed(bool $fixed): self
+    {
+      $this->fixed = $fixed;
+
+      return $this;
     }
 
     public function getIntervention(): ?Intervention
