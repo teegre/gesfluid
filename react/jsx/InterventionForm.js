@@ -86,6 +86,47 @@ const InterventionForm = () => {
     setRemarks(e.target.value);
   }
 
+  const postLeaks = (interventionID) => {
+
+    let leaksIDs = [];
+
+    for (let i = 0;  i < leakLocations.length;  i++) {
+      let leak = {
+        "location": leakLocations[i],
+        "fixed": leakFixed[i],
+        "intervention": "/api/interventions/" + interventionID,
+      }
+      console.log('Leak #' + (i+1), leak);
+      // POST leaks
+      ax.post('/leakages',
+        leak
+      )
+      .then((response) => {
+        console.log(response);
+        leaksIDs.push(response.data.id);
+      })
+      .catch((error) => {
+        console.log('ERROR', error);
+      });
+    }
+    return leaksIDs;
+  }
+
+  const patchIntervention = (interventionID, leaksIDs) => {
+    ax.patch('/interventions/' + interventionID,
+    {
+      "leakage": leaksIDs,
+    })
+    .then((response) => {
+      console.log('PATCH RESPONSE', response);
+      return true;
+    })
+    .catch((error) => {
+      console.log('PATCH ERROR', error);
+      return false;
+    });
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let intervention = {
@@ -109,11 +150,24 @@ const InterventionForm = () => {
 
     console.log('json:', intervention);
 
+    // POST intervention
     ax.post('/interventions',
       intervention
     )
     .then((response) => {
-      console.log("response:", response);
+      console.log('intervention response:', response);
+      if (leakLocations.length > 0) {
+        // POST leaks
+        let interventionID = response.data.id;
+        let leaksIDs = postLeaks(interventionID);
+        console.log('leaks ids', leaksIDs);
+        if (leaksIDs.length > 0) {
+          if (!patchIntervention(interventionID, leaksIDs)) {
+            console.log('PATCH: something went wrong...');
+            return;
+          }
+        }
+      }
       handleReset();
     })
     .catch((error) => {
