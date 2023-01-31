@@ -19,6 +19,10 @@ class Leakage
     #[Groups(['leakage:read'])]
     private ?int $id = null;
 
+    #[ORM\Column]
+    #[Groups(['leakage:read'])]
+    private ?int $num = null;
+
     #[ORM\Column(length: 255)]
     #[Groups(['leakage:read'])]
     private ?string $location = null;
@@ -46,6 +50,18 @@ class Leakage
         $this->location = $location;
 
         return $this;
+    }
+
+    public function getNum(): ?int
+    {
+      return $this->num;
+    }
+
+    public function setNum(int $num): self
+    {
+      $this->num = $num;
+
+      return $this;
     }
 
     public function getFixed(): ?bool
