@@ -96,6 +96,7 @@ class FormSubmitSubscriber implements EventSubscriberInterface
     $leakDetectionSystem = $equipment->getLeakDetectionSystem();
 
     // Control frequency
+    $controlFrequency = '';
     if ($type->getId() == 5 || $type->getId() == 6) {
       $frequency = $equipment->getControlFrequency();
       if ($leakDetectionSystem) {
@@ -123,8 +124,6 @@ class FormSubmitSubscriber implements EventSubscriberInterface
             break;
         }
       }
-    } else {
-      $controlFrequency = '';
     }
 
     // Fluid quantities
