@@ -2,27 +2,27 @@ import React from "react";
 import { useEffect, useState } from "react";
 import ax from "./Axios";
 
-const Equipments = (props) => {
+const Equipment = (props) => {
 
-  const [equipments, setEquipments] = useState([]);
+  const [equipment, setEquipment] = useState([]);
   useEffect(() => {
     ax.get("/equipment").then((response) => {
-      setEquipments(response.data)
+      setEquipment(response.data)
     })
   }, [])
 
   return (
     <div className="form-floating m-2">
       <select
-        onChange={(e) => {props.onChange(equipments[e.target.value])}}
+        onChange={(e) => {props.onChange(equipment[e.target.value])}}
         className="form-select form-select-sm"
         id="equipmentLabel"
       >
       <option defaultValue={null}>------</option>
       {
-        equipments.map((equipment, i) => (
-          <option value={i} key={equipment.id}>
-            {equipment.name}
+        equipment.map((gear, i) => (
+          <option value={i} key={gear.id}>
+            {gear.name}
           </option>
         ))
       }
@@ -34,4 +34,4 @@ const Equipments = (props) => {
   )
 }
 
-export default Equipments;
+export default Equipment;
