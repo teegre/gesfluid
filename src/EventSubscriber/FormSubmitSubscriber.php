@@ -3,7 +3,7 @@ namespace App\EventSubscriber;
 
 use App\Entity\Intervention;
 use ApiPlatform\Symfony\EventListener\EventPriorities;
-use App\Kernel;
+use App\Entity\Leakage;
 use App\Repository\InterventionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -11,31 +11,19 @@ use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 use mikehaertl\pdftk\Pdf;
-use Symfony\Component\HttpKernel\Event\KernelEvent;
 
 class FormSubmitSubscriber implements EventSubscriberInterface
 {
 
   private $fields = [
-    1                           => 'Case_Assemblage',
-    2                           => 'Case_MiseService',
-    3                           => 'Case_Modif',
-    4                           => 'Case_Maintenance',
-    5                           => 'Case_CtrlPerio',
-    6                           => 'Case_CtrlNonPerio',
-    7                           => 'Case_Demantel',
-    8                           => 'Case_Autre',
-    'leak_yes'                  => 'Case_Fuite_Oui',
-    'leak_no'                   => 'Case_Fuite_Non',
-    'leak_location_1'           => 'Fuite_Loca_1',
-    'leak_location_2'           => 'Fuite_Loca_2',
-    'leak_location_3'           => 'Fuite_Loca_3',
-    'leak_fixed_1'              => 'Case_Rep_Fuite1_realisee',
-    'leak_fixed_2'              => 'Case_Rep_Fuite2_realisee',
-    'leak_fixed_3'              => 'Case_Rep_Fuite3_realisee',
-    'leak_todo_1'               => 'Case_Rep_Fuite1_AFaire',
-    'leak_todo_2'               => 'Case_Rep_Fuite2_AFaire',
-    'leak_todo_3'               => 'Case_Rep_Fuite3_AFaire',
+    1 => 'Case_Assemblage',
+    2 => 'Case_MiseService',
+    3 => 'Case_Modif',
+    4 => 'Case_Maintenance',
+    5 => 'Case_CtrlPerio',
+    6 => 'Case_CtrlNonPerio',
+    7 => 'Case_Demantel',
+    8 => 'Case_Autre',
   ];
 
   private $interventionRepository;
@@ -48,18 +36,25 @@ class FormSubmitSubscriber implements EventSubscriberInterface
   public static function getSubscribedEvents()
   {
     return [
-      KernelEvents::VIEW => ['handleSubmit', EventPriorities::POST_WRITE],
+      KernelEvents::VIEW => ['onPost', EventPriorities::POST_WRITE],
     ];
-  } 
+  }
 
-  public function handleSubmit(ViewEvent $event): void
+  public function onPost(ViewEvent $event): void
   {
-    $intervention = $event->getControllerResult();
+    $entity = $event->getControllerResult();
     $method = $event->getRequest()->getMethod();
 
-    if (!$intervention instanceof Intervention || Request::METHOD_POST !== $method) {
+    if ($entity instanceof Leakage && Request::METHOD_POST === $method) {
+      $this->onLeakPost($event);
       return;
     }
+
+    if (!$entity instanceof Intervention || Request::METHOD_POST !== $method) {
+      return;
+    }
+
+    $intervention = $entity;
 
     // Intervention date
     $pdfDate = $intervention->getDate()->format('Ymd');
@@ -97,7 +92,8 @@ class FormSubmitSubscriber implements EventSubscriberInterface
 
     // Control frequency
     $controlFrequency = '';
-    if ($type->getId() == 5 || $type->getId() == 6) {
+    if ($type->getId() === 5 || $type->getId() === 6) {
+      $leakFound = 'Case_Fuite_Non';
       $frequency = $equipment->getControlFrequency();
       if ($leakDetectionSystem) {
         switch ($frequency) {
@@ -124,6 +120,8 @@ class FormSubmitSubscriber implements EventSubscriberInterface
             break;
         }
       }
+    } else {
+      $leakFound = '';
     }
 
     // Fluid quantities
@@ -187,7 +185,7 @@ class FormSubmitSubscriber implements EventSubscriberInterface
       'Controle_Mois'  => $detectorCtrlM,
       'Controle_Annee' => $detectorCtrlY,
 
-      'Bouton_Oui' => $leakDetectionSystem,
+      'Bouton_Oui' => ($leakDetectionSystem) ? 'On' : 'Off',
 
       // Fréquence minimale du contrôle périodique
       'Case_HCFC_2' => 'Yes',
@@ -203,6 +201,9 @@ class FormSubmitSubscriber implements EventSubscriberInterface
       '11_QD' => ($DE > 0) ? ($D) : '',
       '11_BSFF' => $BSFF,
       '11_QE' => ($DE > 0) ? ($E) : '',
+
+      // Fuites
+      $leakFound => 'Yes',
 
       // Contenant
       '11_Contenant_ID' => $containerSerialNumber,
@@ -228,13 +229,51 @@ class FormSubmitSubscriber implements EventSubscriberInterface
     
     if ($result === false) {
       $error = $pdf->getError();
+      echo "$error";
     }
 
     // Save PDF path
     $intervention->setPdfPath('interventions/' . $filename);
     $this->interventionRepository->save($intervention, true);
-    
+  }
 
+  public function onLeakPost(ViewEvent $event)
+  {
+    $leak = $event->getControllerResult();
+    $method = $event->getRequest()->getMethod();
+
+    if (!$leak instanceof Leakage || Request::METHOD_POST !== $method) {
+      return;
+    }
+
+    $intervention = $leak->getIntervention();
+    $pdfPath = $intervention->getPdfPath();
+    $leakNum = $leak->getNum();
+
+    $leakLocationField = 'Fuite_Loca_' . $leakNum;
+    $leakLocation = $leak->getLocation();
+    $leakFixedField = 'Case_Rep_Fuite' . $leakNum . '_realisee';
+    $leakFixed = $leak->getFixed();
+    $leakToDoField = 'Case_Rep_Fuite' . $leakNum . '_AFaire';
+    $leakToDo = !$leak->getFixed();
+
+    $pdf = new Pdf($pdfPath);
+
+    $result = $pdf->fillForm([
+      'Case_Fuite_Oui' => 'Yes',
+      'Case_Fuite_Non' => 'No',
+      $leakLocationField => $leakLocation,
+      $leakFixedField => ($leakFixed) ? 'Yes' : 'No',
+      $leakToDoField => ($leakToDo) ? 'Yes' : 'No',
+    ])
+    ->needAppearances()
+    ->saveAs($pdfPath);
+
+    if ($result === false) {
+      $error = $pdf->getError();
+      echo $error;
+      return;
+    }
   }
 }
 
