@@ -92,7 +92,11 @@ class FormSubmitSubscriber implements EventSubscriberInterface
 
     // Control frequency
     $controlFrequency = '';
+    $fluidQuantity = '';
+    $leakFound = '';
+
     if ($type->getId() === 5 || $type->getId() === 6) {
+      $fluidQuantity = 'Case_HCFC_2';
       $leakFound = 'Case_Fuite_Non';
       $frequency = $equipment->getControlFrequency();
       if ($leakDetectionSystem) {
@@ -120,8 +124,6 @@ class FormSubmitSubscriber implements EventSubscriberInterface
             break;
         }
       }
-    } else {
-      $leakFound = '';
     }
 
     // Fluid quantities
@@ -185,10 +187,10 @@ class FormSubmitSubscriber implements EventSubscriberInterface
       'Controle_Mois'  => $detectorCtrlM,
       'Controle_Annee' => $detectorCtrlY,
 
-      'Bouton_Oui' => ($leakDetectionSystem) ? 'On' : 'Off',
+      'Bouton_Oui' => $leakDetectionSystem,
 
       // Fréquence minimale du contrôle périodique
-      'Case_HCFC_2' => 'Yes',
+      $fluidQuantity => 'Yes',
       $controlFrequency => 'Yes',
 
       // Quantités de fluide
