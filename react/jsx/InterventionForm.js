@@ -87,7 +87,7 @@ const InterventionForm = () => {
   }
 
   const postLeaks = (interventionID) => {
-
+    // POST leaks one by one
     for (let i = 0;  i < leakLocations.length;  i++) {
       let leak = {
         "num": i+1,
@@ -135,6 +135,7 @@ const InterventionForm = () => {
       let interventionID = response.data.id;
       postLeaks(interventionID);
       handleReset();
+      window.open(response.data.pdfPath, '_blank');
     })
     .catch((error) => {
       console.log('ERROR', error);
