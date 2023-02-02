@@ -40,11 +40,12 @@ const InterventionForm = () => {
   const [pdfPath, setPdfPath] = useState("");
   const [leaksPosted, setLeaksPosted] = useState(false);
   const [formError, setFormError] = useState(false);
+  // const [updateKey, setUpdateKey] = useState(false);
 
   useEffect(() => {
     if (leaksPosted) {
       window.open(pdfPath, '_blank');
-      window.location.reload();
+      // window.location.reload();
     }
   });
 
@@ -183,7 +184,7 @@ const InterventionForm = () => {
       <div className="section-center">
         <div className="container">
           <User data={window.user} />
-          <form onSubmit={handleSubmit}>
+          <div>
             <div className="form-floating m-2">
               <input
                 type="date"
@@ -249,12 +250,17 @@ const InterventionForm = () => {
                 <button className="btn btn-sm btn-warning" type="reset" onClick={handleReset}>Annuler</button>
               </div>
               <div>
-                <button className="btn btn-sm btn-danger" type="submit" disabled={!type || !equipment || formError}>
+                <button
+                  className="btn btn-sm btn-danger"
+                  type="submit"
+                  disabled={!type || !equipment || formError}
+                  onClick={handleSubmit}
+                >
                   Enregistrer
                 </button>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
