@@ -134,7 +134,7 @@ class FormSubmitSubscriber implements EventSubscriberInterface
     $ABC = $A + $B + $C;
 
     $D = $intervention->getForProcessingFluidQuantity();
-    $E = $intervention->getForProcessingFluidQuantity();
+    $E = $intervention->getReusableFluidQuantity();
 
     $BSFF = $intervention->getBsffNumber();
 
