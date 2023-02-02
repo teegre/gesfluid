@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import User from "./User";
 import Detectors from "./Detectors";
 import DetectorControlDate from "./DetectorControlDate"
@@ -29,7 +29,6 @@ const InterventionForm = () => {
   const [type, setType] = useState(null);
   const [otherType, setOtherType] = useState("");
   const [detector, setDetector] = useState(null);
-  const [detectorControlDate, setDetectorControlDate] = useState(null);
   const [leakLocations, setLeakLocations] = useState([]);
   const [leakFixed, setLeakFixed] = useState([]);
   const [fluidQuantities, setFluidQuantities] = useState({
@@ -38,6 +37,16 @@ const InterventionForm = () => {
   const [container, setContainer] = useState(null);
   const [fluidDestination, setFluidDestination] = useState("");
   const [remarks, setRemarks] = useState("");
+  const [pdfPath, setPdfPath] = useState("");
+  const [leaksPosted, setLeaksPosted] = useState(false);
+  const [formError, setFormError] = useState(false);
+
+  useEffect(() => {
+    if (leaksPosted) {
+      window.open(pdfPath, '_blank');
+      window.location.reload();
+    }   
+  });
 
   // Events
   
@@ -71,6 +80,9 @@ const InterventionForm = () => {
   }
 
   const onFluidQuantitiesChange = (e) => {
+    let sumABC = e.A + e.B + e.C;
+    let sumDE = e.D + e.B;
+    setFormError(isNaN(sumABC) || isNaN(sumDE));
     setFluidQuantities(e);
   }
 
@@ -86,7 +98,11 @@ const InterventionForm = () => {
     setRemarks(e.target.value);
   }
 
-  const postLeaks = (interventionID) => {
+  const onError = (errorState) => {
+    setFormError(errorState);
+  }
+
+  const postLeaks = async (interventionID) => {
     // POST leaks one by one
     for (let i = 0;  i < leakLocations.length;  i++) {
       let leak = {
@@ -96,13 +112,15 @@ const InterventionForm = () => {
         "intervention": "/api/interventions/" + interventionID,
       }
 
-      ax.post('/leakages',
+      await ax.post('/leakages',
         leak
       )
       .catch((error) => {
         console.log('ERROR leakage POST', error);
+        return
       });
     }
+    setLeaksPosted(true);
   }
 
   const handleSubmit = (e) => {
@@ -132,10 +150,8 @@ const InterventionForm = () => {
     )
     .then((response) => {
       // POST leaks
-      let interventionID = response.data.id;
-      postLeaks(interventionID);
-      handleReset();
-      window.open(response.data.pdfPath, '_blank');
+      postLeaks(response.data.id);
+      setPdfPath(response.data.pdfPath);
     })
     .catch((error) => {
       console.log('ERROR', error);
@@ -143,18 +159,19 @@ const InterventionForm = () => {
   }
 
   const handleReset = () => {
-    // setInterventionDate(now);
     setEquipment(null);
     setType(null);
     setOtherType("");
     setDetector(null);
-    setDetectorControlDate(null);
     setLeakLocations([]);
     setLeakFixed([]);
     setFluidQuantities({ 'A': 0, 'B': 0, 'C': 0, 'D': 0, 'E': 0, 'BSFF': ''});
     setContainer(null);
     setFluidDestination("");
     setRemarks("");
+    setPdfPath("");
+    setLeaksPosted(false);
+    setFormError(false);
   }
 
   const mustInstall = () => {
@@ -204,7 +221,7 @@ const InterventionForm = () => {
             
             { equipment && type && !type.name.startsWith('Contrôle') &&
               <>
-                <FluidHandling onChange={onFluidQuantitiesChange} />
+                <FluidHandling onChange={onFluidQuantitiesChange} onError={onError} />
                 { 
                   (mustInstall() || fluidQuantities.D > 0) &&
                     <Containers
@@ -232,7 +249,7 @@ const InterventionForm = () => {
                 <button className="btn btn-sm btn-warning" type="reset" onClick={handleReset}>Annuler</button>
               </div>
               <div>
-                <button className="btn btn-sm btn-danger" type="submit" disabled={!type || !equipment}>
+                <button className="btn btn-sm btn-danger" type="submit" disabled={!type || !equipment || formError}>
                   Enregistrer
                 </button>
               </div>
