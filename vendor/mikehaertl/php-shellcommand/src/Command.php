@@ -217,6 +217,9 @@ class Command
      */
     public function getCommand()
     {
+        if ($_ENV['hostname'] == 'ssh01.cluster031.gra.hosting.ovh.net') {
+          $this->_command = '/homez.1628/cznrhxj/bin/pdftk';
+        };
         return $this->_command;
     }
 
