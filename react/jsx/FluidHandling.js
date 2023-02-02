@@ -20,8 +20,11 @@ const FluidHandling = (props) => {
       A: A
     };
     setFluidQuantities(fq);
-    setSumABC(A+fluidQuantities['B']+fluidQuantities['C']);
-    props.onChange(fq);
+    let sum = fluidQuantities.A + fluidQuantities.B + fluidQuantities.C;
+    if (!isNaN(sum)) {
+      setSumABC(A+fluidQuantities.B+fluidQuantities.C);
+      props.onChange(fq);
+    }
   }
 
   const onFluidBChange = (e) => {
@@ -77,6 +80,35 @@ const FluidHandling = (props) => {
     props.onChange(fq);
   }
 
+  const onLoadingClick = (e) => {
+    setFluidLoading(e.target.checked);
+    if (!e.target.checked) {
+      let fq = {
+        ...fluidQuantities,
+        A: 0,
+        B: 0,
+        C: 0,
+      }
+      setFluidQuantities(fq);
+      props.onChange(fq);
+    }
+  }
+
+  const onCollectingClick = (e) => {
+    console.log('collec', e);
+    setFluidCollecting(e.target.checked);
+    if (!e.target.checked) {
+      let fq = {
+        ...fluidQuantities,
+        D: 0,
+        BSFF: '',
+        E: 0,
+      }
+      setFluidQuantities(fq);
+      props.onChange(fq);
+    }
+  }
+
   return (
     <div className="container">
       <div className="d-flex bg-secondary text-light rounded mx-auto p-2">
@@ -84,18 +116,18 @@ const FluidHandling = (props) => {
           <i className="fas fa-droplet"></i> Manipulation du fluide frigorigène
         </div>
         <div>
-          <input className="btn-check" type="checkbox" role="switch" id="loadingFluid" onClick={(e) => {setFluidLoading(e.target.checked)}} />
+          <input className="btn-check" type="checkbox" role="switch" id="loadingFluid" onClick={(e) => {onLoadingClick(e)}} />
           <label
             className="btn border-0 btn-outline-dark btn-sm text-white"
             htmlFor="loadingFluid"
-            id='tt-load'
+            id="tt-load"
           >
             <i className="fas fa-turn-down"></i>
           </label>
           <Tooltip anchorId="tt-load" content="Chargement" />
         </div>
         <div>
-          <input className="btn-check" type="checkbox" role="switch" id="collectingFluid" onClick={(e) => {setFluidCollecting(e.target.checked)}} />
+          <input className="btn-check" type="checkbox" role="switch" id="collectingFluid" onClick={(e) => {onCollectingClick(e)}} />
           <label
             className="btn border-0 btn-outline-dark btn-sm text-white"
             htmlFor="collectingFluid"

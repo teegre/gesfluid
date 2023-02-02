@@ -45,7 +45,7 @@ const InterventionForm = () => {
     if (leaksPosted) {
       window.open(pdfPath, '_blank');
       window.location.reload();
-    }   
+    }
   });
 
   // Events
