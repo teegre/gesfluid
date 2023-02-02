@@ -4,7 +4,7 @@ Application de gestion de fiches d'intervention concernant des équipement conte
 
 ## Projet
 
-Une *intervention* nécessitant une *manipulation de fluide frigorigènes* effectuée sur un *équipement thermodynamique* requiert la complétion d'un *formulaire* émanant du Centre d'enregistrement et de révision des formulaires administratifs (CERFA), afin de garder une trace écrite des quantités de fluide récupérées et/ou chargées. Ces formulaires doivent être conservés pendant au moins 5 ans.
+Une *intervention* nécessitant une *manipulation de fluide frigorigènes* effectuée sur un *équipement thermodynamique* requiert la complétion d'un *formulaire* émanant du Centre d'enregistrement et de révision des formulaires administratifs (CERFA). Ces formulaires doivent être conservés pendant au moins 5 ans.
 
 La finalité de l'application **Gesfluid** est d'automatiser le remplissage de ce document, dont le gabarit est fourni au format PDF.
 
@@ -12,7 +12,7 @@ La finalité de l'application **Gesfluid** est d'automatiser le remplissage de c
 
 Notre choix s'est porté sur le logiciel [PDFtk Server](https://www.pdflabs.com/tools/pdftk-server/) et le wrapper en **PHP** [php-pdftk](https://github.com/mikehaertl/php-pdftk). **PDFtk** est un utilitaire en ligne de commande qui permet la manipulation de PDF et d'obtenir des informations utiles sur ce type de fichiers.
 
-Dans un premier temps, nous aurons besoin de la liste des noms des champs du formulaire. On l'obtient en entrant la commande suivante :
+Dans un premier temps, nous avons besoin de la liste des noms des champs du formulaire. On l'obtient en entrant la commande suivante :
 
 `$ pdftk template.pdf dump_data_fields > fields.txt`
 
@@ -63,7 +63,7 @@ Et nous obtenons :
 
 ![](test_operateur.png)
 
-## Cahier des charges
+## Le formulaire
 
 ![](CERFA1549703.png)
 

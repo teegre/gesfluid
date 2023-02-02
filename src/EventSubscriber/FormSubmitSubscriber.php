@@ -88,7 +88,7 @@ class FormSubmitSubscriber implements EventSubscriberInterface
       $detectorCtrlY = '';
     }
 
-    $leakDetectionSystem = $equipment->getLeakDetectionSystem();
+    $leakDetectionSystem = ($equipment->getLeakDetectionSystem()) ? 1 : 2;
 
     // Control frequency
     $controlFrequency = '';
