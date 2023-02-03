@@ -170,7 +170,6 @@ class FormSubmitSubscriber implements EventSubscriberInterface
       'command' => '/homez.1628/cznrhxj/bin/pdftk',
     ]);
     $pdf->tempDir = './interventions';
-    $pdf->addFile('template.pdf');
     $result = $pdf->fillForm([
       'Operateur' => $userName,
       // 'Detenteur' => ''
