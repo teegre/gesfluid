@@ -166,7 +166,9 @@ class FormSubmitSubscriber implements EventSubscriberInterface
         break;
     }
 
-    $pdf = new Pdf();
+    $pdf = new Pdf('template.pdf', [
+      'command' => '/homez.1628/cznrhxj/bin/pdftk'
+    ]);
     $pdf->addFile('template.pdf');
     $result = $pdf->fillForm([
       'Operateur' => $userName,
@@ -259,7 +261,9 @@ class FormSubmitSubscriber implements EventSubscriberInterface
     $leakToDoField = 'Case_Rep_Fuite' . $leakNum . '_AFaire';
     $leakToDo = !$leak->getFixed();
 
-    $pdf = new Pdf($pdfPath);
+    $pdf = new Pdf($pdfPath, [
+      'command' => '/homez.1628/cznrhxj/bin/pdftk'
+    ]);
 
     $result = $pdf->fillForm([
       'Case_Fuite_Oui' => 'Yes',
