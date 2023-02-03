@@ -17,7 +17,8 @@ class Command extends BaseCommand
     /**
      * @var string the pdftk binary
      */
-    protected $_command = 'pdftk';
+    /* protected $_command = 'pdftk'; */
+    protected $_command = '/homez.1628/cznrhxj/bin/pdftk';
 
     /**
      * @var array list of input files to process as array('name' => $filename,
