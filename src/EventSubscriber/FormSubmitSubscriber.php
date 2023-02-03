@@ -226,13 +226,13 @@ class FormSubmitSubscriber implements EventSubscriberInterface
       'Sign_Detenteur_Date' => $date,
 
     ])
-      ->needAppearances()
+      ->flatten()
       ->saveAs('interventions/' . $filename);
     
-    if ($result === false) {
-      $error = $pdf->getError();
-      echo "$error";
-    }
+    /* if ($result === false) { */
+    /*   $error = $pdf->getError(); */
+    /*   echo "$error"; */
+    /* } */
 
     // Save PDF path
     $intervention->setPdfPath('interventions/' . $filename);
@@ -268,7 +268,7 @@ class FormSubmitSubscriber implements EventSubscriberInterface
       $leakFixedField => ($leakFixed) ? 'Yes' : 'No',
       $leakToDoField => ($leakToDo) ? 'Yes' : 'No',
     ])
-    ->needAppearances()
+    ->flatten()
     ->saveAs($pdfPath);
 
     if ($result === false) {
