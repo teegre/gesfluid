@@ -23,6 +23,10 @@ class Leakage
     #[Groups(['leakage:read'])]
     private ?int $num = null;
 
+    #[ORM\Column]
+    #[Groups(['leakage:read'])]
+    private ?int $count = null;
+
     #[ORM\Column(length: 255)]
     #[Groups(['leakage:read'])]
     private ?string $location = null;
@@ -40,6 +44,30 @@ class Leakage
         return $this->id;
     }
 
+    public function getNum(): ?int
+    {
+      return $this->num;
+    }
+
+    public function setNum(int $num): self
+    {
+      $this->num = $num;
+
+      return $this;
+    }
+
+    public function getCount(): ?int
+    {
+      return $this->count;
+    }
+
+    public function setCount(int $count): self
+    {
+      $this->count = $count;
+
+      return $this;
+    }
+
     public function getLocation(): ?string
     {
         return $this->location;
@@ -52,17 +80,6 @@ class Leakage
         return $this;
     }
 
-    public function getNum(): ?int
-    {
-      return $this->num;
-    }
-
-    public function setNum(int $num): self
-    {
-      $this->num = $num;
-
-      return $this;
-    }
 
     public function getFixed(): ?bool
     {
