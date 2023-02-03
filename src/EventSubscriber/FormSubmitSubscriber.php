@@ -94,6 +94,7 @@ class FormSubmitSubscriber implements EventSubscriberInterface
     $controlFrequency = '';
     $fluidQuantity = '';
     $leakFound = '';
+
     $control = ($type->getId() === 5 || $type->getId() === 6);
 
     if ($control) {
@@ -101,7 +102,7 @@ class FormSubmitSubscriber implements EventSubscriberInterface
       $fluidQuantity = 'Case_HCFC_2';
       $leakFound = 'Case_Fuite_Non';
       $frequency = $equipment->getControlFrequency();
-      if ($leakDetectionSystem) {
+      if ($leakDetectionSystem === 1) {
         switch ($frequency) {
           case 24:
             $controlFrequency = 'Case_Avec_24m';
