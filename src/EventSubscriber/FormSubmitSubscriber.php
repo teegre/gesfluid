@@ -94,8 +94,9 @@ class FormSubmitSubscriber implements EventSubscriberInterface
     $controlFrequency = '';
     $fluidQuantity = '';
     $leakFound = '';
+    $control = ($type->getId() === 5 || $type->getId() === 6);
 
-    if ($type->getId() === 5 || $type->getId() === 6) {
+    if ($control) {
       $leakDetectionSystem = ($equipment->getLeakDetectionSystem()) ? 1 : 2;
       $fluidQuantity = 'Case_HCFC_2';
       $leakFound = 'Case_Fuite_Non';
@@ -228,9 +229,12 @@ class FormSubmitSubscriber implements EventSubscriberInterface
       'Sign_Operateur_Date' => $date,
       'Sign_Detenteur_Date' => $date,
 
-    ])
-      ->flatten()
-      ->saveAs('interventions/' . $filename);
+    ]);
+
+    if (!$control)
+      $pdf->flatten();
+
+    $pdf->saveAs('interventions/' . $filename);
     
     if ($result === false) {
       $error = $pdf->getError();
