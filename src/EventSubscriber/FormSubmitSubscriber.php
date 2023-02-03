@@ -88,14 +88,15 @@ class FormSubmitSubscriber implements EventSubscriberInterface
       $detectorCtrlY = '';
     }
 
-    $leakDetectionSystem = ($equipment->getLeakDetectionSystem()) ? 1 : 2;
 
     // Control frequency
+    $leakDetectionSystem = '';
     $controlFrequency = '';
     $fluidQuantity = '';
     $leakFound = '';
 
     if ($type->getId() === 5 || $type->getId() === 6) {
+      $leakDetectionSystem = ($equipment->getLeakDetectionSystem()) ? 1 : 2;
       $fluidQuantity = 'Case_HCFC_2';
       $leakFound = 'Case_Fuite_Non';
       $frequency = $equipment->getControlFrequency();
@@ -169,7 +170,7 @@ class FormSubmitSubscriber implements EventSubscriberInterface
     $pdf = new Pdf('template.pdf', [
       'command' => 'bin/pdftk',
     ]);
-    $pdf->tempDir = 'interventions';
+
     $result = $pdf->fillForm([
       'Operateur' => $userName,
       // 'Detenteur' => ''
@@ -264,8 +265,6 @@ class FormSubmitSubscriber implements EventSubscriberInterface
     $pdf = new Pdf($pdfPath, [
       'command' => 'bin/pdftk',
     ]);
-
-    $pdf->tempDir = 'interventions';
 
     $result = $pdf->fillForm([
       'Case_Fuite_Oui' => 'Yes',
