@@ -45,7 +45,7 @@ const InterventionForm = () => {
   useEffect(() => {
     if (leaksPosted) {
       window.open(pdfPath, '_blank');
-      // window.location.reload();
+      window.location.reload();
     }
   });
 
