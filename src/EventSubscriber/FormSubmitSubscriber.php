@@ -170,6 +170,7 @@ class FormSubmitSubscriber implements EventSubscriberInterface
 
     $pdf = new Pdf('template.pdf', [
       'command' => 'bin/pdftk',
+      'useExec' => true,
     ]);
 
     $result = $pdf->fillForm([
