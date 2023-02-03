@@ -5,6 +5,7 @@
 /.env.*.local
 /.env.test
 /config/secrets/prod/prod.decrypt.private.php
+/public/bin/
 /public/bundles/
 /var/
 /vendor/
