@@ -260,6 +260,7 @@ class FormSubmitSubscriber implements EventSubscriberInterface
     $intervention = $leak->getIntervention();
     $pdfPath = $intervention->getPdfPath();
     $leakNum = $leak->getNum();
+    $leakCount = $leak->getCount();
 
     $leakLocationField = 'Fuite_Loca_' . $leakNum;
     $leakLocation = $leak->getLocation();
@@ -278,9 +279,12 @@ class FormSubmitSubscriber implements EventSubscriberInterface
       $leakLocationField => $leakLocation,
       $leakFixedField => ($leakFixed) ? 'Yes' : 'No',
       $leakToDoField => ($leakToDo) ? 'Yes' : 'No',
-    ])
-    ->flatten()
-    ->saveAs($pdfPath);
+    ]);
+
+    if ($leakNum === $leakCount)
+      $result = $pdf->flatten()->saveAs($pdfPath);
+    else
+      $result = $pdf->saveAs($pdfPath);
 
     if ($result === false) {
       $error = $pdf->getError();
