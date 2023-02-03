@@ -232,10 +232,10 @@ class FormSubmitSubscriber implements EventSubscriberInterface
     ]);
 
     if (!$control)
-      $pdf->flatten()
+      $result = $pdf->flatten()
       ->saveAs('interventions/'. $filename);
     else
-      $pdf->saveAs('interventions/' . $filename);
+      $result = $pdf->saveAs('interventions/' . $filename);
     
     if ($result === false) {
       $error = $pdf->getError();
