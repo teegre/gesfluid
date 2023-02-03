@@ -105,9 +105,11 @@ const InterventionForm = () => {
 
   const postLeaks = async (interventionID) => {
     // POST leaks one by one
+    let count = leakLocations.length;
     for (let i = 0;  i < leakLocations.length;  i++) {
       let leak = {
         "num": i+1,
+        "count": count,
         "location": leakLocations[i],
         "fixed": leakFixed[i],
         "intervention": "/api/interventions/" + interventionID,
