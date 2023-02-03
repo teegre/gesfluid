@@ -168,8 +168,8 @@ class FormSubmitSubscriber implements EventSubscriberInterface
 
     $pdf = new Pdf('template.pdf', [
       'command' => '/homez.1628/cznrhxj/bin/pdftk',
-      'tempDir' => '/tmp',
     ]);
+    $pdf->tempDir = '/tmp';
     $pdf->addFile('template.pdf');
     $result = $pdf->fillForm([
       'Operateur' => $userName,
@@ -264,8 +264,9 @@ class FormSubmitSubscriber implements EventSubscriberInterface
 
     $pdf = new Pdf($pdfPath, [
       'command' => '/homez.1628/cznrhxj/bin/pdftk',
-      'tempDir' => '/tmp',
     ]);
+
+    $pdf->tempDir = '/tmp';
 
     $result = $pdf->fillForm([
       'Case_Fuite_Oui' => 'Yes',
@@ -279,8 +280,7 @@ class FormSubmitSubscriber implements EventSubscriberInterface
 
     if ($result === false) {
       $error = $pdf->getError();
-      echo $error;
-      return;
+      dd($error);
     }
   }
 }
