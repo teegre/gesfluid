@@ -229,10 +229,10 @@ class FormSubmitSubscriber implements EventSubscriberInterface
       ->flatten()
       ->saveAs('interventions/' . $filename);
     
-    /* if ($result === false) { */
-    /*   $error = $pdf->getError(); */
-    /*   echo "$error"; */
-    /* } */
+    if ($result === false) {
+      $error = $pdf->getError();
+      dd($error);
+    }
 
     // Save PDF path
     $intervention->setPdfPath('interventions/' . $filename);
