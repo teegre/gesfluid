@@ -67,7 +67,7 @@ const InterventionForm = () => {
   const onTypeChange = (e) => {
     if (!e) {
       setLeakControl(false);
-      setMandatoryLeakControl(true);
+      setMandatoryLeakControl(false);
     }
     else {
      setLeakControl((e.id === 5 || e.id === 6));
