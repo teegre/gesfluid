@@ -76,6 +76,11 @@ class Intervention
     #[Groups(['intervention:read)'])]
     private ?string $otherInterventionType = null;
 
+    /* Booleen pour signifier qu'une ou plusieurs fuites ont été détectées */
+    #[ORM\Column]
+    #[Groups(['intervention:read'])]
+    private ?bool $leaks = null;
+
     /* Equipement concerné */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     #[Groups(['intervention:read'])]
@@ -244,6 +249,19 @@ class Intervention
     public function setOtherInterventionType(?string $otherInterventionType): self
     {
       $this->otherInterventionType = $otherInterventionType;
+
+      return $this;
+    }
+
+    public function getLeaks(): ?bool
+    {
+      return $this->leaks;
+    }
+
+
+    public function setLeaks(bool $leaks) : self
+    {
+      $this->leaks = $leaks;
 
       return $this;
     }

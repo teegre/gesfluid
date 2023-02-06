@@ -241,7 +241,11 @@ class FormSubmitSubscriber implements EventSubscriberInterface
 
     ]);
 
-    $result = $pdf->saveAs('interventions/' . $filename);
+    if ($intervention->getLeaks()) {
+      $result = $pdf->saveAs('interventions/' . $filename);
+    } else {
+      $result = $pdf->flatten()->saveAs('interventions/' . $filename);
+    }
     
     if ($result === false) {
       $error = $pdf->getError();

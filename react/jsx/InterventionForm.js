@@ -28,17 +28,24 @@ const InterventionForm = () => {
   const [equipment, setEquipment] = useState(null);
   const [type, setType] = useState(null);
   const [otherType, setOtherType] = useState("");
+
   // Intervention type is 5 or 6
   const [leakControl, setLeakControl] = useState(false);
+
   // Intervention type is not 5 and not 6
   // Leak control is mandatory after an intervention
   const [mandatoryLeakControl, setMandatoryLeakControl] = useState(false);
+
+  // Detector used for leakage control
   const [detector, setDetector] = useState(null);
   const [leakLocations, setLeakLocations] = useState([]);
   const [leakFixed, setLeakFixed] = useState([]);
+
+  // Fluid quantities
   const [fluidQuantities, setFluidQuantities] = useState({
     'A': 0, 'B': 0, 'C': 0, 'D': 0, 'E': 0, 'BSFF': ''
   });
+
   const [container, setContainer] = useState(null);
   const [fluidDestination, setFluidDestination] = useState("");
   const [remarks, setRemarks] = useState("");
@@ -156,7 +163,8 @@ const InterventionForm = () => {
       "otherInterventionType": otherType,
       "equipment": "/api/equipment/" + equipment.id,
       "container": container?"/api/containers/" + container.id:null,
-      "detector": detector?"/api/detectors/" + detector.id:null,
+      "accessory": detector?"/api/accessories/" + detector.id:null,
+      "leaks": leakLocations.length > 0,
       "user": "/api/users/" + window.user,
       "pdfPath": "",
     };

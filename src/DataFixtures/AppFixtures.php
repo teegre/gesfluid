@@ -110,10 +110,10 @@ class AppFixtures extends Fixture
   private function addEquipment(ObjectManager $manager): void
   {
     // Equipements
-    for ($i = 1; $i <= 3; $i++) {
+    for ($i = 1; $i <= 5; $i++) {
       $equipment = new Equipment;
       $equipment->setName('Equipement ' . $i);
-      $equipment->setWeight(rand(2, 29));
+      $equipment->setWeight(rand(2, 300));
       $equipment->setCo2EqTonnage(rand(1, 10));
       $leakDetectionSystem = rand(0, 1) == 1;
       $equipment->setLeakDetectionSystem($leakDetectionSystem);
