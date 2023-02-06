@@ -22,7 +22,7 @@ const Containers = (props) => {
       {
         containers.map((container, i) => (
           <option value={i} key={container.id}>
-            {container.serialNumber} -- {container.fluidQuantity.toFixed(2)}/{container.capacity.toFixed(2)}
+            {container.serialNumber}{/* -- {container.fluidQuantity.toFixed(2)}/{container.capacity.toFixed(2)} */}
           </option>
         ))
       }

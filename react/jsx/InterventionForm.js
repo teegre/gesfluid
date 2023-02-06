@@ -28,6 +28,7 @@ const InterventionForm = () => {
   const [equipment, setEquipment] = useState(null);
   const [type, setType] = useState(null);
   const [otherType, setOtherType] = useState("");
+  const [leakControl, setLeakControl] = useState(false);
   const [detector, setDetector] = useState(null);
   const [leakLocations, setLeakLocations] = useState([]);
   const [leakFixed, setLeakFixed] = useState([]);
@@ -40,7 +41,6 @@ const InterventionForm = () => {
   const [pdfPath, setPdfPath] = useState("");
   const [leaksPosted, setLeaksPosted] = useState(false);
   const [formError, setFormError] = useState(false);
-  // const [updateKey, setUpdateKey] = useState(false);
 
   useEffect(() => {
     if (leaksPosted) {
@@ -61,7 +61,12 @@ const InterventionForm = () => {
   }
 
   const onTypeChange = (e) => {
+    if (!e)
+      setLeakControl(false);
+    else
+     setLeakControl((e.id === 5 || e.id === 6));
     setType(e);
+    setDetector(null);
   }
 
   const onOtherTypeChange = (e) => {
@@ -165,6 +170,7 @@ const InterventionForm = () => {
     setEquipment(null);
     setType(null);
     setOtherType("");
+    setLeakControl(false);
     setDetector(null);
     setLeakLocations([]);
     setLeakFixed([]);
@@ -177,6 +183,7 @@ const InterventionForm = () => {
     setFormError(false);
   }
 
+  // Collected fluid will be installed in another equipment
   const mustInstall = () => {
     return fluidQuantities.E > 0;
   }
@@ -206,26 +213,29 @@ const InterventionForm = () => {
                 <InterventionTypes onChange={onTypeChange} data={equipment.id} />
               </>
             }
-            { type?.name === "Autre"  &&
+            { type?.id === 8  &&
                 <OtherType onChange={onOtherTypeChange} />
             }
-            { type && type.name.startsWith('Contrôle') && !equipment?.leakDetectionSystem &&
-              <Detectors onChange={onDetectorChange} />
+            { type && leakControl && !equipment?.leakDetectionSystem &&
+              <>
+                <Detectors data={type.id} onChange={onDetectorChange} />
+                { detector &&
+                    <DetectorControlDate data={detector} />
+                }
+              </>
             }
-            { detector &&
-                <DetectorControlDate data={detector} />
-            }
-            { (detector || (equipment?.leakDetectionSystem && type && type.name.startsWith('Contrôle'))) &&
+            { leakControl &&
                 <Leakage
+                  data={type?.id}
                   onLocationChange={onLeakLocationChange}
                   onFixedChange={onLeakFixedChange}
                 />
             }
             
-            { equipment && type && !type.name.startsWith('Contrôle') &&
+            { equipment && type && !leakControl &&
               <>
                 <FluidHandling onChange={onFluidQuantitiesChange} onError={onError} />
-                { 
+                {
                   (mustInstall() || fluidQuantities.D > 0) &&
                     <Containers
                       data={equipment.fluid}

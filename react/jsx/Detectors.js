@@ -14,6 +14,7 @@ const Detectors = (props) => {
   return (
     <div className="form-floating m-2">
       <select
+        key={props.data}
         onChange={(e) => {props.onChange(detectors[e.target.value])}}
         className="form-select form-select-sm"
         id="detectorLabel"

@@ -9,6 +9,7 @@ const Leak = (props) => {
     <>
       <span className="input-group-text border border-0 bg-secondary text-light rounded me-2">{props.id+1}</span>
       <input
+        key={props.data}
         type="text"
         id={props.id}
         className="form-control form-control-sm border border-0 ml-2 me-2"
@@ -31,7 +32,7 @@ const Leakage = (props) => {
 
     setLeakComponents([
       ...leakComponents,
-      <Leak id={index} onChange={onLeakChange} />
+      <Leak data={props.data} id={index} onChange={onLeakChange} />
     ]);
 
     let locationsCopy = [...locations, ""];
