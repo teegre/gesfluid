@@ -95,7 +95,6 @@ const FluidHandling = (props) => {
   }
 
   const onCollectingClick = (e) => {
-    console.log('collec', e);
     setFluidCollecting(e.target.checked);
     if (!e.target.checked) {
       let fq = {
