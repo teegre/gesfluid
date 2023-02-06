@@ -142,7 +142,7 @@ const FluidHandling = (props) => {
         <div className="col-md-6" hidden={!fluidLoading}>
           <div className="form-floating m-2">
             <input
-              type="text"
+              type="number"
               className="border border-0 form-control form-control-sm"
               id="totalLoadedFluidQuantity"
               disabled
@@ -153,7 +153,7 @@ const FluidHandling = (props) => {
           </div>
           <div className="form-floating m-2">
             <input
-              type="text"
+              type="number"
               className="form-control form-control-sm"
               id="virginFluidQuantity"
               defaultValue="0"
@@ -166,7 +166,7 @@ const FluidHandling = (props) => {
           </div>
           <div className="form-floating m-2">
             <input
-              type="text"
+              type="number"
               className="form-control form-control-sm"
               id="recycledFluidQuantity"
               defaultValue="0"
@@ -178,7 +178,7 @@ const FluidHandling = (props) => {
           </div>
           <div className="form-floating m-2">
             <input
-              type="text"
+              type="number"
               className="form-control form-control-sm"
               id="regeneratedFluidQuantity"
               defaultValue="0"
@@ -192,7 +192,7 @@ const FluidHandling = (props) => {
         <div className="col-md-6" hidden={!fluidCollecting}>
           <div className="form-floating m-2">
             <input
-              type="text"
+              type="number"
               className="border border-0 form-control form-control-sm"
               id="totalRetrievedFluidQuantity"
               disabled
@@ -203,7 +203,7 @@ const FluidHandling = (props) => {
           </div>
           <div className="form-floating m-2">
             <input
-              type="text"
+              type="number"
               className="form-control form-control-sm"
               id="forProcessingFluidQuantity"
               defaultValue="0"
@@ -227,7 +227,7 @@ const FluidHandling = (props) => {
           </div>
           <div className="form-floating m-2">
             <input
-              type="text"
+              type="number"
               className="form-control form-control-sm"
               id="reusableFluidQuantity"
               defaultValue="0"
