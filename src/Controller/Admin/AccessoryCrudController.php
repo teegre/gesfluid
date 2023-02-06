@@ -2,14 +2,14 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Detector;
+use App\Entity\Accessory;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class DetectorCrudController extends AbstractCrudController
+class AccessoryCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Detector::class;
+        return Accessory::class;
     }
 
     /*

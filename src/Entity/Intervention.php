@@ -94,7 +94,7 @@ class Intervention
     /* Détecteur de fuites utilisé */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     #[Groups(['intervention:read'])]
-    private ?Detector $detector = null;
+    private ?Accessory $accessory = null;
 
     /* Utilisateur */
     #[ORM\ManyToOne(inversedBy: 'interventions')]
@@ -302,14 +302,14 @@ class Intervention
         return $this;
     }
 
-    public function getDetector(): ?Detector
+    public function getAccessory(): ?Accessory
     {
-        return $this->detector;
+        return $this->accessory;
     }
 
-    public function setDetector(?Detector $detector): self
+    public function setAccessory(?Accessory $accessory): self
     {
-        $this->detector = $detector;
+        $this->accessory = $accessory;
 
         return $this;
     }

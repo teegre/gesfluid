@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Container;
-use App\Entity\Detector;
+use App\Entity\Accessory;
 use App\Entity\Equipment;
 use App\Entity\FluidType;
 use App\Entity\Fluid;
@@ -132,9 +132,10 @@ class AppFixtures extends Fixture
   {
     // Détecteurs de fuites
     for ($i = 1; $i <= 2; $i++) {
-      $detector = new Detector();
+      $detector = new Accessory();
       $detector->setName('Détecteur ' . $i);
       $detector->setControlDate($this->random_date());
+      $detector->setDetector(true);
       $manager->persist($detector);
     }
   }
