@@ -88,7 +88,6 @@ class FormSubmitSubscriber implements EventSubscriberInterface
       $detectorCtrlY = '';
     }
 
-
     // Control frequency
     $leakDetectionSystem = '';
     $controlFrequency = '';
@@ -96,10 +95,18 @@ class FormSubmitSubscriber implements EventSubscriberInterface
     $leakFound = '';
 
     $control = ($type->getId() === 5 || $type->getId() === 6);
+    $mandatoryControl = !$control;
 
-    if ($control) {
+    if ($control || $mandatoryControl) {
       $leakDetectionSystem = ($equipment->getLeakDetectionSystem()) ? 1 : 2;
-      $fluidQuantity = 'Case_HCFC_2';
+      $equipmentFluidQuantity = $equipment->getWeight();
+      if ($equipmentFluidQuantity <= 2 || $equipmentFluidQuantity < 30) {
+        $fluidQuantity = 'Case_HCFC_2';
+      } elseif ($equipmentFluidQuantity <= 30 || $equipmentFluidQuantity < 300) {
+        $fluidQuantity = 'Case_HCFC_30';
+      } else {
+        $fluidQuantity = 'Case_HCFC_300';
+      }
       $leakFound = 'Case_Fuite_Non';
       $frequency = $equipment->getControlFrequency();
       if ($leakDetectionSystem === 1) {
@@ -185,6 +192,7 @@ class FormSubmitSubscriber implements EventSubscriberInterface
 
       // Nature de l'intervention
       $this->fields[$type->getId()] => 'Yes',
+      $this->fields[6] => $mandatoryControl ? 'Yes' : 'No',
       'Autre' => $intervention->getOtherInterventionType(),
 
       // Détecteur et système permanent de détection de fuites
@@ -233,11 +241,7 @@ class FormSubmitSubscriber implements EventSubscriberInterface
 
     ]);
 
-    if (!$control)
-      $result = $pdf->flatten()
-      ->saveAs('interventions/'. $filename);
-    else
-      $result = $pdf->saveAs('interventions/' . $filename);
+    $result = $pdf->saveAs('interventions/' . $filename);
     
     if ($result === false) {
       $error = $pdf->getError();
