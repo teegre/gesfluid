@@ -1,6 +1,6 @@
 # Gesfluid
 
-Application de gestion de fiches d'intervention concernant des équipement contenant des fluides frigorigènes.
+Application de gestion de fiches d'intervention concernant des équipements contenant des fluides frigorigènes.
 
 ## Projet
 
@@ -10,7 +10,8 @@ La finalité de l'application **Gesfluid** est d'automatiser le remplissage de c
 
 ## Remplir un fichier PDF existant
 
-Notre choix s'est porté sur le logiciel [PDFtk Server](https://www.pdflabs.com/tools/pdftk-server/) et le wrapper en **PHP** [php-pdftk](https://github.com/mikehaertl/php-pdftk). **PDFtk** est un utilitaire en ligne de commande qui permet la manipulation de PDF et d'obtenir des informations utiles sur ce type de fichiers.
+Notre choix s'est porté sur le logiciel [PDFtk Server](https://www.pdflabs.com/tools/pdftk-server/) et le wrapper en **PHP** [php-pdftk](https://github.com/mikehaertl/php-pdftk).
+**PDFtk** est un utilitaire en ligne de commande qui permet la manipulation de PDF et d'obtenir des informations utiles sur ce type de fichiers.
 
 Dans un premier temps, nous avons besoin de la liste des noms des champs du formulaire. On l'obtient en entrant la commande suivante :
 
@@ -66,8 +67,6 @@ Et nous obtenons :
 ## Le formulaire
 
 ![](CERFA1549703.png)
-
-Le fichier PDF constitue le cahier des charges.
 
 On constate que le formulaire est divisé en plusieurs sections :
 
