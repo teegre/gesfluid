@@ -28,7 +28,11 @@ const InterventionForm = () => {
   const [equipment, setEquipment] = useState(null);
   const [type, setType] = useState(null);
   const [otherType, setOtherType] = useState("");
+  // Intervention type is 5 or 6
   const [leakControl, setLeakControl] = useState(false);
+  // Intervention type is not 5 and not 6
+  // Leak control is mandatory after an intervention
+  const [mandatoryLeakControl, setMandatoryLeakControl] = useState(false);
   const [detector, setDetector] = useState(null);
   const [leakLocations, setLeakLocations] = useState([]);
   const [leakFixed, setLeakFixed] = useState([]);
@@ -61,10 +65,15 @@ const InterventionForm = () => {
   }
 
   const onTypeChange = (e) => {
-    if (!e)
+    if (!e) {
       setLeakControl(false);
-    else
+      setMandatoryLeakControl(true);
+    }
+    else {
      setLeakControl((e.id === 5 || e.id === 6));
+     setMandatoryLeakControl((e.id !== 5 && e.id !== 6))
+    }
+
     setType(e);
     setDetector(null);
   }
@@ -171,6 +180,7 @@ const InterventionForm = () => {
     setType(null);
     setOtherType("");
     setLeakControl(false);
+    setMandatoryLeakControl(false);
     setDetector(null);
     setLeakLocations([]);
     setLeakFixed([]);
@@ -203,7 +213,7 @@ const InterventionForm = () => {
                 onChange={onInterventionDateChange}
               />
               <label htmlFor="interventionDate" className="fw-bold">
-                <i className="fas fa-calendar-days"></i> Date de l'intervention
+               <i className="fas fa-calendar-days"></i> Date de l'intervention
               </label>
             </div>
             <Equipment onChange={onEquipmentChange} />
@@ -216,7 +226,7 @@ const InterventionForm = () => {
             { type?.id === 8  &&
                 <OtherType onChange={onOtherTypeChange} />
             }
-            { type && leakControl && !equipment?.leakDetectionSystem &&
+            { type && (leakControl || mandatoryLeakControl) && !equipment?.leakDetectionSystem &&
               <>
                 <Detectors data={type.id} onChange={onDetectorChange} />
                 { detector &&
@@ -224,7 +234,7 @@ const InterventionForm = () => {
                 }
               </>
             }
-            { leakControl &&
+            { (leakControl || mandatoryLeakControl) &&
                 <Leakage
                   data={type?.id}
                   onLocationChange={onLeakLocationChange}
