@@ -75,7 +75,7 @@ class FormSubmitSubscriber implements EventSubscriberInterface
     $type = $intervention->getInterventionType();
 
     // Manual leak detector and leak detection system
-    $detector = $intervention->getDetector();
+    $detector = $intervention->getAccessory();
     if ($detector) {
       $detectorName = $detector->getName();
       $detectorCtrlD = $detector->getControlDate()->format('d');
