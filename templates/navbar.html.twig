@@ -12,6 +12,13 @@
               </a>
             </div>
             {% endif %}
+
+            <a 
+              class="btn btn-sm btn-secondary m-2 {{ app.request.attributes.get('_route') == 'app_intervention' ? 'disabled' : '' }}"
+              href={{ path('app_intervention') }}>
+              <i class="fas fa-screwdriver-wrench"></i> Nouvelle intervention
+            </a>
+
             <button type="button" class="btn btn-sm btn-danger m-2" data-bs-toggle="modal" data-bs-target="#modalLogout">
               <i class="fas fa-right-from-bracket"></i> Déconnexion
             </button>
