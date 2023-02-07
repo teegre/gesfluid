@@ -24,6 +24,7 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator implements Authe
 
     public function __construct(private UrlGeneratorInterface $urlGenerator)
     {
+      $this->urlGenerator = $urlGenerator;
     }
 
     public function authenticate(Request $request): Passport
@@ -43,14 +44,14 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator implements Authe
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-            return new RedirectResponse($targetPath);
-        }
+        // TODO: Redirect to Dashboard if current user is administrator, redirect to homepage otherwise.
+        // For now a normal user is redirected to Dashboard and then redirected to homepage...
 
-        // For example:
-        // return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        /* throw new \Exception('TODO: provide a valid redirect inside '.__FILE__); */
-        return new RedirectResponse($this->urlGenerator->generate('app_home'));
+        // if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+        //     return new RedirectResponse($targetPath);
+        // }
+
+        return new RedirectResponse($this->urlGenerator->generate('admin'));
     }
 
     protected function getLoginUrl(Request $request): string
