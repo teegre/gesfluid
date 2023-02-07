@@ -42,7 +42,7 @@ const Interventions = (props) => {
       
         <li className="list-group-item small" key={i}>
           {/* TODO: Display intervention type and equipment name */}
-          <span>{new Date(intervention.date).toLocaleDateString('fr-CA')}</span> {intervention.interventionType.name} {intervention.equipment.name}<a href={intervention.pdfPath} target="_blank">PDF</a>
+          <i className="fas fa-screwdriver"></i> <span>{new Date(intervention.date).toLocaleDateString('fr-CA')}</span> {intervention.interventionType.name} {intervention.equipment.name}<a href={intervention.pdfPath} target="_blank">PDF</a>
         </li>
       ))
     }
