@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Container;
-use App\Entity\Detector;
+use App\Entity\Accessory;
 use App\Entity\Equipment;
 use App\Entity\Fluid;
 use App\Entity\FluidType;
@@ -62,7 +62,7 @@ class DashboardController extends AbstractDashboardController
       yield MenuItem::linkToCrud('Contenants', 'fas fa-bottle-droplet', Container::class);
       yield MenuItem::linkToCrud('Fluides', 'fas fa-droplet', Fluid::class);
       yield MenuItem::linkToCrud('Types de fluides', 'fas fa-eye-dropper', FluidType::class);
-      yield MenuItem::linkToCrud('Détecteurs', 'fas fa-compass', Detector::class);
+      yield MenuItem::linkToCrud('Accessoires', 'fas fa-compass', Accessory::class);
       yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
       yield MenuItem::linkToCrud('Groupes d\'utilisateurs', 'fas fa-user-group', Group::class);
     }
