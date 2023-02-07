@@ -39,6 +39,17 @@ class InterventionRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByUser($id): array
+    {
+      return $this->createQueryBuilder('i')
+        ->where('i.user = :id')
+        ->setParameter('id', $id)
+        ->addOrderBy('i.date', 'ASC')
+        ->getQuery()
+        ->getResult()
+      ;
+    }
+
 //    /**
 //     * @return Intervention[] Returns an array of Intervention objects
 //     */
