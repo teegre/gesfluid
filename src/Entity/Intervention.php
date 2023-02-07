@@ -92,7 +92,7 @@ class Intervention
     private ?Container $container = null;
 
     /* Fuite(s) détectée(s) */
-    #[ORM\OneToMany(mappedBy: 'intervention', targetEntity: Leakage::class)]
+    #[ORM\OneToMany(mappedBy: 'intervention', targetEntity: Leakage::class, cascade: ['remove'])]
     #[Groups(['intervention:read'])]
     private Collection $leakage;
 
