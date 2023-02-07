@@ -24,6 +24,7 @@ const InterventionForm = () => {
   const now = date.toLocaleDateString("fr-CA");
   
   // States
+
   const [interventionDate, setInterventionDate] = useState(now);
   const [equipment, setEquipment] = useState(null);
   const [type, setType] = useState(null);
@@ -51,14 +52,47 @@ const InterventionForm = () => {
   const [remarks, setRemarks] = useState("");
   const [pdfPath, setPdfPath] = useState("");
   const [leaksPosted, setLeaksPosted] = useState(false);
+
+  // In case of input error → used to disable submit button
   const [formError, setFormError] = useState(false);
 
   useEffect(() => {
     if (leaksPosted) {
       window.open(pdfPath, '_blank');
       window.location.reload();
+    } else {
+      // check for form errors here
+      if (!equipment)
+        setFormError(true);
+      else if (!type)
+        setFormError(true);
+      else if (type.id != 5 && type.id != 6 && checkFluidHandling())
+        setFormError(true);
+      else if (!equipment.leakDetectionSystem && !detector)
+        setFormError(true);
+      else if (checkLeaks())
+        setFormError(true);
+      else
+        setFormError(false);
     }
   });
+
+
+  const checkFluidHandling = () => {
+    let q = fluidQuantities;
+    return q.A + q.B + q.C === 0 && q.D + q.E === 0;
+  }
+
+  const checkLeaks = () => {
+    let l = leakLocations;
+    if (l.length === 0)
+      return false;
+    for (let i = 0; i < l.length; i++) {
+      if (!l[i])
+        return true;
+    }
+    return false;
+  }
 
   // Events
   
@@ -234,22 +268,6 @@ const InterventionForm = () => {
             { type?.id === 8  &&
                 <OtherType onChange={onOtherTypeChange} />
             }
-            { type && (leakControl || mandatoryLeakControl) && !equipment?.leakDetectionSystem &&
-              <>
-                <Detectors data={type.id} onChange={onDetectorChange} />
-                { detector &&
-                    <DetectorControlDate data={detector} />
-                }
-              </>
-            }
-            { (leakControl || mandatoryLeakControl) &&
-                <Leakage
-                  data={type?.id}
-                  onLocationChange={onLeakLocationChange}
-                  onFixedChange={onLeakFixedChange}
-                />
-            }
-            
             { equipment && type && !leakControl &&
               <>
                 <FluidHandling onChange={onFluidQuantitiesChange} onError={onError} />
@@ -271,6 +289,24 @@ const InterventionForm = () => {
                 <FluidDestination onChange={onFluidDestinationChange} />
             }
 
+            { type && !equipment?.leakDetectionSystem &&
+              <>
+                <Detectors data={type.id} onChange={onDetectorChange} />
+                {  detector &&
+                  <DetectorControlDate data={detector} />
+                }
+              </>
+            }
+           
+            { (leakControl || mandatoryLeakControl) &&
+                <Leakage
+                  data={type?.id}
+                  onLocationChange={onLeakLocationChange}
+                  onFixedChange={onLeakFixedChange}
+                />
+            }
+            
+
             { equipment &&
               <Remarks onChange={onRemarksChange} />                
             }
@@ -283,7 +319,7 @@ const InterventionForm = () => {
                 <button
                   className="btn btn-sm btn-danger"
                   type="submit"
-                  disabled={!type || !equipment || formError}
+                  disabled={formError}
                   onClick={handleSubmit}
                 >
                   Enregistrer
