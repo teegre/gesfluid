@@ -318,7 +318,7 @@ const InterventionForm = () => {
             
             <div className="d-flex d-flex-row align-items-center justify-content-between m-2">
               <div>
-                <button className="btn btn-sm btn-warning" type="reset" onClick={handleReset}>Annuler</button>
+                <button className="btn btn-sm btn-warning" type="reset" onClick={() => {window.location.reload()}}>Annuler</button>
               </div>
               <div>
                 <button
