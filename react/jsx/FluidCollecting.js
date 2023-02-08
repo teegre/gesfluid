@@ -4,7 +4,6 @@ import { useState } from "react";
 const FluidCollecting = (props) => {
 
   const [D, setD] = useState(0);
-  const [BSFF, setBSFF] = useState("");
   const [E, setE] = useState(0);
   const [sumDE, setSumDE] = useState(0);
 
@@ -17,7 +16,6 @@ const FluidCollecting = (props) => {
 
   const onBsffChange = (e) => {
     let bsff = e.target.value;
-    setBSFF(bsff);
     props.onBSFFChange(bsff);
   }
 
@@ -47,7 +45,8 @@ const FluidCollecting = (props) => {
           className="form-control form-control-sm"
           id="forProcessingFluidQuantity"
           defaultValue="0"
-          autoFocus
+          min="0"
+          max={props.capacity}
           onChange={onFluidDChange}
         />
         <label htmlFor="forProcessingFluidQuantity" className="fw-bold">
@@ -71,6 +70,8 @@ const FluidCollecting = (props) => {
           className="form-control form-control-sm"
           id="reusableFluidQuantity"
           defaultValue="0"
+          min="0"
+          max={props.capacity}
           onChange={onFluidEChange}
         />
         <label htmlFor="reusableFluidQuantity" className="fw-bold">

@@ -29,6 +29,8 @@ const FluidLoading = (props) => {
     props.onCChange(c);
   }
 
+  console.log(props.capacity);
+
   return (
     <div className="col-md-6">
       <div className="form-floating m-2">
@@ -48,6 +50,8 @@ const FluidLoading = (props) => {
           className="form-control form-control-sm"
           id="virginFluidQuantity"
           defaultValue="0"
+          min="0"
+          max={props.capacity}
           onChange={onFluidAChange}
         />
         <label htmlFor="virginFluidQuantity" className="fw-bold">
@@ -60,6 +64,8 @@ const FluidLoading = (props) => {
           className="form-control form-control-sm"
           id="recycledFluidQuantity"
           defaultValue="0"
+          min="0"
+          max={props.capacity}
           onChange={onFluidBChange}
         />
         <label htmlFor="recycledFluidQuantity" className="fw-bold">
@@ -72,6 +78,8 @@ const FluidLoading = (props) => {
           className="form-control form-control-sm"
           id="regeneratedFluidQuantity"
           defaultValue="0"
+          min="0"
+          max={props.capacity}
           onChange={onFluidCChange}
         />
         <label htmlFor="regeneratedFluidQuantity" className="fw-bold">

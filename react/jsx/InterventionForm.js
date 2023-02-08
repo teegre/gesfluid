@@ -68,6 +68,8 @@ const InterventionForm = () => {
         setFormError(true);
       else if (type.id != 5 && type.id != 6 && checkFluidHandling())
         setFormError(true);
+      else if (((fluidQuantities.D > 0) || (fluidQuantities.E > 0)) && !container)
+        setFormError(true);
       else if (!equipment.leakDetectionSystem && !detector)
         setFormError(true);
       else if (checkLeaks())
@@ -78,6 +80,12 @@ const InterventionForm = () => {
   });
 
 
+  // Check fluid quantities conformity
+  // A+B+C must be a positive number if loadingFluid is true
+  // D or E must be a positive number if collectingFluid is true
+  // A, B and C must be less or equal than equipment capacity
+  // D or E must be less or equal than equipment capacity
+  //
   const checkFluidHandling = () => {
     let q = fluidQuantities;
     let d = fluidDestination;
@@ -85,7 +93,7 @@ const InterventionForm = () => {
     let tAbc = q.A + q.B + q.C;
     let tDe = q.D + q.E;
 
-    return (q.E > 0 && !d) || (q.D > 0 && q.E > 0) || ((tAbc <= 0 && tDe <= 0) || (tAbc > w || tDe > w));
+    return (q.E > 0 && !d) || (q.D > 0 && q.E > 0) || ((tAbc <= 0) || (q.D > w || q.E > w) || (tAbc > w || tDe > w));
   }
 
   const checkLeaks = () => {
@@ -157,10 +165,6 @@ const InterventionForm = () => {
 
   const onRemarksChange = (e) => {
     setRemarks(e.target.value);
-  }
-
-  const onError = (errorState) => {
-    setFormError(errorState);
   }
 
   const postLeaks = async (interventionID) => {
@@ -275,7 +279,10 @@ const InterventionForm = () => {
             }
             { equipment && type && !leakControl &&
               <>
-                <FluidHandling onChange={onFluidQuantitiesChange} onError={onError} />
+                <FluidHandling
+                  capacity={equipment.weight}
+                  onChange={onFluidQuantitiesChange}
+                />
                 {
                   (mustInstall() || fluidQuantities.D > 0) &&
                     <Containers

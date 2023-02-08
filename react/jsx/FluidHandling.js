@@ -68,7 +68,7 @@ const FluidHandling = (props) => {
   const onBsffChange = (e) => {
     let fq = {
       ...fluidQuantities,
-      BSFF: e.target.value
+      BSFF: e
     };
     setFluidQuantities(fq);
     props.onChange(fq);
@@ -134,6 +134,7 @@ const FluidHandling = (props) => {
       <div className="d-md-flex flex-md-row justify-content-between">
         { fluidLoading &&
           <FluidLoading
+            capacity={props.capacity}
             onAChange={onFluidAChange}
             onBChange={onFluidBChange}
             onCChange={onFluidCChange}
@@ -141,6 +142,7 @@ const FluidHandling = (props) => {
         }
         { fluidCollecting &&
           <FluidCollecting
+            capacity={props.capacity}
             onDChange={onFluidDChange}
             onBSFFChange={onBsffChange}
             onEChange={onFluidEChange}
