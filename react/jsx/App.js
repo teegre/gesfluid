@@ -13,10 +13,7 @@ const App = () => {
     }
     { 
       window.location.pathname !== '/' &&
-      <>
-        <h2>Fiche d'intervention</h2>
         <InterventionForm />
-      </>
     }
     </React.StrictMode>
   )
