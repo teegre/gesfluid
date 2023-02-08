@@ -29,8 +29,6 @@ const FluidLoading = (props) => {
     props.onCChange(c);
   }
 
-  console.log(props.capacity);
-
   return (
     <div className="col-md-6">
       <div className="form-floating m-2">
