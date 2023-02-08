@@ -80,7 +80,12 @@ const InterventionForm = () => {
 
   const checkFluidHandling = () => {
     let q = fluidQuantities;
-    return q.A + q.B + q.C === 0 && q.D + q.E === 0;
+    let d = fluidDestination;
+    let w = equipment.weight;
+    let tAbc = q.A + q.B + q.C;
+    let tDe = q.D + q.E;
+
+    return (q.E > 0 && !d) || (q.D > 0 && q.E > 0) || ((tAbc <= 0 && tDe <= 0) || (tAbc > w || tDe > w));
   }
 
   const checkLeaks = () => {
@@ -161,7 +166,7 @@ const InterventionForm = () => {
   const postLeaks = async (interventionID) => {
     // POST leaks one by one
     let count = leakLocations.length;
-    for (let i = 0;  i < leakLocations.length;  i++) {
+    for (let i = 0;  i < count;  i++) {
       let leak = {
         "num": i+1,
         "count": count,
