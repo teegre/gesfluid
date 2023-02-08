@@ -10,7 +10,6 @@ use App\Entity\FluidType;
 use App\Entity\Group;
 use App\Entity\Intervention;
 use App\Entity\InterventionType;
-/* use App\Entity\Leakage; */
 use App\Entity\User;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
