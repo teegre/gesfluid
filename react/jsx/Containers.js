@@ -12,24 +12,26 @@ const Containers = (props) => {
   }, [props.data])
 
   return (
-    <div className="form-floating m-2">
-      <select
-        onChange={(e) => {props.onChange(containers[e.target.value])}}
-        className="form-select form-select-sm"
-        id="containerLabel"
-      >
-      <option defaultValue={null}>------</option>
-      {
-        containers.map((container, i) => (
-          <option value={i} key={container.id}>
-            {container.serialNumber}{/* -- {container.fluidQuantity.toFixed(2)}/{container.capacity.toFixed(2)} */}
-          </option>
-        ))
-      }
-      </select>
-      <label htmlFor="containerLabel" className="fw-bold">
-        <i className="fas fa-bottle-droplet"></i> Contenant
-      </label>
+    <div className="container">
+      <div className="form-floating m-1">
+        <select
+          onChange={(e) => {props.onChange(containers[e.target.value])}}
+          className="form-select form-select-sm"
+          id="containerLabel"
+        >
+        <option defaultValue={null}>------</option>
+        {
+          containers.map((container, i) => (
+            <option value={i} key={container.id}>
+              {container.serialNumber}{/* -- {container.fluidQuantity.toFixed(2)}/{container.capacity.toFixed(2)} */}
+            </option>
+          ))
+        }
+        </select>
+        <label htmlFor="containerLabel" className="fw-bold">
+          <i className="fas fa-bottle-droplet"></i> Contenant
+        </label>
+      </div>
     </div>
   )
 }
