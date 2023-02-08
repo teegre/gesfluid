@@ -113,9 +113,10 @@ On constate que le formulaire est divisé en plusieurs sections :
 | inflammable                | Le fluide est inflammable                                             | Booléen     |                                                                                                     |
 | **Type d'intervention**    | -                                                                     | -           | -                                                                                                   |
 | libellé                    | Libellé de la nature de l'intervention                                | Texte       | *Un seul type d'intervention par formulaire*                                                        |
-| **Détecteur de fuites**    | -                                                                     | -           | -                                                                                                   |
-| libellé                    | Identification du détecteur manuel de fuites utilisé                  | Texte       |                                                                                                     |
-| date_contrôle              | Date du dernier contrôle du détecteur                                 | Date        |                                                                                                     |
+| **Accessoire**             | -                                                                     | -           | -                                                                                                   |
+| libellé                    | Identification de l'accessoire                                        | Texte       |                                                                                                     |
+| date_contrôle              | Date du dernier contrôle de l'accessoire                              | Date        |                                                                                                     |
+| détecteur de fuites        | L'accessoire est un détecteur de fuites                               | Booléen     |                                                                                                     |
 | **Fuite**                  | -                                                                     | -           | -                                                                                                   |
 | localisation               | Localisation de la fuite                                              | Texte       |                                                                                                     |
 | réparation_effectuée       | Réparation de la fuite                                                | Booléen     |                                                                                                     |
@@ -138,3 +139,11 @@ On constate que le formulaire est divisé en plusieurs sections :
 ## Modèle conceptuel de données
 
 ![](mcd.png)
+
+## Diagramme de cas d'utilisation
+
+L'application sera utilisée par deux types d'utilisateurs : les stagiaires et les formateurs. Les formateurs feront partie du groupe `ADMIN` et les stagiaires feront partie du groupe de leur session, par exemple : `CDA22075`.
+
+Un administrateur aura tous les droits sauf celui de modifier une intervention. Un stagiaire pourra saisir une nouvelle intervention et consulter les interventions qu'il a effectuées par le passé.
+
+![](/home/stephane/projets/gesfluid/_conception/navigation.png)

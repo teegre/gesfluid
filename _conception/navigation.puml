@@ -1,26 +1,40 @@
 @startuml
 
-!theme amiga
+!theme crt-amber
 skinparam actorStyle Hollow
-title Gesfluid - Navigation
+left to right direction
 
-actor Administrateur as A
-actor Stagiaire as S
+:Administrateur: as A
+:Stagiaire: as STA
 
-(Equipements) as E
-(Stagiaires) as STAG
-(Interventions) as C
+(Interventions) as I
+(Types d'interventions) as TI
+(Equipements) as EQ
+(Contenants) as CO
 (Fluides) as F
-(Statistiques) as STAT
-(Saisie) as SA
-(Consultation) as CO
+(Types de fluides) as TF
+(Accessoires) as AC
+(Groupes d'utilisateurs) as GU
+(Utilisateurs) as U
+(Gestion\najout, modification,\nsuppression) as G
+(Consultation) as C
+(Saisie) as S
 
-A -- STAG
-A -- E
-A -- F
-A -- C
-A -- STAT
-S -- SA
-S -- CO
+A -|> G
+A -|> C
+A -|> S
+STA -|> C
+STA -|> S
+G ..> I: (suppression\nseulement)
+C --> I
+S --> I
+G --> TI
+G --> EQ
+G --> CO
+G --> F
+G --> TF
+G --> AC
+G --> GU
+G --> U
 
 @enduml
