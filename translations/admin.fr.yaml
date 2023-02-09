@@ -1,11 +1,11 @@
 Home: Accueil
-Intervention: Intervention
+Intervention: Interventions
 Interventions: Interventions
-Types d'Interventions: Types d'intervention
+Equipement: Equipement
 Equipements: Equipements
+Contenant: Contenants
 Contenants: Contenants
 Fluides: Fluides
-Types de fluides: Types de fluide
 Accessoires: Accessoires
 Accessory: Accessoires
 ID: ID
@@ -21,18 +21,22 @@ Reusable Fluid Quantity: Quantité de fluide conservé pour réutilisation
 Remarks: Observations
 Other Intervention Type: Autre type d'intervention
 Pdf Path: Chemin du fichier PDF généré
-InterventionType: Type d'intervention
+InterventionType: Type d'interventions
+Types d'Interventions: Types d'interventions
 Equipment: Equipement
 Name: Nom
 Weight: Charge totale
+Control Frequency: Fréquence de contrôle
 Co2 Eq Tonnage: Tonnage équivalent CO2
 Leak Detection System: Présence d'un système permanent de détection de fuites
 Container: Contenant
 Serial Number: Numéro de série
 Capacity: Capacité
 Fluid Quantity: Quantité de fluide
-Fluid: Fluides
+Fluid: Fluide
+Fluid Types: Types de fluides
 FluidType: Type de fluide
+Types de fluides: Types de fluides
 Detector: Détecteur
 Control Date: Date de contrôle
 User: Utilisateur

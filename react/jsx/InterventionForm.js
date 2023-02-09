@@ -92,8 +92,25 @@ const InterventionForm = () => {
     let w = equipment.weight;
     let tAbc = q.A + q.B + q.C;
     let tDe = q.D + q.E;
+    
+    if (q.D > 0 && !d)
+      return true
+    else if (tAbc <= 0 && tDe <= 0)
+      return true
+    // else if ((q.A <= 0 || q.B <= 0 || q.C <= 0) && tDe <= 0)
+    //   return true
+    else if (q.D > 0 && q.E > 0)
+      return true
+    else if (q.A > w || q.B > w || q.C > w)
+      return true
+    else if (q.D > w || q.E > w)
+      return true
+    else if (tAbc > w || tDe > w)
+      return true
+    else
+      return false
 
-    return (q.D > 0 && !d) || (q.D > 0 && q.E > 0) || ((tAbc <= 0) || (q.D > w || q.E > w) || (tAbc > w || tDe > w));
+    // return (q.D > 0 && !d) || (q.D > 0 && q.E > 0) || (((tAbc <= 0) && (tDe <= 0)) || (q.D > w || q.E > w) || (tAbc > w || tDe > w));
   }
 
   const checkLeaks = () => {
