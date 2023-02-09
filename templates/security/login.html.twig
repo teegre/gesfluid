@@ -11,7 +11,7 @@
       <div class="card bg-dark text-white rounded">
         <div class="card-body p-5 text-center">
           {% if error %}
-          <div class="alert alert-danger mt-2" role="alert">
+          <div class="alert alert-danger mt-2 small" role="alert">
             {{ error.messageKey|trans(error.messageData, 'security') }}
           </div>
           {% endif %}
