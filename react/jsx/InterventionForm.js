@@ -93,7 +93,7 @@ const InterventionForm = () => {
     let tAbc = q.A + q.B + q.C;
     let tDe = q.D + q.E;
 
-    return (q.E > 0 && !d) || (q.D > 0 && q.E > 0) || ((tAbc <= 0) || (q.D > w || q.E > w) || (tAbc > w || tDe > w));
+    return (q.D > 0 && !d) || (q.D > 0 && q.E > 0) || ((tAbc <= 0) || (q.D > w || q.E > w) || (tAbc > w || tDe > w));
   }
 
   const checkLeaks = () => {
@@ -246,7 +246,7 @@ const InterventionForm = () => {
 
   // Collected fluid will be installed in another equipment
   const mustInstall = () => {
-    return fluidQuantities.E > 0;
+    return fluidQuantities.D > 0;
   }
 
   return (
@@ -284,7 +284,7 @@ const InterventionForm = () => {
                   onChange={onFluidQuantitiesChange}
                 />
                 {
-                  (mustInstall() || fluidQuantities.D > 0) &&
+                  (mustInstall() || fluidQuantities.E > 0) &&
                     <Containers
                       data={equipment.fluid}
                       onChange={onContainerChange}

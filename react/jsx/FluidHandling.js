@@ -56,7 +56,7 @@ const FluidHandling = (props) => {
   }
 
   const onFluidEChange = (e) => {
-    let E = Number(e.target.value);
+    let E = e;
     let fq = {
       ...fluidQuantities,
       E: E
