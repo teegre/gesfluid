@@ -23,7 +23,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
   public static function getSubscribedEvents()
   {
     return [
-      BeforeCrudActionEvent::class => ['generateUser'],
+      BeforeEntityPersistedEvent::class => ['generateUser'],
       BeforeEntityUpdatedEvent::class => ['updateUser'],
     ];
   }
@@ -39,16 +39,17 @@ class EasyAdminSubscriber implements EventSubscriberInterface
              ->hashPassword($entity, $plainPassword)
       );
 
-    $userGroup = $entity->getUserGroup();
+    $userId = $entity->getUserId();
 
-    $userCount = $this->user->getUserCountByGroup($userGroup->getId());
-
-    $entity->setUserId($userGroup->getName() . $userCount + 1);
-
-    if ($userGroup->getName() == 'ADMIN') {
-      $entity->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
-    } else {
-      $entity->setRoles(['ROLE_USER']);
+    if (!$userId) {
+      $userGroup = $entity->getUserGroup();
+      $userCount = $this->user->getUserCountByGroup($userGroup->getId());
+      $entity->setUserId($userGroup->getName() . $userCount + 1);
+      if ($userGroup->getName() == 'ADMIN') {
+        $entity->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
+      } else {
+        $entity->setRoles(['ROLE_USER']);
+      }
     }
   }
 
