@@ -10,6 +10,7 @@ use App\Entity\FluidType;
 use App\Entity\Group;
 use App\Entity\Intervention;
 use App\Entity\InterventionType;
+use App\Entity\Parameter;
 use App\Entity\User;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -64,5 +65,6 @@ class DashboardController extends AbstractDashboardController
       yield MenuItem::linkToCrud('Accessoires', 'fas fa-compass', Accessory::class);
       yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
       yield MenuItem::linkToCrud('Groupes d\'utilisateurs', 'fas fa-user-group', Group::class);
+      yield MenuItem::linkToCrud('Paramètres', 'fas fa-gear', Parameter::class);
     }
 }

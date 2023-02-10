@@ -57,11 +57,11 @@ class AppFixtures extends Fixture
   private function addParams(ObjectManager $manager): void
   {
     $param = new Parameter();
-    $param->setParameter('detenteur_nom');
+    $param->setParameter('detenteur');
     $param->setValue('AFPA');
     $manager->persist($param);
     $param = new Parameter();
-    $param->setParameter('num_attestation');
+    $param->setParameter('attestation');
     $param->setValue('AC-9871236540');
     $manager->persist($param);
   }

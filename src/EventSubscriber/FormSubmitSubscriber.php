@@ -63,8 +63,8 @@ class FormSubmitSubscriber implements EventSubscriberInterface
     $date = $intervention->getDate()->format('d/m/Y');
 
     // Owner
-    $ownerName = $this->parameterRepository->getValue('detenteur_nom');
-    $certificateNumber = $this->parameterRepository->getValue('num_attestation');
+    $ownerName = $this->parameterRepository->getValue('detenteur');
+    $certificateNumber = $this->parameterRepository->getValue('attestation');
 
     // User
     $user = $intervention->getUser();
