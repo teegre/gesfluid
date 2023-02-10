@@ -9,6 +9,7 @@ use App\Entity\FluidType;
 use App\Entity\Fluid;
 use App\Entity\Group;
 use App\Entity\InterventionType;
+use App\Entity\Parameter;
 use App\Entity\User;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -25,6 +26,7 @@ class AppFixtures extends Fixture
 
   public function load(ObjectManager $manager): void
   {
+    $this->addParams($manager);
     $this->addFluidTypes($manager);
     $this->addFluids($manager);
     $this->addContainers($manager);
@@ -50,6 +52,18 @@ class AppFixtures extends Fixture
     $dt = new DateTime();
     $dt->setTimestamp(mt_rand($min, $max));
     return $dt;
+  }
+
+  private function addParams(ObjectManager $manager): void
+  {
+    $param = new Parameter();
+    $param->setParameter('detenteur_nom');
+    $param->setValue('AFPA');
+    $manager->persist($param);
+    $param = new Parameter();
+    $param->setParameter('num_attestation');
+    $param->setValue('AC-9871236540');
+    $manager->persist($param);
   }
 
   private function addFluidTypes(ObjectManager $manager): void

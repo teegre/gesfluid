@@ -5,6 +5,7 @@ use App\Entity\Intervention;
 use ApiPlatform\Symfony\EventListener\EventPriorities;
 use App\Entity\Leakage;
 use App\Repository\InterventionRepository;
+use App\Repository\ParameterRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
@@ -28,9 +29,10 @@ class FormSubmitSubscriber implements EventSubscriberInterface
 
   private $interventionRepository;
 
-  public function __construct(InterventionRepository $interventionRepository)
+  public function __construct(InterventionRepository $interventionRepository, ParameterRepository $parameterRepository)
   {
     $this->interventionRepository = $interventionRepository;
+    $this->parameterRepository = $parameterRepository;
   }
 
   public static function getSubscribedEvents()
@@ -59,6 +61,10 @@ class FormSubmitSubscriber implements EventSubscriberInterface
     // Intervention date
     $pdfDate = $intervention->getDate()->format('Ymd');
     $date = $intervention->getDate()->format('d/m/Y');
+
+    // Owner
+    $ownerName = $this->parameterRepository->getValue('detenteur_nom');
+    $certificateNumber = $this->parameterRepository->getValue('num_attestation');
 
     // User
     $user = $intervention->getUser();
@@ -183,7 +189,9 @@ class FormSubmitSubscriber implements EventSubscriberInterface
 
     $result = $pdf->fillForm([
       'Operateur' => $userName,
-      // 'Detenteur' => ''
+      'Detenteur' => $ownerName,
+      'Attestation_no' => $certificateNumber,
+
       // Equipement
       'Equipement_ID' => $equipment->getName(),
       'Equipement_Fluide' => $equipment->getFluid()->getName(),
