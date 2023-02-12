@@ -1,3 +1,3 @@
 # Gesfluid
 
-Application de gestion de fiches d'intervention concernant des équipement contenant des fluides frigorigènes.
+Application de gestion de fiches d'intervention concernant des équipements contenant des fluides frigorigènes.
