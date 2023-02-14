@@ -72,6 +72,8 @@ const InterventionForm = () => {
         setFormError(true);
       else if (!equipment.leakDetectionSystem && !detector)
         setFormError(true);
+      else if (type.id === 8 && !otherType)
+        setFormError(true)
       else if (checkLeaks())
         setFormError(true);
       else
@@ -81,11 +83,12 @@ const InterventionForm = () => {
 
 
   // Check fluid quantities conformity
-  // A+B+C must be a positive number if loadingFluid is true
+  // A B C must be a positive number if loadingFluid is true
   // D or E must be a positive number if collectingFluid is true
-  // A, B and C must be less or equal than equipment capacity
+  // A B C must be less or equal than equipment capacity
   // D or E must be less or equal than equipment capacity
   //
+  // Return true if there is an error
   const checkFluidHandling = () => {
     let q = fluidQuantities;
     let d = fluidDestination;
@@ -97,8 +100,6 @@ const InterventionForm = () => {
       return true
     else if (tAbc <= 0 && tDe <= 0)
       return true
-    // else if ((q.A <= 0 || q.B <= 0 || q.C <= 0) && tDe <= 0)
-    //   return true
     else if (q.D > 0 && q.E > 0)
       return true
     else if (q.A > w || q.B > w || q.C > w)
@@ -109,8 +110,6 @@ const InterventionForm = () => {
       return true
     else
       return false
-
-    // return (q.D > 0 && !d) || (q.D > 0 && q.E > 0) || (((tAbc <= 0) && (tDe <= 0)) || (q.D > w || q.E > w) || (tAbc > w || tDe > w));
   }
 
   const checkLeaks = () => {
